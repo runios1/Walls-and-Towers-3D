@@ -77,14 +77,6 @@ public class Enemy : MonoBehaviour
     }
 }
 
-internal class Tower
-{
-    internal void TakeDamage(float damage)
-    {
-        throw new NotImplementedException();
-    }
-}
-
 internal class Player
 {
     internal void TakeDamage(float damage)
