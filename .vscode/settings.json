@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Walls-and-Towers-3D.sln"
+    "dotnet.defaultSolution": "Walls and Towers 3D.sln"
 }

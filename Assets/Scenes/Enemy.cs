@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -73,5 +74,21 @@ public class Enemy : MonoBehaviour
             // Revert to targeting the core
             target = GameObject.FindGameObjectWithTag("Core").transform;
         }
+    }
+}
+
+internal class Tower
+{
+    internal void TakeDamage(float damage)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+internal class Player
+{
+    internal void TakeDamage(float damage)
+    {
+        throw new NotImplementedException();
     }
 }
