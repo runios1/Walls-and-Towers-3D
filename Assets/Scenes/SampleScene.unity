@@ -2049,11 +2049,6 @@ Transform:
   - {fileID: 1663267694}
   m_Father: {fileID: 1917628739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &994598513 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4988520983457884, guid: f96fa216d8859434fb29ff7cc4930724, type: 3}
-  m_PrefabInstance: {fileID: 1484647785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1010769598 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4244305564484555645, guid: bb6caa43e0e23d14988ec8d6a9dabc01, type: 3}
