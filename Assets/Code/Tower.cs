@@ -14,11 +14,24 @@ public class Tower : MonoBehaviour
     private List<Enemy> _enemy = new List<Enemy>();
 
     [Header("Required Fields")]
-    public TowerData tD;
     public Transform firePoint;
-    public Transform rotatingObj;
     public GameObject bullet;
     public GameObject towerRange;
+
+    [Header("Tower Info")]
+    public GameObject towerPrefab;
+    public string towerName;
+    public int cost;
+    public int sellValue;
+    public float health;
+
+    [Header("Combat Stats")]
+    public float minDamage;
+    public float maxDamage;
+    public float fireRate;
+    public float range;
+    [TextArea(1, 2)]
+    public string description;
 
     float lastfired;          // The value of Time.time at the last firing moment
 
@@ -26,10 +39,10 @@ public class Tower : MonoBehaviour
     void Start()
     {
         sphereCol = GetComponent<SphereCollider>();
-        sphereCol.radius = tD.range;
+        sphereCol.radius = range;
         HideRangeUI();
 
-        target = null;
+        // target = null;
         bullet.SetActive(true);
     }
 
@@ -39,7 +52,10 @@ public class Tower : MonoBehaviour
     {
         if (target.CompareTag("Enemy"))
         {
-            Enemy e = other.gameObject.GetComponent<Enemy>();
+            Enemy e = target.GetComponent<Enemy>();
+
+            if (!e)
+                print("GetComponent failed\n");
 
             if (e.health > 0)
             {
@@ -76,12 +92,9 @@ public class Tower : MonoBehaviour
         if (_enemies.Count > 0)
         {
             target = _enemies[0].transform;
-            RemoveDeadOrPoisonedEnemies();
+            RemoveDeadEnemies();
         }
         else { target = null; }
-
-        if (target != null)
-            RotateTowerTowardsTarget();
 
         TowerShooting();
     }
@@ -93,7 +106,7 @@ public class Tower : MonoBehaviour
 
     private void FireTowerProjectile()
     {
-        if (Time.time - lastfired > 1 / tD.fireRate)
+        if (Time.time - lastfired > 1 / fireRate)
         {
             lastfired = Time.time;
 
@@ -111,8 +124,8 @@ public class Tower : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        tD.health -= damage;
-        if (tD.health <= 0)
+        health -= damage;
+        if (health <= 0)
         {
             Die();
         }
@@ -123,15 +136,7 @@ public class Tower : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void RotateTowerTowardsTarget()
-    {
-        Vector3 dir = target.transform.position - rotatingObj.transform.position;
-        dir.y = 0;
-        Quaternion rot = Quaternion.LookRotation(dir);
-        rotatingObj.transform.rotation = Quaternion.Slerp(rotatingObj.transform.rotation, rot, 10f * Time.deltaTime);
-    }
-
-    private void RemoveDeadOrPoisonedEnemies()
+    private void RemoveDeadEnemies()
     {
         for (int i = 0; i < _enemies.Count; i++)
         {
@@ -146,18 +151,12 @@ public class Tower : MonoBehaviour
     public void ShowRangeUI()
     {
         towerRange.SetActive(true);
-        towerRange.transform.localScale = Vector3.one * tD.range * 2;
+        towerRange.transform.localScale = Vector3.one * range * 2;
     }
 
     public void HideRangeUI()
     {
         towerRange.SetActive(false);
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(gameObject.transform.position, tD.range);
     }
 }
 

@@ -85,9 +85,8 @@ public class TowerProjectile : MonoBehaviour
         Enemy e = enemy.GetComponent<Enemy>();
         if (e != null)
         {
-            TowerData tD = tower.tD;
 
-            float dmg = Random.Range(tower.tD.minDamage, tower.tD.maxDamage);
+            float dmg = Random.Range(tower.minDamage, tower.maxDamage);
 
             // for (int i = 0; i < tD.effects.Count; i++)
             // {

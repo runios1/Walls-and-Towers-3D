@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     {
         if (target != null)
         {
-            agent.SetDestination(target.position);
+            // agent.SetDestination(target.position);
             if (Vector3.Distance(transform.position, target.position) <= attackRange && Time.time > lastAttackTime + attackCooldown)
             {
                 Attack();
