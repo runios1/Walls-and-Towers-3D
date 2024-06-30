@@ -10,12 +10,11 @@ public class TowerProjectile : MonoBehaviour
     [HideInInspector]
     public bool isHit;
 
-    public float life = 3;
+    // public float life = 3;
     public float speed;
     public float explosionRadius = 0f;
 
 
-    Vector3 impactNormal;
     readonly float i = 0.05f; // delay time of bullet destruction
     Vector3 hitPosOffset = new Vector3(0, 1, 0);
 
@@ -32,10 +31,10 @@ public class TowerProjectile : MonoBehaviour
             return;
         }
 
-        life -= Time.deltaTime;
+        // life -= Time.deltaTime;
 
-        // Destroy rocket after life time is 0
-        if (life < 0) Destroy(gameObject);
+        // // Destroy rocket after life time is 0
+        // if (life < 0) Destroy(gameObject);
 
         BulletMovement();
     }
@@ -48,7 +47,6 @@ public class TowerProjectile : MonoBehaviour
         if (dir.magnitude <= distanceThisFrame && !isHit)
         {
             isHit = true;
-            impactNormal = transform.position;
             HitTarget();
             return;
         }
@@ -82,8 +80,7 @@ public class TowerProjectile : MonoBehaviour
 
     void Damage(Transform enemy)
     {
-        Enemy e = enemy.GetComponent<Enemy>();
-        if (e != null)
+        if (enemy.TryGetComponent<Enemy>(out var e))
         {
 
             float dmg = Random.Range(tower.minDamage, tower.maxDamage);

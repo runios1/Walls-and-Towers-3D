@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7740499248093275891}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,6 +145,5 @@ MonoBehaviour:
   tower: {fileID: 0}
   target: {fileID: 0}
   isHit: 0
-  life: 3
-  speed: 0
+  speed: 1.88
   explosionRadius: 0

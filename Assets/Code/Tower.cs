@@ -11,12 +11,11 @@ public class Tower : MonoBehaviour
 
     // Enemies within tower range
     private List<GameObject> _enemies = new List<GameObject>();
-    private List<Enemy> _enemy = new List<Enemy>();
 
     [Header("Required Fields")]
     public Transform firePoint;
     public GameObject bullet;
-    public GameObject towerRange;
+    // public GameObject towerRange;
 
     [Header("Tower Info")]
     public GameObject towerPrefab;
@@ -29,7 +28,6 @@ public class Tower : MonoBehaviour
     public float minDamage;
     public float maxDamage;
     public float fireRate;
-    public float range;
     [TextArea(1, 2)]
     public string description;
 
@@ -39,8 +37,7 @@ public class Tower : MonoBehaviour
     void Start()
     {
         sphereCol = GetComponent<SphereCollider>();
-        sphereCol.radius = range;
-        HideRangeUI();
+        // HideRangeUI();
 
         // target = null;
         bullet.SetActive(true);
@@ -50,26 +47,19 @@ public class Tower : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (target.CompareTag("Enemy"))
-        {
-            Enemy e = target.GetComponent<Enemy>();
-
-            if (!e)
-                print("GetComponent failed\n");
-
-            if (e.health > 0)
-            {
-                _enemies.Add(other.gameObject);
-                _enemy.Add(e);
-            }
-        }
+        if (other.CompareTag("Enemy"))
+            _enemies.Add(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (target.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             RemoveEnemiesFromList(other);
+        }
+        else if (other.CompareTag("Projectile"))
+        {
+            Destroy(other.gameObject);
         }
     }
 
@@ -80,7 +70,6 @@ public class Tower : MonoBehaviour
             if (other.gameObject.Equals(_enemies[i]))
             {
                 _enemies.RemoveAt(i);
-                _enemy.RemoveAt(i);
             }
         }
     }
@@ -89,10 +78,11 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
+        RemoveDeadEnemies();
+
         if (_enemies.Count > 0)
         {
             target = _enemies[0].transform;
-            RemoveDeadEnemies();
         }
         else { target = null; }
 
@@ -140,23 +130,21 @@ public class Tower : MonoBehaviour
     {
         for (int i = 0; i < _enemies.Count; i++)
         {
-            if (_enemy[i].health <= 0)
-            {
+            if (_enemies[i] == null)
                 _enemies.RemoveAt(i);
-                _enemy.RemoveAt(i);
-            }
+
         }
     }
 
-    public void ShowRangeUI()
-    {
-        towerRange.SetActive(true);
-        towerRange.transform.localScale = Vector3.one * range * 2;
-    }
+    // public void ShowRangeUI()
+    // {
+    //     towerRange.SetActive(true);
+    //     towerRange.transform.localScale = Vector3.one * range * 2;
+    // }
 
-    public void HideRangeUI()
-    {
-        towerRange.SetActive(false);
-    }
+    // public void HideRangeUI()
+    // {
+    //     towerRange.SetActive(false);
+    // }
 }
 
