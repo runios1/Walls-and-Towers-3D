@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Tower : MonoBehaviour
+public class Tower : Placeable
 {
     SphereCollider sphereCol;
 
@@ -17,19 +17,12 @@ public class Tower : MonoBehaviour
     public GameObject bullet;
     // public GameObject towerRange;
 
-    [Header("Tower Info")]
-    public GameObject towerPrefab;
-    public string towerName;
-    public int cost;
-    public int sellValue;
-    public float health;
+
 
     [Header("Combat Stats")]
     public float minDamage;
     public float maxDamage;
     public float fireRate;
-    [TextArea(1, 2)]
-    public string description;
 
     float lastfired;          // The value of Time.time at the last firing moment
 
@@ -37,9 +30,8 @@ public class Tower : MonoBehaviour
     void Start()
     {
         sphereCol = GetComponent<SphereCollider>();
-        // HideRangeUI();
 
-        // target = null;
+        // target = null; TODO: uncomment
         bullet.SetActive(true);
     }
 
@@ -112,19 +104,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
 
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
 
     private void RemoveDeadEnemies()
     {
