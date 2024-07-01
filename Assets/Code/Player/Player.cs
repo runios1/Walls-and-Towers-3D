@@ -4,29 +4,37 @@ using UnityEngine;
 
 public class PlayerMainScript : MonoBehaviour
 {
-    public float hp = 100;
+    public float health = 100;
+    public int coins = 0;
+    public HealthBar healthBar;
+    public CoinCounter coinCounter;
     void Start()
     {
+        healthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-
-
-    void LowerHp(float damage)
+    void GetCoins(int amount)
     {
-        hp -= damage;
-        if(hp <= 0)
+        coins += amount;
+        coinCounter.IncreaseCounter(amount);
+    }
+
+    void TakeDamage(float damage)
+    {
+        health -= damage;
+        healthBar.SetHealth(health);
+        if (health <= 0)
         {
-            hp = 0;
-            Death();
+            health = 0;
+            Die();
         }
     }
-    void Death()
+    void Die()
     {
 
     }
