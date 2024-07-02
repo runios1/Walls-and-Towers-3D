@@ -15,15 +15,14 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        // Set the initial target to the core
-        target = GameObject.FindGameObjectWithTag("Core").transform;
+        SetInitialTarget();
     }
 
     void Update()
     {
         if (target != null)
         {
-            // agent.SetDestination(target.position);
+            agent.SetDestination(target.position);
             if (Vector3.Distance(transform.position, target.position) <= attackRange && Time.time > lastAttackTime + attackCooldown)
             {
                 Attack();
@@ -43,14 +42,17 @@ public class Enemy : MonoBehaviour
 
     private void Attack()
     {
-        // Implement attack logic (e.g., dealing damage to the target)
         if (target.CompareTag("Player"))
         {
-            target.GetComponent<Player>().TakeDamage(damage);
+            target.GetComponent<PlayerMainScript>().TakeDamage(damage);
         }
         else if (target.CompareTag("Tower"))
         {
             target.GetComponent<Tower>().TakeDamage(damage);
+        }
+        else if (target.CompareTag("Core"))
+        {
+            target.GetComponent<Castle>().TakeDamage(damage);
         }
     }
 
@@ -61,7 +63,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Tower"))
+        if (other.CompareTag("Player") || other.CompareTag("Tower") || other.CompareTag("Wall"))
         {
             target = other.transform;
         }
@@ -71,16 +73,12 @@ public class Enemy : MonoBehaviour
     {
         if (target == other.transform)
         {
-            // Revert to targeting the core
-            target = GameObject.FindGameObjectWithTag("Core").transform;
+            SetInitialTarget();
         }
     }
-}
 
-internal class Player
-{
-    internal void TakeDamage(float damage)
+    private void SetInitialTarget()
     {
-        throw new NotImplementedException();
+        target = GameObject.FindGameObjectWithTag("Core").transform;
     }
 }
