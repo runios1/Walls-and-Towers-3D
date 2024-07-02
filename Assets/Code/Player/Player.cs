@@ -35,7 +35,7 @@ public class PlayerMainScript : MonoBehaviour
         coinCounter.IncreaseCounter(amount);
     }
 
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         healthBar.SetHealth(health);
