@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -21,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     [Header("Animations")]
     public Animator animator;
+
+    [Header("Placeable Prefabs")]
+    [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private GameObject wallPrefab;
+
     // Update is called once per frame
     void Update()
     {
@@ -49,12 +55,12 @@ public class PlayerMovement : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-           
+
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
-            
-            
+
+
             // Update animator parameters
             animator.SetFloat("Horizontal", horizontal);
             animator.SetFloat("Vertical", vertical);
@@ -64,6 +70,17 @@ public class PlayerMovement : MonoBehaviour
             // If not moving, set parameters to 0
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
+        }
+        // Placeables
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(towerPrefab, transform.position, transform.rotation);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Instantiate(wallPrefab, transform.position, transform.rotation);
         }
     }
 }

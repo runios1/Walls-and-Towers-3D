@@ -3,7 +3,13 @@ guid: 22585a05a3e50e54f8fa0968815cfaa0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - controller: {instanceID: 0}
+  - groundCheck: {instanceID: 0}
+  - animator: {instanceID: 0}
+  - towerPrefab: {fileID: 5246785044659224064, guid: bb6caa43e0e23d14988ec8d6a9dabc01, type: 3}
+  - wallPrefab: {fileID: 3998367819471484387, guid: bd2ad11b2c263d74b8e03dbb792aab63, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

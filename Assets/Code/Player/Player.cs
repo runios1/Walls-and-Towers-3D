@@ -18,10 +18,16 @@ public class PlayerMainScript : MonoBehaviour
     {
     }
 
-    void GetCoins(int amount)
+    public void GetCoins(int amount)
     {
         coins += amount;
         coinCounter.IncreaseCounter(amount);
+    }
+
+    public void LoseCoins(int amount)
+    {
+        coins -= amount;
+        coinCounter.DecreaseCounter(amount);
     }
 
     void TakeDamage(float damage)
