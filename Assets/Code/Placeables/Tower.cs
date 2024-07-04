@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Tower : Placeable
 {
-    SphereCollider sphereCol;
 
     // Enemy Info
     public Transform target;
@@ -29,9 +28,7 @@ public class Tower : Placeable
     // for Catcher tower 
     void Start()
     {
-        sphereCol = GetComponent<SphereCollider>();
-
-        // target = null; TODO: uncomment
+        target = null;
         bullet.SetActive(true);
     }
 

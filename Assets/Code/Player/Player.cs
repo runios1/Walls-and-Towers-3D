@@ -8,6 +8,7 @@ public class PlayerMainScript : MonoBehaviour
     public int coins = 0;
     public HealthBar healthBar;
     public CoinCounter coinCounter;
+    public Shop shop;
 
     public Animator animator;
     public Transform attackPoint;
@@ -27,6 +28,19 @@ public class PlayerMainScript : MonoBehaviour
         {
             Attack();
         }
+
+        // Placeables
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            shop.Buy("Tower");
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            shop.Buy("Wall");
+        }
+
     }
 
     public void GetCoins(int amount)
@@ -35,10 +49,19 @@ public class PlayerMainScript : MonoBehaviour
         coinCounter.IncreaseCounter(amount);
     }
 
-    public void LoseCoins(int amount)
+    public bool LoseCoins(int amount)
     {
-        coins -= amount;
-        coinCounter.DecreaseCounter(amount);
+        if (coins >= amount)
+        {
+            coins -= amount;
+            coinCounter.DecreaseCounter(amount);
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not enough coins");
+            return false;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -78,4 +101,9 @@ public class PlayerMainScript : MonoBehaviour
         return animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
     }
 
+    public void PlaceItem(Placeable item)
+    {
+        Vector3 adjustedPosition = new Vector3(transform.position.x, 0, transform.position.z);
+        Instantiate(item.prefab, adjustedPosition, transform.rotation);
+    }
 }

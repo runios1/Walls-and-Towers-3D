@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4660570020379787814}
   - component: {fileID: 4053866194263200982}
   - component: {fileID: 7014478091068916503}
+  - component: {fileID: 1580212790475136057}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -106,3 +107,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43698963761788784, guid: 68545233eace7c042afee00f6e011c1c, type: 2}
+--- !u!114 &1580212790475136057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3998367819471484387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca98e57efadd15b418b0dce1c73e89f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3998367819471484387}
+  placeableName: 
+  cost: 0
+  sellValue: 0
+  health: 0
+  description: 

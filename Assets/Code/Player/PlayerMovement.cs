@@ -23,10 +23,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animations")]
     public Animator animator;
 
-    [Header("Placeable Prefabs")]
-    [SerializeField] private GameObject towerPrefab;
-    [SerializeField] private GameObject wallPrefab;
-
     // Update is called once per frame
     void Update()
     {
@@ -70,17 +66,6 @@ public class PlayerMovement : MonoBehaviour
             // If not moving, set parameters to 0
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
-        }
-        // Placeables
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Instantiate(towerPrefab, transform.position, transform.rotation);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Instantiate(wallPrefab, transform.position, transform.rotation);
         }
     }
 }
