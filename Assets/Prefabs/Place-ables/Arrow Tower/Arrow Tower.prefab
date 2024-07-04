@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1008709048969285451}
   - component: {fileID: 2912232522145577053}
-  - component: {fileID: 8275682618314727866}
+  - component: {fileID: 9189902594629582722}
+  - component: {fileID: 1721231214874852379}
   m_Layer: 0
   m_Name: Arrow Tower
   m_TagString: Tower
@@ -53,37 +54,55 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 2.8537598, y: 5.682583, z: 2.9500885}
   m_Center: {x: -2.194458, y: 5.141412, z: -3.6201935}
---- !u!54 &8275682618314727866
-Rigidbody:
+--- !u!135 &9189902594629582722
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5246785044659224064}
-  serializedVersion: 4
-  m_Mass: 5000
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 20
+  m_Center: {x: -2.4000492, y: 1.4624634, z: -3.7017708}
+--- !u!114 &1721231214874852379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5246785044659224064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85fcd5f9c748914b863aa008366c7f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5246785044659224064}
+  placeableName: 
+  cost: 0
+  sellValue: 0
+  health: 1
+  description: 
+  target: {fileID: 0}
+  firePoint: {fileID: 9171990452382974641}
+  bullet: {fileID: 4670049649220808460, guid: 201c4e1f874247e4b88bbc0a0ea014a4, type: 3}
+  minDamage: 100
+  maxDamage: 100
+  fireRate: 1
 --- !u!1001 &4244305564485011671
 PrefabInstance:
   m_ObjectHideFlags: 0
