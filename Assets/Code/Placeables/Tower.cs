@@ -25,9 +25,9 @@ public class Tower : Placeable
 
     float lastfired;          // The value of Time.time at the last firing moment
 
-    // for Catcher tower 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         target = null;
         bullet.SetActive(true);
     }
