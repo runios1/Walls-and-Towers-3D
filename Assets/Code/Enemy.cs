@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float health = 100f;
+    public HealthBar healthBar;
     public float damage = 10f;
     public float attackRange = 1.5f;
     public float attackCooldown = 1.0f;
@@ -14,6 +15,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        healthBar.SetMaxHealth(health);
+
         agent = GetComponent<NavMeshAgent>();
         SetInitialTarget();
     }
@@ -34,6 +37,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
+        healthBar.SetHealth(health);
         if (health <= 0)
         {
             Die();

@@ -25,7 +25,7 @@ public class TowerProjectile : MonoBehaviour
     void Update()
     {
 
-        if (target == null)
+        if (!target || !tower)
         {
             Destroy(gameObject);
             return;

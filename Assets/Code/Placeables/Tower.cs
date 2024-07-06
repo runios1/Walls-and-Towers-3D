@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Tower : Placeable
 {
-    SphereCollider sphereCol;
 
     // Enemy Info
     public Transform target;
@@ -26,12 +25,10 @@ public class Tower : Placeable
 
     float lastfired;          // The value of Time.time at the last firing moment
 
-    // for Catcher tower 
-    void Start()
+    public override void Start()
     {
-        sphereCol = GetComponent<SphereCollider>();
-
-        // target = null; TODO: uncomment
+        base.Start();
+        target = null;
         bullet.SetActive(true);
     }
 
