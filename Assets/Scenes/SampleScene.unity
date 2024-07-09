@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7726331}
   - component: {fileID: 7726332}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Envrioment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,10 +182,10 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
+  m_VoxelSize: 0.016666668
+  m_MinRegionArea: 12
   m_NavMeshData: {fileID: 23800000, guid: 4d36356c4abe620cda77a14d8032b5c5, type: 2}
-  m_BuildHeightMesh: 0
+  m_BuildHeightMesh: 1
 --- !u!1001 &12625879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,6 +197,10 @@ PrefabInstance:
     - target: {fileID: 147310, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_10
+      objectReference: {fileID: 0}
+    - target: {fileID: 147310, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 480734, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
       propertyPath: m_RootOrder
@@ -263,6 +267,10 @@ PrefabInstance:
     - target: {fileID: 147672, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_16
+      objectReference: {fileID: 0}
+    - target: {fileID: 147672, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 446930, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
       propertyPath: m_RootOrder
@@ -564,6 +572,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_01_Lite 1
       objectReference: {fileID: 0}
+    - target: {fileID: 105826, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 457790, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
       propertyPath: m_RootOrder
       value: 137
@@ -687,6 +699,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_13
       objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
       value: 124
@@ -784,6 +800,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_Top_05
       objectReference: {fileID: 0}
+    - target: {fileID: 141476, guid: 20980883898f4704f86e6d74b75682ef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 408248, guid: 20980883898f4704f86e6d74b75682ef, type: 3}
       propertyPath: m_RootOrder
       value: 133
@@ -850,6 +870,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Brazier_03
       objectReference: {fileID: 0}
+    - target: {fileID: 191442, guid: 20a79b55466cdb84da379ae63fc30867, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 482004, guid: 20a79b55466cdb84da379ae63fc30867, type: 3}
       propertyPath: m_RootOrder
       value: 115
@@ -915,6 +939,7 @@ GameObject:
   - component: {fileID: 369600539}
   - component: {fileID: 369600540}
   - component: {fileID: 369600541}
+  - component: {fileID: 369600542}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Core
@@ -1016,6 +1041,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1926080387}
+--- !u!135 &369600542
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369600538}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 50
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &389693751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1095,6 +1141,10 @@ PrefabInstance:
     - target: {fileID: 147310, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_07
+      objectReference: {fileID: 0}
+    - target: {fileID: 147310, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 480734, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
       propertyPath: m_RootOrder
@@ -1241,6 +1291,10 @@ PrefabInstance:
     - target: {fileID: 153326, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_Wall_Top_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 153326, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 475842, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
       propertyPath: m_RootOrder
@@ -1392,6 +1446,10 @@ PrefabInstance:
     - target: {fileID: 153326, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_Wall_Top_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 153326, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 475842, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
       propertyPath: m_RootOrder
@@ -1704,6 +1762,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_Wall_Top_04
       objectReference: {fileID: 0}
+    - target: {fileID: 153326, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 475842, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
       propertyPath: m_RootOrder
       value: 118
@@ -1774,6 +1836,10 @@ PrefabInstance:
     - target: {fileID: 147672, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 147672, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 446930, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
       propertyPath: m_RootOrder
@@ -1930,6 +1996,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_09
       objectReference: {fileID: 0}
+    - target: {fileID: 147310, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 480734, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
       propertyPath: m_RootOrder
       value: 130
@@ -2080,6 +2150,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_Wall_Top_02
       objectReference: {fileID: 0}
+    - target: {fileID: 153326, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 475842, guid: 576b6d70e3da01b489b5b99e260ddc93, type: 3}
       propertyPath: m_RootOrder
       value: 138
@@ -2145,6 +2219,10 @@ PrefabInstance:
     - target: {fileID: 179944, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_04_Lite 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 179944, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 491900, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
       propertyPath: m_RootOrder
@@ -2656,6 +2734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_Gate_05
       objectReference: {fileID: 0}
+    - target: {fileID: 141314, guid: a342473935e669649a9be973cda516c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 413294, guid: a342473935e669649a9be973cda516c1, type: 3}
       propertyPath: m_RootOrder
       value: 144
@@ -2778,6 +2860,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64239466391395220, guid: bc6b7d6f0fb98544a873a3d69729fe66, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64239466391395220, guid: bc6b7d6f0fb98544a873a3d69729fe66, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2799,6 +2889,10 @@ PrefabInstance:
     - target: {fileID: 192576, guid: 2678ae1982dc1b74b99abd46d8ccb50c, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Roof_Spire_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 192576, guid: 2678ae1982dc1b74b99abd46d8ccb50c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 420294, guid: 2678ae1982dc1b74b99abd46d8ccb50c, type: 3}
       propertyPath: m_RootOrder
@@ -2924,6 +3018,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 369600539}
     m_Modifications:
+    - target: {fileID: 192576, guid: 2678ae1982dc1b74b99abd46d8ccb50c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 420294, guid: 2678ae1982dc1b74b99abd46d8ccb50c, type: 3}
       propertyPath: m_RootOrder
       value: 106
@@ -2984,6 +3082,10 @@ PrefabInstance:
     - target: {fileID: 179944, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_04_Lite 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 179944, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 491900, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
       propertyPath: m_RootOrder
@@ -3046,6 +3148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_14
       objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
       value: 121
@@ -3106,6 +3212,10 @@ PrefabInstance:
     - target: {fileID: 147310, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_06
+      objectReference: {fileID: 0}
+    - target: {fileID: 147310, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 480734, guid: b1ad8ef6890687249a641abef8e26baf, type: 3}
       propertyPath: m_RootOrder
@@ -3302,6 +3412,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_11
       objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
       value: 127
@@ -3368,6 +3482,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_16
       objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
       value: 113
@@ -3433,6 +3551,10 @@ PrefabInstance:
     - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_08
+      objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
@@ -3702,6 +3824,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Banner_06
       objectReference: {fileID: 0}
+    - target: {fileID: 140704, guid: d9d95bd4aa86d86448ff3c157b7bb366, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 457262, guid: d9d95bd4aa86d86448ff3c157b7bb366, type: 3}
       propertyPath: m_RootOrder
       value: 126
@@ -3762,6 +3888,10 @@ PrefabInstance:
     - target: {fileID: 191442, guid: 20a79b55466cdb84da379ae63fc30867, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Brazier_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 191442, guid: 20a79b55466cdb84da379ae63fc30867, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 482004, guid: 20a79b55466cdb84da379ae63fc30867, type: 3}
       propertyPath: m_RootOrder
@@ -3829,6 +3959,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_04_Lite 3
       objectReference: {fileID: 0}
+    - target: {fileID: 179944, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 491900, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
       propertyPath: m_RootOrder
       value: 114
@@ -3895,6 +4029,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_Top_04
       objectReference: {fileID: 0}
+    - target: {fileID: 141476, guid: 20980883898f4704f86e6d74b75682ef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 408248, guid: 20980883898f4704f86e6d74b75682ef, type: 3}
       propertyPath: m_RootOrder
       value: 136
@@ -3955,6 +4093,10 @@ PrefabInstance:
     - target: {fileID: 105826, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_01_Lite 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 105826, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 457790, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
       propertyPath: m_RootOrder
@@ -4125,6 +4267,10 @@ PrefabInstance:
     - target: {fileID: 147606, guid: 8f2cbf2ae2d496b44ba72882a3c6d4c9, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Banner_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 147606, guid: 8f2cbf2ae2d496b44ba72882a3c6d4c9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 498432, guid: 8f2cbf2ae2d496b44ba72882a3c6d4c9, type: 3}
       propertyPath: m_RootOrder
@@ -4422,6 +4568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_01_Lite 3
       objectReference: {fileID: 0}
+    - target: {fileID: 105826, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 457790, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
       propertyPath: m_RootOrder
       value: 131
@@ -4482,6 +4632,10 @@ PrefabInstance:
     - target: {fileID: 147672, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_14
+      objectReference: {fileID: 0}
+    - target: {fileID: 147672, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 446930, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
       propertyPath: m_RootOrder
@@ -4655,6 +4809,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Wall_01_Lite 4
       objectReference: {fileID: 0}
+    - target: {fileID: 105826, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 457790, guid: 56e3c741d680c6948adde1a3f33e3e47, type: 3}
       propertyPath: m_RootOrder
       value: 122
@@ -4715,6 +4873,10 @@ PrefabInstance:
     - target: {fileID: 147606, guid: 8f2cbf2ae2d496b44ba72882a3c6d4c9, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Banner_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 147606, guid: 8f2cbf2ae2d496b44ba72882a3c6d4c9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 498432, guid: 8f2cbf2ae2d496b44ba72882a3c6d4c9, type: 3}
       propertyPath: m_RootOrder
@@ -4808,6 +4970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Banner_07
       objectReference: {fileID: 0}
+    - target: {fileID: 140704, guid: d9d95bd4aa86d86448ff3c157b7bb366, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 457262, guid: d9d95bd4aa86d86448ff3c157b7bb366, type: 3}
       propertyPath: m_RootOrder
       value: 117
@@ -4868,6 +5034,10 @@ PrefabInstance:
     - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
@@ -4965,6 +5135,10 @@ PrefabInstance:
     - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_17
+      objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
@@ -5307,6 +5481,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Castle_Iron_Gate_02
       objectReference: {fileID: 0}
+    - target: {fileID: 169488, guid: 0a5ef1aaf47f03547983772b8f1f3a80, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 496004, guid: 0a5ef1aaf47f03547983772b8f1f3a80, type: 3}
       propertyPath: m_RootOrder
       value: 112
@@ -5367,6 +5545,10 @@ PrefabInstance:
     - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_12
+      objectReference: {fileID: 0}
+    - target: {fileID: 158236, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 465834, guid: 6cc63cba898ace244bba643423dfda2e, type: 3}
       propertyPath: m_RootOrder
@@ -5521,7 +5703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2097971421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5571,6 +5753,10 @@ PrefabInstance:
     - target: {fileID: 179944, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Tower_04_Lite 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 179944, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 491900, guid: 73bc14e443072aa4d99d7c246a51370d, type: 3}
       propertyPath: m_RootOrder
@@ -5640,7 +5826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000015258789
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5648,7 +5834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.30070582
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5656,7 +5842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.953717
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalRotation.z
@@ -5668,11 +5854,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 145
       objectReference: {fileID: 0}
     - target: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156384472367083575, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156384472367083575, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744899157680005969, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 369600539}
+    - target: {fileID: 3531492740869342206, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3531492740869342206, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_IgnoreFromBuild
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_Name
@@ -5681,6 +5887,34 @@ PrefabInstance:
     - target: {fileID: 6615642277587088095, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_Speed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_Speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_Height
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8078651664560026964, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5820,7 +6054,6 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 7726331}
-  - {fileID: 369600539}
   - {fileID: 4521728109647132493}
   - {fileID: 1627497683534496377}
   - {fileID: 1501758649542493110}
@@ -5831,3 +6064,4 @@ SceneRoots:
   - {fileID: 2029741465}
   - {fileID: 2097971422}
   - {fileID: 1161456650}
+  - {fileID: 369600539}

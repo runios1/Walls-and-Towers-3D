@@ -147,7 +147,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Walk
-  m_Speed: 1.1
+  m_Speed: 20
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101743809373444512}
@@ -285,39 +285,39 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 110203552}
-    m_Position: {x: -72, y: 204, z: 0}
+    m_Position: {x: -70, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110258410}
-    m_Position: {x: -12, y: 264, z: 0}
+    m_Position: {x: -10, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110221852}
-    m_Position: {x: 252, y: 324, z: 0}
+    m_Position: {x: 250, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110297810}
-    m_Position: {x: -12, y: 324, z: 0}
+    m_Position: {x: -10, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110291318}
-    m_Position: {x: 324, y: 432, z: 0}
+    m_Position: {x: 330, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110222356}
-    m_Position: {x: 252, y: 252, z: 0}
+    m_Position: {x: 250, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110215750}
     m_Position: {x: 300, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110229808}
-    m_Position: {x: 396, y: 120, z: 0}
+    m_Position: {x: 390, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102454074520105110}
-    m_Position: {x: 540, y: 336, z: 0}
+    m_Position: {x: 540, y: 340, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -168, y: 84, z: 0}
-  m_EntryPosition: {x: -168, y: 156, z: 0}
-  m_ExitPosition: {x: -168, y: 120, z: 0}
+  m_AnyStatePosition: {x: -160, y: 80, z: 0}
+  m_EntryPosition: {x: -170, y: 160, z: 0}
+  m_ExitPosition: {x: -170, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 110203552}
 --- !u!1101 &1101000024362997014
