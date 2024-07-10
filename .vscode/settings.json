@@ -51,5 +51,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Walls and Towers 3D.sln"
+    "dotnet.defaultSolution": "Walls-and-Towers-3D.sln",
+    "CodeGPT.Autocomplete.enabled": true,
+    "CodeGPT.apiKey": "OpenAI"
 }

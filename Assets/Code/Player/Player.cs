@@ -13,7 +13,7 @@ public class PlayerMainScript : MonoBehaviour
     public Animator animator;
     public Transform attackPoint;
     public Transform player;
-    public float attackRange = 3f;
+    public float attackRange = 20f;
     public string enemyTag = "Enemy";
 
     void Start()
@@ -85,14 +85,14 @@ public class PlayerMainScript : MonoBehaviour
         // Transform newAttackPoint = transform.position + attackDirection * attackRange;
 
         // Detect enemies in range of the attack
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange);
-
-        foreach (Collider2D enemy in hitEnemies)
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange);
+        Debug.Log(hitEnemies.ToString());
+        foreach (Collider enemy in hitEnemies)
         {
-            Debug.Log("We hit " + enemy.name);
-
             if (enemy.CompareTag(enemyTag))
             {
+                Debug.Log("We hit " + enemy.name);
+                enemy.GetComponent<Enemy>().TakeDamage(10); // Assuming 10 is the damage amount
             }
         }
     }
