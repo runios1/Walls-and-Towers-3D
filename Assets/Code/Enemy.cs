@@ -44,7 +44,10 @@ public class Enemy : MonoBehaviour
             }
         }else{
             //animator.SetTrigger("Idle");
-            Debug.Log("No target available.");
+            Debug.Log("No target available, Going for the core");
+            GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
+            target = coreObject.transform;
+            agent.destination = target.position;
         }
     }
 
