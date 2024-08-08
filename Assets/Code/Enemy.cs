@@ -15,8 +15,10 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
     public bool navmash = false;
+    private WaveManager waveManager;
     void Start()
     {
+        waveManager = GameObject.FindObjectOfType<WaveManager>();
         healthBar.SetMaxHealth(health);
         if (navmash)
         {
@@ -98,6 +100,7 @@ public class Enemy : MonoBehaviour
     {
         //animator.SetTrigger("Die");
         Debug.Log("Dying...");
+        waveManager.UnregisterEnemy();
         Destroy(gameObject);
     }
 

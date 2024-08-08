@@ -6,14 +6,22 @@ public class EnemySpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public float spawnInterval = 5f;
 
-    void Start()
+    public void StartSpawn(int spawnCount)
     {
-        InvokeRepeating("SpawnEnemy", 2f, spawnInterval);
+        for (int i = 0; i < spawnCount; i++)
+        {
+            Invoke(nameof(SpawnEnemy), 2f + i * spawnInterval);
+        }
     }
 
     void SpawnEnemy()
     {
         int spawnIndex = Random.Range(0, spawnPoints.Length);
         Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+    }
+
+    public void SetSpawnPoints(Transform[] points)
+    {
+        spawnPoints = points;
     }
 }
