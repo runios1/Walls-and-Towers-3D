@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
     {
         //animator.SetTrigger("Die");
         Debug.Log("Dying...");
-        Destroy(gameObject, 2f);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

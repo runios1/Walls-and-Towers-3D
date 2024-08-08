@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class TowerProjectile : MonoBehaviour
 {
@@ -17,9 +18,11 @@ public class TowerProjectile : MonoBehaviour
 
     readonly float i = 0.05f; // delay time of bullet destruction
     Vector3 hitPosOffset = new Vector3(0, 1, 0);
+    Vector3 originalTargetPos;
 
     private void Start()
     {
+        originalTargetPos = Vector3.zero;
     }
 
     void Update()
@@ -41,7 +44,12 @@ public class TowerProjectile : MonoBehaviour
 
     private void BulletMovement()
     {
-        Vector3 dir = target.position + hitPosOffset - transform.position;
+        if (originalTargetPos == Vector3.zero)
+        {
+            originalTargetPos = target.position;
+            transform.LookAt(target.transform);
+        }
+        Vector3 dir = originalTargetPos + hitPosOffset - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
 
         if (dir.magnitude <= distanceThisFrame && !isHit)
@@ -51,7 +59,6 @@ public class TowerProjectile : MonoBehaviour
             return;
         }
 
-        transform.LookAt(target.transform);
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
 

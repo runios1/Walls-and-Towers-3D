@@ -71,7 +71,8 @@ public class Tower : Placeable
 
         if (_enemies.Count > 0)
         {
-            target = _enemies[0].transform;
+            if (_enemies[0])
+                target = _enemies[0].transform;
         }
         else { target = null; }
 

@@ -101,7 +101,7 @@ MonoBehaviour:
   description: 
   target: {fileID: 0}
   firePoint: {fileID: 7502930403483115023}
-  bullet: {fileID: 4670049649220808460, guid: 201c4e1f874247e4b88bbc0a0ea014a4, type: 3}
+  bullet: {fileID: 9116973639429711853, guid: da65729d138e1444da3cb4e5a8953439, type: 3}
   minDamage: 10
   maxDamage: 10
   fireRate: 1
