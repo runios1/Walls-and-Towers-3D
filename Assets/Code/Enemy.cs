@@ -18,11 +18,13 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         healthBar.SetMaxHealth(health);
-        if(navmash)
+        if (navmash)
+        {
             agent = GetComponent<NavMeshAgent>();
             if (agent == null)
                 Debug.LogError("NavMeshAgent component is missing!");
-        if ((animator = GetComponent<Animator>())== null)
+        }
+        if ((animator = GetComponent<Animator>()) == null)
             Debug.LogError("Animator component is missing!");
         //agent.updatePosition = false;
         SetInitialTarget();
@@ -32,8 +34,8 @@ public class Enemy : MonoBehaviour
     {
         if (target != null)
         {
-            if(navmash)
-                agent.destination=target.position;
+            if (navmash)
+                agent.destination = target.position;
             else
                 MoveTowardsTarget();
             //Debug.Log("Moving towards target: " + target.name+"at position:" +target.position);
@@ -42,7 +44,9 @@ public class Enemy : MonoBehaviour
                 Attack();
                 lastAttackTime = Time.time;
             }
-        }else{
+        }
+        else
+        {
             //animator.SetTrigger("Idle");
             Debug.Log("No target available, Going for the core");
             GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
@@ -94,7 +98,7 @@ public class Enemy : MonoBehaviour
     {
         //animator.SetTrigger("Die");
         Debug.Log("Dying...");
-        Destroy(gameObject,2f);
+        Destroy(gameObject, 2f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -103,6 +107,10 @@ public class Enemy : MonoBehaviour
         {
             target = other.transform;
             Debug.Log("New target acquired: " + target.name);
+        }
+        else if (other.CompareTag("Core"))
+        {
+            Attack();
         }
     }
 
@@ -129,5 +137,5 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Core object not found!");
         }
     }
-    
+
 }
