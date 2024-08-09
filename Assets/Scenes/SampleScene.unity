@@ -4844,7 +4844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  coins: 10
+  coins: 0
   healthBar: {fileID: 628647815}
   coinCounter: {fileID: 617718831}
   shop: {fileID: 1161456649}

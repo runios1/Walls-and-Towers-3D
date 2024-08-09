@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMainScript : MonoBehaviour
 {
-    public float health = 100;
-    public int coins = 0;
+    public float health;
+    public int coins;
     public HealthBar healthBar;
     public CoinCounter coinCounter;
     public Shop shop;
@@ -18,7 +18,10 @@ public class PlayerMainScript : MonoBehaviour
 
     void Start()
     {
+        coins = 10;
+        health = 100;
         healthBar.SetMaxHealth(health);
+        coinCounter.IncreaseCounter(coins);
     }
 
     // Update is called once per frame
