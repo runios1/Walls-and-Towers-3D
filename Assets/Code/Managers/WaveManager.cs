@@ -8,10 +8,12 @@ public class WaveManager : MonoBehaviour
     private EnemySpawner enemySpawner;
     private List<Transform[]> waveSpawnPoints;
     private int enemiesLeftForWave = 0;
+    public WaveCounter waveCounter;
     // Start is called before the first frame update
     void Start()
     {
         waveNum = 1;
+        waveCounter.ResetCounter(2);
         enemySpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>();
         InitializeWaveSpawnPoints();
         StartNextWave();
@@ -39,6 +41,7 @@ public class WaveManager : MonoBehaviour
         if (waveNum - 1 < waveSpawnPoints.Count)
         {
             Debug.Log("Wave" + waveNum);
+            waveCounter.IncreaseCounter();
             enemySpawner.SetSpawnPoints(waveSpawnPoints[waveNum - 1]);
             enemiesLeftForWave = 5;
             enemySpawner.StartSpawn(enemiesLeftForWave);

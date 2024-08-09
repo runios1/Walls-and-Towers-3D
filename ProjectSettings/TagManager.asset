@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Tower
   - Projectile
+  - Spawner
   layers:
   - Default
   - TransparentFX
