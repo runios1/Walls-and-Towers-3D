@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +8,18 @@ public class WaveManager : MonoBehaviour
     private List<Transform[]> waveSpawnPoints;
     private int enemiesLeftForWave = 0;
     public WaveCounter waveCounter;
-    // Start is called before the first frame update
+    public Castle castle;
+    public PlayerMainScript player;
     void Start()
     {
         waveNum = 1;
         waveCounter.ResetCounter(2);
         enemySpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>();
+
+        castle = GameObject.FindGameObjectWithTag("Core").GetComponent<Castle>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMainScript>();
+
+        AldenGenerator.LogAldenChat("Monsters are just beginning their way towards the castle");
         InitializeWaveSpawnPoints();
         StartNextWave();
     }
@@ -49,6 +54,8 @@ public class WaveManager : MonoBehaviour
         else
         {
             Debug.Log("All waves completed!");
+            AldenGenerator.LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+
         }
     }
 
@@ -58,6 +65,7 @@ public class WaveManager : MonoBehaviour
         if (enemiesLeftForWave == 0)
         {
             waveNum++;
+            AldenGenerator.LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
             StartNextWave();
         }
     }

@@ -983,6 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488c71711a5292e40942907c6f6961be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   healthBar: {fileID: 1926080387}
 --- !u!33 &369600543
 MeshFilter:
@@ -2263,6 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488c71711a5292e40942907c6f6961be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   healthBar: {fileID: 1926080387}
 --- !u!4 &828276855 stripped
 Transform:
@@ -3745,6 +3747,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveCounter: {fileID: 1191260420}
+  castle: {fileID: 0}
+  player: {fileID: 0}
 --- !u!4 &1331590778
 Transform:
   m_ObjectHideFlags: 0

@@ -79,7 +79,7 @@ public class PlayerMainScript : MonoBehaviour
     }
     void Die()
     {
-
+        AldenGenerator.LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
     }
     void Attack()
     {
