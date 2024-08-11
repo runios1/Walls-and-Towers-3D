@@ -6112,41 +6112,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1866579069409288266, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2744899157680005969, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 369600539}
-    - target: {fileID: 3531492740869342206, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_Name
       value: BlueBoarPBR
       objectReference: {fileID: 0}
-    - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6615642277587088095, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
-      propertyPath: m_Speed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7869695604143736069, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8078651664560026964, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8078651664560026964, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
