@@ -14,6 +14,7 @@ public class Castle : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (health < 0) return; // FIXME: Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
         health -= amount;
         healthBar.SetHealth(health);
 
@@ -22,5 +23,4 @@ public class Castle : MonoBehaviour
             AldenGenerator.LogAldenChat("The castle was destroyed and now the monsters are going to kill you");
         }
     }
-
 }
