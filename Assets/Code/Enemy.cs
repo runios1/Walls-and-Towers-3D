@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,78 +36,167 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (target != null)
-        {
-            if (navmash){
-                agent.destination = target.position;
-                if(!animator.GetBool("Walk 0"))
-                    animator.SetBool("Walk 0",true);
+        // if (target != null)
+        // {
+        //     if (navmash){
+        //         agent.destination = target.position;
+        //         if(!animator.GetBool("Walk 0"))
+        //             animator.SetBool("Walk 0",true);
+        //     }
+        //     else
+        //         MoveTowardsTarget();
+        //     //Debug.Log("Moving towards target: " + target.name+"at position:" +target.position);
+        //     if (Vector3.Distance(transform.position, target.position) <= attackRange && Time.time > lastAttackTime + attackCooldown)
+        //     {
+        //         if(animator.GetBool("Walk 0"))
+        //             animator.SetBool("Walk 0",false);
+        //         Attack();
+        //         lastAttackTime = Time.time;
+        //     }
+        // }
+        // else
+        // {
+        //     animator.SetBool("Walk 0",false);
+        //     Debug.Log("No target available, Going for the core");
+        //     GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
+        //     target = coreObject.transform;
+        //     agent.destination = target.position;
+        // }
+        if(target != null){
+            if(Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance)
+                animator.SetBool("Walk 0",true);
+            else{
+                animator.SetBool("Walk 0",false);
+                if(Time.time > lastAttackTime + attackCooldown){
+                    Attack();
+                    lastAttackTime=Time.time;
+                }
+                
             }
-            else
-                MoveTowardsTarget();
-            //Debug.Log("Moving towards target: " + target.name+"at position:" +target.position);
-            if (Vector3.Distance(transform.position, target.position) <= attackRange && Time.time > lastAttackTime + attackCooldown)
-            {
-                if(animator.GetBool("Walk 0"))
-                    animator.SetBool("Walk 0",false);
-                Attack();
-                animator.SetBool("Attack",true);
-                lastAttackTime = Time.time;
-            }
+            agent.SetDestination(target.position);
         }
-        else
-        {
+        else{
             animator.SetBool("Walk 0",false);
-            animator.SetBool("Attack",false);
-            Debug.Log("No target available, Going for the core");
-            GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
-            target = coreObject.transform;
-            agent.destination = target.position;
+            Debug.Log("No target available, choosing another target");
+            SelectNextTarget();
         }
     }
 
-    private void MoveTowardsTarget()
+
+    private void SelectNextTarget()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(direction);
-        //animator.SetBool("isWalking", true);
+        Transform closestTarget = null;
+        float closestDistance = float.MaxValue;
+
+        // Check player
+        if (player != null && player.health > 0)
+        {
+            float playerDistance = Vector3.Distance(transform.position, player.transform.position);
+            if (playerDistance < closestDistance && playerDistance <= attackRange)
+            {
+                closestTarget = player.transform;
+                closestDistance = playerDistance;
+            }
+        }
+
+        // Check towers
+        Tower[] towers = FindObjectsOfType<Tower>();
+        foreach (Tower tower in towers)
+        {
+            if (tower.health > 0)
+            {
+                float towerDistance = Vector3.Distance(transform.position, tower.transform.position);
+                if (towerDistance < closestDistance && towerDistance <= attackRange)
+                {
+                    closestTarget = tower.transform;
+                    closestDistance = towerDistance;
+                }
+            }
+        }
+
+        // Check core
+        GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
+        if (coreObject != null)
+        {
+            float coreDistance = Vector3.Distance(transform.position, coreObject.transform.position);
+            if (coreDistance < closestDistance)
+            {
+                closestTarget = coreObject.transform;
+            }
+        }
+
+        target = closestTarget;
     }
-    public void TakeDamage(float amount)
+    // private void MoveTowardsTarget()
+    // {
+    //     Vector3 direction = (target.position - transform.position).normalized;
+    //     transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+    //     transform.rotation = Quaternion.LookRotation(direction);
+    //     //animator.SetBool("isWalking", true);
+    // }
+    public void TakeDamage(float amount, Transform attacker)
     {
         health -= amount;
         healthBar.SetHealth(health);
-        //animator.SetTrigger("Get Hit");
         Debug.Log("Took damage: " + amount + ", current health: " + health);
         if (health <= 0)
         {
             Die();
         }
+        else if(target == null){
+            target = attacker;
+            Debug.Log("Updated target to attacker: " + attacker.name);
+        }
     }
+
+    // private bool IsTargetValid(Transform other)
+    // {
+    //     if (other == null)
+    //     {
+    //         return false;
+    //     }
+
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         return other.GetComponent<PlayerMainScript>().health > 0;
+    //     }
+    //     else if (other.CompareTag("Tower"))
+    //     {
+    //         return other.GetComponent<Tower>().health > 0;
+    //     }
+    //     else if (other.CompareTag("Core"))
+    //     {
+    //         return other != null;
+    //     }
+    //     return false;
+    // }
 
     private void Attack()
     {
+        animator.SetBool("Attack",true);
         Debug.Log("ATTACKING!");
         if (target.CompareTag("Player"))
         {
-            //animator.SetTrigger("Basic Attack");
             target.GetComponent<PlayerMainScript>().TakeDamage(damage);
         }
         else if (target.CompareTag("Tower"))
         {
-            //animator.SetTrigger("HornAttack");
             target.GetComponent<Tower>().TakeDamage(damage);
         }
         else if (target.CompareTag("Core"))
         {
-            //animator.SetTrigger("HornAttack");
             target.GetComponent<Castle>().TakeDamage(damage);
         }
+        StartCoroutine(ResetAttackBool());
     }
-
+    private IEnumerator ResetAttackBool()
+    {
+        // Wait for a short duration to ensure the attack animation has time to play
+        yield return new WaitForSeconds(1); // Adjust this time based on the length of your attack animation
+        animator.SetBool("Attack", false);
+    }
     private void Die()
     {
-        //animator.SetTrigger("Die");
         Debug.Log("Dying...");
         waveManager.UnregisterEnemy();
         player.GetCoins(1);
@@ -119,6 +209,7 @@ public class Enemy : MonoBehaviour
         {
             target = other.transform;
             Debug.Log("New target acquired: " + target.name);
+            Attack();
         }
         else if (other.CompareTag("Core"))
         {
@@ -136,8 +227,9 @@ public class Enemy : MonoBehaviour
     }
     void OnAnimatorMove ()
     {
-        // Update position to agent position
-        transform.position = agent.nextPosition;
+        if(agent != null && agent.nextPosition != null)
+            // Update position to agent position
+            transform.position = agent.nextPosition;
     }
 
     private void SetInitialTarget()

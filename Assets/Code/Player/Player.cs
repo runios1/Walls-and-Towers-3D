@@ -95,7 +95,7 @@ public class PlayerMainScript : MonoBehaviour
             if (enemy.CompareTag(enemyTag))
             {
                 Debug.Log("We hit " + enemy.name);
-                enemy.GetComponent<Enemy>().TakeDamage(10); // Assuming 10 is the damage amount
+                enemy.GetComponent<Enemy>().TakeDamage(10,this.transform); // Assuming 10 is the damage amount
             }
         }
     }
