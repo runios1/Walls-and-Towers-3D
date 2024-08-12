@@ -10,7 +10,7 @@ public class WaveManager : MonoBehaviour
     public WaveCounter waveCounter;
     public Castle castle;
     public PlayerMainScript player;
-    void Start()
+    async void Start()
     {
         waveNum = 1;
         waveCounter.ResetCounter(2);
@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
         castle = GameObject.FindGameObjectWithTag("Core").GetComponent<Castle>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMainScript>();
 
-        AldenGenerator.LogAldenChat("Monsters are just beginning their way towards the castle");
+        await AldenGenerator.LogAldenChat("Monsters are just beginning their way towards the castle");
         InitializeWaveSpawnPoints();
         StartNextWave();
     }
@@ -41,7 +41,7 @@ public class WaveManager : MonoBehaviour
         waveSpawnPoints.Add(new Transform[] { spawnPoint2_1, spawnPoint2_2 });
     }
 
-    private void StartNextWave()
+    private async void StartNextWave()
     {
         if (waveNum - 1 < waveSpawnPoints.Count)
         {
@@ -54,18 +54,18 @@ public class WaveManager : MonoBehaviour
         else
         {
             Debug.Log("All waves completed!");
-            AldenGenerator.LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+            await AldenGenerator.LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
 
         }
     }
 
-    public void UnregisterEnemy()
+    public async void UnregisterEnemy()
     {
         enemiesLeftForWave--;
         if (enemiesLeftForWave == 0)
         {
             waveNum++;
-            AldenGenerator.LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+            await AldenGenerator.LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
             StartNextWave();
         }
     }

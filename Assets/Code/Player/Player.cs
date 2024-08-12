@@ -78,9 +78,9 @@ public class PlayerMainScript : MonoBehaviour
             Die();
         }
     }
-    void Die()
+    async void Die()
     {
-        AldenGenerator.LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
+        await AldenGenerator.LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
     }
     void Attack()
     {
