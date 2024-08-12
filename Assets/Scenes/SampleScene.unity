@@ -552,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221398181}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.052612286, y: -0.44378805, z: -0.026111133, w: 0.89420485}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3244,9 +3244,9 @@ RectTransform:
   - {fileID: 949421235}
   m_Father: {fileID: 1625737741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 791, y: -69}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -87, y: -69}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1191260420
@@ -6120,13 +6120,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueBoarPBR
       objectReference: {fileID: 0}
-    - target: {fileID: 8078651664560026964, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8078651664560026964, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8078651664560026964, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

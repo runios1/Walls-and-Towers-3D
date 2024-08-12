@@ -69,7 +69,7 @@ public class PlayerMainScript : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (health < 0) return; // FIXME: Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
+        if (health <= 0) return; // FIXME: Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
         health -= damage;
         healthBar.SetHealth(health);
         if (health <= 0)
