@@ -37,27 +37,28 @@ public class Enemy : MonoBehaviour
     {
         if (target != null)
         {
-            if (navmash){
+            if (navmash)
+            {
                 agent.destination = target.position;
-                if(!animator.GetBool("Walk 0"))
-                    animator.SetBool("Walk 0",true);
+                if (!animator.GetBool("Walk 0"))
+                    animator.SetBool("Walk 0", true);
             }
             else
                 MoveTowardsTarget();
             //Debug.Log("Moving towards target: " + target.name+"at position:" +target.position);
             if (Vector3.Distance(transform.position, target.position) <= attackRange && Time.time > lastAttackTime + attackCooldown)
             {
-                if(animator.GetBool("Walk 0"))
-                    animator.SetBool("Walk 0",false);
+                if (animator.GetBool("Walk 0"))
+                    animator.SetBool("Walk 0", false);
                 Attack();
-                animator.SetBool("Attack",true);
+                animator.SetBool("Attack", true);
                 lastAttackTime = Time.time;
             }
         }
         else
         {
-            animator.SetBool("Walk 0",false);
-            animator.SetBool("Attack",false);
+            animator.SetBool("Walk 0", false);
+            animator.SetBool("Attack", false);
             Debug.Log("No target available, Going for the core");
             GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
             target = coreObject.transform;
@@ -134,7 +135,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Reverting to initial target: Core");
         }
     }
-    void OnAnimatorMove ()
+    void OnAnimatorMove()
     {
         // Update position to agent position
         transform.position = agent.nextPosition;
