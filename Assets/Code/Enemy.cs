@@ -139,6 +139,10 @@ public class Enemy : MonoBehaviour
         health -= amount;
         healthBar.SetHealth(health);
         Debug.Log("Took damage: " + amount + ", current health: " + health);
+        
+        // Trigger the "Get Hit" animation
+        animator.SetTrigger("GetHit");
+
         if (health <= 0)
         {
             Die();
@@ -146,30 +150,16 @@ public class Enemy : MonoBehaviour
         else if(target == null){
             target = attacker;
             Debug.Log("Updated target to attacker: " + attacker.name);
+        }else{
+            StartCoroutine(WaitForAnimation("GetHit",2f));
         }
     }
 
-    // private bool IsTargetValid(Transform other)
-    // {
-    //     if (other == null)
-    //     {
-    //         return false;
-    //     }
-
-    //     if (other.CompareTag("Player"))
-    //     {
-    //         return other.GetComponent<PlayerMainScript>().health > 0;
-    //     }
-    //     else if (other.CompareTag("Tower"))
-    //     {
-    //         return other.GetComponent<Tower>().health > 0;
-    //     }
-    //     else if (other.CompareTag("Core"))
-    //     {
-    //         return other != null;
-    //     }
-    //     return false;
-    // }
+    private IEnumerator WaitForAnimation(string animationName, float delay)
+    {
+        // Wait for the specified duration
+        yield return new WaitForSeconds(delay);
+    }
 
     private void Attack()
     {
@@ -198,9 +188,18 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("Dying...");
+
+        // Triggering the animation
+        animator.SetTrigger("Die");
+
+        //disable further movements
+        agent.isStopped = true;
+        this.enabled = false;
+
+        //Unregister the enemy
         waveManager.UnregisterEnemy();
         player.GetCoins(1);
-        Destroy(gameObject);
+        Destroy(gameObject,2f);
     }
 
     private void OnTriggerEnter(Collider other)
