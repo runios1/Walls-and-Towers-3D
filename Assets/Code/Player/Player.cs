@@ -69,6 +69,7 @@ public class PlayerMainScript : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (health < 0) return; // Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
         health -= damage;
         healthBar.SetHealth(health);
         if (health <= 0)
@@ -95,7 +96,7 @@ public class PlayerMainScript : MonoBehaviour
             if (enemy.CompareTag(enemyTag))
             {
                 Debug.Log("We hit " + enemy.name);
-                enemy.GetComponent<Enemy>().TakeDamage(10,this.transform); // Assuming 10 is the damage amount
+                enemy.GetComponent<Enemy>().TakeDamage(10, this.transform); // Assuming 10 is the damage amount
             }
         }
     }
