@@ -97,7 +97,7 @@ public class TowerProjectile : MonoBehaviour
             //     e.ApplyEffects(tD.effects[i]);
             // }
 
-            e.TakeDamage(dmg);
+            e.TakeDamage(dmg,this.transform);
         }
     }
 }
