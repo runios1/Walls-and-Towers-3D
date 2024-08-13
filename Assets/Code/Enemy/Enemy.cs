@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public HealthBar healthBar;
     public float damage = 10f;
     public float speed = 2f;
-    public float attackRange = 1.5f;
+    public float attackRange = 3f;
     public float attackCooldown = 1.0f;
     private float lastAttackTime;
     public Transform target;
@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     public bool navmash = false;
     private WaveManager waveManager;
     private PlayerMainScript player;
+    private bool isTargetingCore = false;
+    private LookAt lookAtScript;
     void Start()
     {
         waveManager = FindObjectOfType<WaveManager>();
@@ -26,6 +28,7 @@ public class Enemy : MonoBehaviour
         if (navmash)
         {
             agent = GetComponent<NavMeshAgent>();
+            agent.stoppingDistance=attackRange;
             if (agent == null)
                 Debug.LogError("NavMeshAgent component is missing!");
         }
@@ -36,36 +39,13 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // if (target != null)
-        // {
-        //     if (navmash){
-        //         agent.destination = target.position;
-        //         if(!animator.GetBool("Walk 0"))
-        //             animator.SetBool("Walk 0",true);
-        //     }
-        //     else
-        //         MoveTowardsTarget();
-        //     //Debug.Log("Moving towards target: " + target.name+"at position:" +target.position);
-        //     if (Vector3.Distance(transform.position, target.position) <= attackRange && Time.time > lastAttackTime + attackCooldown)
-        //     {
-        //         if(animator.GetBool("Walk 0"))
-        //             animator.SetBool("Walk 0",false);
-        //         Attack();
-        //         lastAttackTime = Time.time;
-        //     }
-        // }
-        // else
-        // {
-        //     animator.SetBool("Walk 0",false);
-        //     Debug.Log("No target available, Going for the core");
-        //     GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
-        //     target = coreObject.transform;
-        //     agent.destination = target.position;
-        // }
         if (target != null)
         {
-            if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance)
+            if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance){
+                float agentSpeed = agent.velocity.magnitude;
+                animator.SetFloat("speed", agentSpeed);
                 animator.SetBool("Walk 0", true);
+            }
             else
             {
                 animator.SetBool("Walk 0", false);
@@ -91,7 +71,7 @@ public class Enemy : MonoBehaviour
     {
         Transform closestTarget = null;
         float closestDistance = float.MaxValue;
-
+        isTargetingCore=false;
         // Check player
         if (player != null && player.health > 0)
         {
@@ -125,19 +105,16 @@ public class Enemy : MonoBehaviour
             float coreDistance = Vector3.Distance(transform.position, coreObject.transform.position);
             if (coreDistance < closestDistance)
             {
-                closestTarget = coreObject.transform;
+                closestTarget = GetCoreTarget(coreObject);
+                closestDistance = coreDistance;
+                isTargetingCore=true;
             }
         }
 
         target = closestTarget;
+        Debug.Log("Next target selected.");
     }
-    // private void MoveTowardsTarget()
-    // {
-    //     Vector3 direction = (target.position - transform.position).normalized;
-    //     transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-    //     transform.rotation = Quaternion.LookRotation(direction);
-    //     //animator.SetBool("isWalking", true);
-    // }
+
     public void TakeDamage(float amount, Transform attacker)
     {
         health -= amount;
@@ -154,6 +131,9 @@ public class Enemy : MonoBehaviour
         else if (target == null)
         {
             target = attacker;
+            if (lookAtScript != null){
+                lookAtScript.lookAtTargetPosition = attacker.position;
+            }
             Debug.Log("Updated target to attacker: " + attacker.name);
         }
         else
@@ -171,7 +151,7 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         animator.SetBool("Attack", true);
-        Debug.Log("ATTACKING!");
+        Debug.Log("ATTACKING!"+ target.tag);
         if (target.CompareTag("Player"))
         {
             target.GetComponent<PlayerMainScript>().TakeDamage(damage);
@@ -180,9 +160,9 @@ public class Enemy : MonoBehaviour
         {
             target.GetComponent<Tower>().TakeDamage(damage);
         }
-        else if (target.CompareTag("Core"))
+        else if (target.CompareTag("Core") || isTargetingCore)
         {
-            target.GetComponent<Castle>().TakeDamage(damage);
+            GameObject.FindGameObjectWithTag("Core").transform.GetComponent<Castle>().TakeDamage(damage);
         }
         StartCoroutine(ResetAttackBool());
     }
@@ -233,24 +213,49 @@ public class Enemy : MonoBehaviour
     }
     void OnAnimatorMove()
     {
-        if (agent != null && agent.nextPosition != null)
-            // Update position to agent position
-            transform.position = agent.nextPosition;
+        // if (agent != null && agent.nextPosition != null)
+        //     // Update position to agent position
+        //     transform.position = agent.nextPosition;
+        if(animator.rootPosition != null && agent.nextPosition!= null){
+            Vector3 position = animator.rootPosition;
+            position.y = agent.nextPosition.y;
+            transform.position = position;
+        }
+
     }
 
     private void SetInitialTarget()
     {
         GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
-
-        if (coreObject != null)
-        {
-            target = coreObject.transform;
-            Debug.Log("Initial target set to: Core");
-        }
-        else
-        {
-            Debug.LogError("Core object not found!");
-        }
+        target = GetCoreTarget(coreObject);
+        isTargetingCore=true;
+        Debug.Log("Initial target set.");
     }
 
+    private Transform GetCoreTarget(GameObject coreObject)
+    {
+        if (coreObject != null)
+        {
+            // Calculate the closest point on the collider's surface
+            BoxCollider coreCollider = coreObject.GetComponent<BoxCollider>();
+            if (coreCollider != null)
+            {
+                Vector3 closestPoint = coreCollider.ClosestPoint(transform.position);
+                Transform coreTarget = new GameObject("CoreTarget").transform;
+                coreTarget.position = closestPoint;
+                Debug.Log("Core target set to collider surface point: " + closestPoint);
+                return coreTarget;
+            }
+            else
+            {
+                Debug.LogWarning("Core object does not have a BoxCollider!");
+            }
+
+            // Fallback to targeting the core's center if something goes wrong
+            return coreObject.transform;
+        }
+
+        Debug.LogError("Core object not found!");
+        return null;
+    }
 }

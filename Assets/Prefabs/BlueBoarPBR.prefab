@@ -945,6 +945,7 @@ GameObject:
   - component: {fileID: 2156384472367083575}
   - component: {fileID: 576539887863706883}
   - component: {fileID: 2744899157680005969}
+  - component: {fileID: 1507494136086345308}
   - component: {fileID: 3531492740869342206}
   - component: {fileID: 7869695604143736069}
   - component: {fileID: 5335240651196148933}
@@ -1066,6 +1067,23 @@ MonoBehaviour:
   attackCooldown: 1
   target: {fileID: 0}
   navmash: 1
+--- !u!114 &1507494136086345308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093324402755370686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04637053f4e0f0a7697494e0cc674dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 2506164565158974406}
+  lookAtTargetPosition: {x: 0, y: 0, z: 0}
+  lookAtCoolTime: 0.2
+  lookAtHeatTime: 0.2
+  looking: 1
 --- !u!114 &3531492740869342206
 MonoBehaviour:
   m_ObjectHideFlags: 0
