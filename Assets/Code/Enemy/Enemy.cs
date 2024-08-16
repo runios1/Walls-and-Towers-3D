@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
         if (navmash)
         {
             agent = GetComponent<NavMeshAgent>();
-            agent.stoppingDistance=attackRange;
+            agent.stoppingDistance = attackRange;
             if (agent == null)
                 Debug.LogError("NavMeshAgent component is missing!");
         }
@@ -41,7 +41,8 @@ public class Enemy : MonoBehaviour
     {
         if (target != null)
         {
-            if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance){
+            if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance)
+            {
                 float agentSpeed = agent.velocity.magnitude;
                 animator.SetFloat("speed", agentSpeed);
                 animator.SetBool("Walk 0", true);
@@ -71,7 +72,7 @@ public class Enemy : MonoBehaviour
     {
         Transform closestTarget = null;
         float closestDistance = float.MaxValue;
-        isTargetingCore=false;
+        isTargetingCore = false;
         // Check player
         if (player != null && player.health > 0)
         {
@@ -107,7 +108,7 @@ public class Enemy : MonoBehaviour
             {
                 closestTarget = GetCoreTarget(coreObject);
                 closestDistance = coreDistance;
-                isTargetingCore=true;
+                isTargetingCore = true;
             }
         }
 
@@ -131,7 +132,8 @@ public class Enemy : MonoBehaviour
         else if (target == null)
         {
             target = attacker;
-            if (lookAtScript != null){
+            if (lookAtScript != null)
+            {
                 lookAtScript.lookAtTargetPosition = attacker.position;
             }
             Debug.Log("Updated target to attacker: " + attacker.name);
@@ -151,7 +153,7 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         animator.SetBool("Attack", true);
-        Debug.Log("ATTACKING!"+ target.tag);
+        Debug.Log("ATTACKING!" + target.tag);
         if (target.CompareTag("Player"))
         {
             target.GetComponent<PlayerMainScript>().TakeDamage(damage);
@@ -216,7 +218,8 @@ public class Enemy : MonoBehaviour
         // if (agent != null && agent.nextPosition != null)
         //     // Update position to agent position
         //     transform.position = agent.nextPosition;
-        if(animator.rootPosition != null && agent.nextPosition!= null){
+        if (animator && agent && animator.rootPosition != null && agent.nextPosition != null)
+        {
             Vector3 position = animator.rootPosition;
             position.y = agent.nextPosition.y;
             transform.position = position;
@@ -228,7 +231,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
         target = GetCoreTarget(coreObject);
-        isTargetingCore=true;
+        isTargetingCore = true;
         Debug.Log("Initial target set.");
     }
 
