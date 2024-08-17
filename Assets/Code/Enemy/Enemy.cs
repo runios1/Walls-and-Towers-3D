@@ -188,10 +188,44 @@ public class Enemy : MonoBehaviour
         Debug.Log("Next target selected: " + (target != null ? target.name : "None"));
     }
 
+    // public void TakeDamage(float amount, Transform attacker)
+    // {
+    //     if(this.IsDestroyed())
+    //         return;
+    //     Debug.Log("Taking damage: " + amount);
+    //     health -= amount;
+    //     healthBar.SetHealth(health);
+
+    //     animator.SetTrigger("GetHit");
+
+    //     if (health <= 0)
+    //     {
+    //         Die();
+    //     }
+    //     else if (target == null)
+    //     {
+    //         target = attacker;
+    //         isTargetingCore = false;
+    //         if (lookAtScript != null)
+    //         {
+    //             lookAtScript.lookAtTargetPosition = attacker.position;
+    //         }
+    //         Debug.Log("Updated target to attacker: " + attacker.name);
+    //         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+    //             StartCoroutine(WaitForAnimation("GetHit", 1.1f));
+    //     }
+    //     else
+    //     {
+    //         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+    //             StartCoroutine(WaitForAnimation("GetHit", 1.1f));
+    //     }
+    // }
+
     public void TakeDamage(float amount, Transform attacker)
     {
         if(this.IsDestroyed())
             return;
+
         Debug.Log("Taking damage: " + amount);
         health -= amount;
         healthBar.SetHealth(health);
@@ -202,19 +236,22 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
-        else if (target == null)
-        {
-            target = attacker;
-            isTargetingCore = false;
-            if (lookAtScript != null)
-            {
-                lookAtScript.lookAtTargetPosition = attacker.position;
-            }
-            Debug.Log("Updated target to attacker: " + attacker.name);
-        }
         else
         {
-            StartCoroutine(WaitForAnimation("GetHit", 1.1f));
+            // Update the target to the attacker only if not currently attacking the core
+            if (!isTargetingCore)
+            {
+                target = attacker;
+                isTargetingCore = false;
+                if (lookAtScript != null)
+                {
+                    lookAtScript.lookAtTargetPosition = attacker.position;
+                }
+                Debug.Log("Updated target to attacker: " + attacker.name);
+            }
+
+            if(!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+                StartCoroutine(WaitForAnimation("GetHit", 1.1f));
         }
     }
 
@@ -258,6 +295,7 @@ public class Enemy : MonoBehaviour
         else
         {
             isAttacking = false;
+            agent.isStopped = false;
         }
     }
 
