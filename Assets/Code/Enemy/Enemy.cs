@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        // Debug.Log("Enemy Start called.");
+        Debug.Log("Enemy Start called.");
         lookAtScript = FindObjectOfType<LookAt>();
         waveManager = FindObjectOfType<WaveManager>();
         player = FindObjectOfType<PlayerMainScript>();
@@ -71,28 +71,28 @@ public class Enemy : MonoBehaviour
             agent.acceleration = 1;
             if (agent == null)
                 Debug.LogError("NavMeshAgent component is missing!");
-            // else
-            //     Debug.Log("NavMeshAgent initialized with stoppingDistance: " + attackRange);
+            else
+                Debug.Log("NavMeshAgent initialized with stoppingDistance: " + attackRange);
         }
         if ((animator = GetComponent<Animator>()) == null)
             Debug.LogError("Animator component is missing!");
         else
-            // Debug.Log("Animator component found.");
+            Debug.Log("Animator component found.");
 
-            SetInitialTarget();
+        SetInitialTarget();
     }
 
     void Update()
     {
-        // Debug.Log("Enemy Update called. Target: " + (target != null ? target.name : "None"));
+        Debug.Log("Enemy Update called. Target: " + (target != null ? target.name : "None"));
         if (target != null && !isAttacking)
         {
-            // Debug.Log("Not attacking. Checking distance to target...");
-            if (!agent.pathPending && agent.remainingDistance > 0 && Vector3.Distance(agent.transform.position, target.position) <= agent.stoppingDistance)
+            Debug.Log("Not attacking. Checking distance to target...");
+            if (agent.destination == target.position && !agent.pathPending && agent.remainingDistance > 0 && Vector3.Distance(agent.transform.position, target.position) <= agent.stoppingDistance)
             {
-                // Debug.Log("Agent close to target. Stopping and preparing to attack.");
+                Debug.Log("Agent close to target. Stopping and preparing to attack.");
                 agent.isStopped = true;
-                //agent.velocity = Vector3.zero;
+                agent.velocity = Vector3.zero;
                 animator.SetFloat("speed", 0);
 
                 if (Time.time > lastAttackTime + attackCooldown)
@@ -103,7 +103,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                // Debug.Log("Moving towards target. Setting destination.");
+                Debug.Log("Moving towards target. Setting destination.");
                 if (agent.destination != target.position)
                 {
                     agent.SetDestination(target.position);
@@ -119,9 +119,9 @@ public class Enemy : MonoBehaviour
         }
         else if (target != null && isAttacking)
         {
-            // Debug.Log("Currently attacking. Keeping agent stopped.");
+            Debug.Log("Currently attacking. Keeping agent stopped.");
             agent.isStopped = true;
-            //agent.velocity = Vector3.zero;
+            agent.velocity = Vector3.zero;
             animator.SetFloat("speed", 0);
 
             if (Time.time > lastAttackTime + attackCooldown)
@@ -132,7 +132,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            // Debug.Log("No target or attack ongoing. Selecting new target.");
+            Debug.Log("No target or attack ongoing. Selecting new target.");
             animator.SetBool("Walk 0", false);
             SelectNextTarget();
         }
@@ -140,7 +140,7 @@ public class Enemy : MonoBehaviour
 
     private void SelectNextTarget()
     {
-        // Debug.Log("Selecting next target...");
+        Debug.Log("Selecting next target...");
         Transform closestTarget = null;
         float closestDistance = float.MaxValue;
         isTargetingCore = false;
@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
         if (player != null && player.health > 0)
         {
             float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-            // Debug.Log("Player distance: " + playerDistance);
+            Debug.Log("Player distance: " + playerDistance);
             if (playerDistance < closestDistance && playerDistance <= attackRange)
             {
                 closestTarget = player.transform;
@@ -162,7 +162,7 @@ public class Enemy : MonoBehaviour
             if (tower.health > 0)
             {
                 float towerDistance = Vector3.Distance(transform.position, tower.transform.position);
-                // Debug.Log("Tower distance: " + towerDistance);
+                Debug.Log("Tower distance: " + towerDistance);
                 if (towerDistance < closestDistance && towerDistance <= attackRange)
                 {
                     closestTarget = tower.transform;
@@ -175,7 +175,7 @@ public class Enemy : MonoBehaviour
         if (coreObject != null)
         {
             float coreDistance = Vector3.Distance(transform.position, coreObject.transform.position);
-            // Debug.Log("Core distance: " + coreDistance);
+            Debug.Log("Core distance: " + coreDistance);
             if (coreDistance < closestDistance)
             {
                 closestTarget = GetCoreTarget(coreObject);
@@ -185,7 +185,7 @@ public class Enemy : MonoBehaviour
         }
 
         target = closestTarget;
-        // Debug.Log("Next target selected: " + (target != null ? target.name : "None"));
+        Debug.Log("Next target selected: " + (target != null ? target.name : "None"));
     }
 
     // public void TakeDamage(float amount, Transform attacker)
@@ -226,7 +226,7 @@ public class Enemy : MonoBehaviour
         if (this.IsDestroyed())
             return;
 
-        // Debug.Log("Taking damage: " + amount);
+        Debug.Log("Taking damage: " + amount);
         health -= amount;
         healthBar.SetHealth(health);
 
@@ -243,11 +243,13 @@ public class Enemy : MonoBehaviour
             {
                 target = attacker;
                 isTargetingCore = false;
+                agent.isStopped = false;
+                isAttacking = false;
                 if (lookAtScript != null)
                 {
                     lookAtScript.lookAtTargetPosition = attacker.position;
                 }
-                // Debug.Log("Updated target to attacker: " + attacker.name);
+                Debug.Log("Updated target to attacker: " + attacker.name);
             }
 
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
@@ -257,13 +259,13 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator WaitForAnimation(string animationName, float delay)
     {
-        // Debug.Log("Waiting for animation: " + animationName);
+        Debug.Log("Waiting for animation: " + animationName);
         yield return new WaitForSeconds(delay);
     }
 
     private void Attack()
     {
-        // Debug.Log("ATTACKING! Target: " + (target != null ? target.name : "None"));
+        Debug.Log("ATTACKING! Target: " + (target != null ? target.name : "None"));
         animator.SetBool("Attack", true);
         isAttacking = true;
 
@@ -284,7 +286,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator ResetAttackBool()
     {
-        // Debug.Log("Resetting attack state after delay.");
+        Debug.Log("Resetting attack state after delay.");
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("Attack", false);
 
@@ -301,26 +303,28 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        // Debug.Log("Dying...");
+        Debug.Log("Dying...");
+        animator.ResetTrigger("GetHit");
         animator.SetTrigger("Die");
 
         agent.isStopped = true;
         this.enabled = false;
 
-        waveManager.UnregisterEnemy();
+        if(waveManager)
+            waveManager.UnregisterEnemy();
         player.GetCoins(1);
         Destroy(gameObject, 2f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Debug.Log("OnTriggerEnter with: " + other.name);
+        Debug.Log("OnTriggerEnter with: " + other.name);
         if (other.CompareTag("Player") || other.CompareTag("Tower"))
         {
             target = other.transform;
             isTargetingCore = false;
             agent.isStopped = false;
-            // Debug.Log("New target acquired: " + target.name);
+            Debug.Log("New target acquired: " + target.name);
         }
         else if (other.CompareTag("Core"))
         {
@@ -330,24 +334,23 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Debug.Log("OnTriggerExit with: " + other.name);
+        Debug.Log("OnTriggerExit with: " + other.name);
         // if (target == other.transform)
         // {
         //     SetInitialTarget();
         //     Debug.Log("Reverting to initial target: Core");
         // }
-
+        
         /*
         if the enemy's target is the castle but it is near a tower, it will select the the tower as a target in probabiltiy of 0.5
         */
-        if (isTargetingCore && other.CompareTag("Tower"))
-        {
+        if(isTargetingCore && other.CompareTag("Tower")){
             float probability = UnityEngine.Random.Range(0, 1.0f);
-            if (probability < 0.5f)
-            {
+            if(probability < 0.5f){
                 target = other.transform;
                 isTargetingCore = false;
-                // Debug.Log("Updated target to tower: " + other.name);
+                isAttacking=false;
+                Debug.Log("Updated target to tower: " + other.name);
             }
         }
     }
@@ -359,17 +362,17 @@ public class Enemy : MonoBehaviour
             Vector3 position = animator.rootPosition;
             position.y = agent.nextPosition.y;
             transform.position = position;
-            // Debug.Log("Animator moved to position: " + position);
+            Debug.Log("Animator moved to position: " + position);
         }
     }
 
     private void SetInitialTarget()
     {
-        // Debug.Log("Setting initial target to Core.");
+        Debug.Log("Setting initial target to Core.");
         GameObject coreObject = GameObject.FindGameObjectWithTag("Core");
         target = GetCoreTarget(coreObject);
         isTargetingCore = true;
-        // Debug.Log("Initial target set: " + (target != null ? target.name : "None"));
+        Debug.Log("Initial target set: " + (target != null ? target.name : "None"));
     }
 
     private Transform GetCoreTarget(GameObject coreObject)
@@ -382,12 +385,12 @@ public class Enemy : MonoBehaviour
                 Vector3 closestPoint = coreCollider.ClosestPoint(transform.position);
                 Transform coreTarget = new GameObject("CoreTarget").transform;
                 coreTarget.position = closestPoint;
-                // Debug.Log("Core target set to collider surface point: " + closestPoint);
+                Debug.Log("Core target set to collider surface point: " + closestPoint);
                 return coreTarget;
             }
             else
             {
-                // Debug.LogWarning("Core object does not have a BoxCollider!");
+                Debug.LogWarning("Core object does not have a BoxCollider!");
             }
 
             return coreObject.transform;
