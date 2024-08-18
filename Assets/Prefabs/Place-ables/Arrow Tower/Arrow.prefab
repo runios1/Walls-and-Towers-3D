@@ -122,5 +122,5 @@ MonoBehaviour:
   tower: {fileID: 0}
   target: {fileID: 0}
   isHit: 0
-  speed: 5
+  speed: 15
   explosionRadius: 0
