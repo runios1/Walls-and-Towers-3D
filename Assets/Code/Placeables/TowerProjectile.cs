@@ -19,6 +19,7 @@ public class TowerProjectile : MonoBehaviour
     readonly float i = 0.05f; // delay time of bullet destruction
     Vector3 hitPosOffset = new Vector3(0, 1, 0);
     Vector3 originalTargetPos;
+    Vector3 direction;
 
     private void Start()
     {
@@ -48,18 +49,19 @@ public class TowerProjectile : MonoBehaviour
         {
             originalTargetPos = target.position;
             transform.LookAt(target.transform);
+
+            direction = originalTargetPos + hitPosOffset - transform.position;
         }
-        Vector3 dir = originalTargetPos + hitPosOffset - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
 
-        if (dir.magnitude <= distanceThisFrame && !isHit)
+        if (Vector3.Distance(transform.position, target.position) < 3.0 && !isHit)
         {
             isHit = true;
             HitTarget();
             return;
         }
 
-        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        transform.Translate(direction.normalized * distanceThisFrame, Space.World);
     }
 
     void HitTarget()
@@ -68,7 +70,7 @@ public class TowerProjectile : MonoBehaviour
         {
             Explode();
         }
-        else { Damage(target); }
+        else if (target) { Damage(target); }
 
         Destroy(gameObject, i);
     }
@@ -97,7 +99,7 @@ public class TowerProjectile : MonoBehaviour
             //     e.ApplyEffects(tD.effects[i]);
             // }
 
-            e.TakeDamage(dmg,this.transform);
+            e.TakeDamage(dmg, this.transform);
         }
     }
 }

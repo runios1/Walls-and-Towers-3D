@@ -1,38 +1,38 @@
 
-    // void Update()
-    // {
-    //     if (target != null)
-    //     {
-    //         if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance)
-    //         {
-    //             //Debug.Log("agent velocity and speed: "+agent.velocity+ " , "+agent.velocity.magnitude);
-    //             float agentSpeed = agent.velocity.magnitude;
-    //             float animationSpeedMultiplier = agentSpeed / speed;
-    //             animator.SetFloat("speed", animationSpeedMultiplier);
-    //             animator.SetBool("Walk 0", true);
-    //         }
-    //         else
-    //         {
-    //             agent.isStopped = true;
-    //             animator.SetBool("Walk 0", false);
-    //             if (Time.time > lastAttackTime + attackCooldown)
-    //             {
-    //                 Attack();
-    //                 lastAttackTime = Time.time;
-    //             }
+// void Update()
+// {
+//     if (target != null)
+//     {
+//         if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance)
+//         {
+//             //Debug.Log("agent velocity and speed: "+agent.velocity+ " , "+agent.velocity.magnitude);
+//             float agentSpeed = agent.velocity.magnitude;
+//             float animationSpeedMultiplier = agentSpeed / speed;
+//             animator.SetFloat("speed", animationSpeedMultiplier);
+//             animator.SetBool("Walk 0", true);
+//         }
+//         else
+//         {
+//             agent.isStopped = true;
+//             animator.SetBool("Walk 0", false);
+//             if (Time.time > lastAttackTime + attackCooldown)
+//             {
+//                 Attack();
+//                 lastAttackTime = Time.time;
+//             }
 
-    //         }
+//         }
 
-    //         agent.SetDestination(target.position);
-    //     }
-    //     else
-    //     {
-    //         animator.SetBool("Walk 0", false);
-    //         agent.isStopped=false;
-    //         Debug.Log("No target available, choosing another target");
-    //         SelectNextTarget();
-    //     }
-    // }
+//         agent.SetDestination(target.position);
+//     }
+//     else
+//     {
+//         animator.SetBool("Walk 0", false);
+//         agent.isStopped=false;
+//         Debug.Log("No target available, choosing another target");
+//         SelectNextTarget();
+//     }
+// }
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -223,7 +223,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float amount, Transform attacker)
     {
-        if(this.IsDestroyed())
+        if (this.IsDestroyed())
             return;
 
         Debug.Log("Taking damage: " + amount);
@@ -250,7 +250,7 @@ public class Enemy : MonoBehaviour
                 Debug.Log("Updated target to attacker: " + attacker.name);
             }
 
-            if(!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
                 StartCoroutine(WaitForAnimation("GetHit", 1.1f));
         }
     }
