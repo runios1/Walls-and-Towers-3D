@@ -1,44 +1,43 @@
 
-    // void Update()
-    // {
-    //     if (target != null)
-    //     {
-    //         if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance)
-    //         {
-    //             //Debug.Log("agent velocity and speed: "+agent.velocity+ " , "+agent.velocity.magnitude);
-    //             float agentSpeed = agent.velocity.magnitude;
-    //             float animationSpeedMultiplier = agentSpeed / speed;
-    //             animator.SetFloat("speed", animationSpeedMultiplier);
-    //             animator.SetBool("Walk 0", true);
-    //         }
-    //         else
-    //         {
-    //             agent.isStopped = true;
-    //             animator.SetBool("Walk 0", false);
-    //             if (Time.time > lastAttackTime + attackCooldown)
-    //             {
-    //                 Attack();
-    //                 lastAttackTime = Time.time;
-    //             }
+// void Update()
+// {
+//     if (target != null)
+//     {
+//         if (Vector3.Distance(agent.transform.position, target.position) > agent.stoppingDistance)
+//         {
+//             //Debug.Log("agent velocity and speed: "+agent.velocity+ " , "+agent.velocity.magnitude);
+//             float agentSpeed = agent.velocity.magnitude;
+//             float animationSpeedMultiplier = agentSpeed / speed;
+//             animator.SetFloat("speed", animationSpeedMultiplier);
+//             animator.SetBool("Walk 0", true);
+//         }
+//         else
+//         {
+//             agent.isStopped = true;
+//             animator.SetBool("Walk 0", false);
+//             if (Time.time > lastAttackTime + attackCooldown)
+//             {
+//                 Attack();
+//                 lastAttackTime = Time.time;
+//             }
 
-    //         }
+//         }
 
-    //         agent.SetDestination(target.position);
-    //     }
-    //     else
-    //     {
-    //         animator.SetBool("Walk 0", false);
-    //         agent.isStopped=false;
-    //         Debug.Log("No target available, choosing another target");
-    //         SelectNextTarget();
-    //     }
-    // }
+//         agent.SetDestination(target.position);
+//     }
+//     else
+//     {
+//         animator.SetBool("Walk 0", false);
+//         agent.isStopped=false;
+//         Debug.Log("No target available, choosing another target");
+//         SelectNextTarget();
+//     }
+// }
 using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-
 public class Enemy : MonoBehaviour
 {
     public float health = 100f;
@@ -61,6 +60,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         Debug.Log("Enemy Start called.");
+        lookAtScript = FindObjectOfType<LookAt>();
         waveManager = FindObjectOfType<WaveManager>();
         player = FindObjectOfType<PlayerMainScript>();
         healthBar.SetMaxHealth(health);
@@ -88,11 +88,11 @@ public class Enemy : MonoBehaviour
         if (target != null && !isAttacking)
         {
             Debug.Log("Not attacking. Checking distance to target...");
-            if (agent.destination == target.position && !agent.pathPending && agent.remainingDistance > 0 && Vector3.Distance(agent.transform.position, target.position) <= agent.stoppingDistance)
+            if (!agent.pathPending && agent.remainingDistance > 0 && Vector3.Distance(agent.transform.position, target.position) <= agent.stoppingDistance)
             {
                 Debug.Log("Agent close to target. Stopping and preparing to attack.");
                 agent.isStopped = true;
-                agent.velocity = Vector3.zero;
+                //agent.velocity = Vector3.zero;
                 animator.SetFloat("speed", 0);
 
                 if (Time.time > lastAttackTime + attackCooldown)
@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Currently attacking. Keeping agent stopped.");
             agent.isStopped = true;
-            agent.velocity = Vector3.zero;
+            //agent.velocity = Vector3.zero;
             animator.SetFloat("speed", 0);
 
             if (Time.time > lastAttackTime + attackCooldown)
@@ -223,7 +223,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float amount, Transform attacker)
     {
-        if(this.IsDestroyed())
+        if (this.IsDestroyed())
             return;
 
         Debug.Log("Taking damage: " + amount);
@@ -250,7 +250,7 @@ public class Enemy : MonoBehaviour
                 Debug.Log("Updated target to attacker: " + attacker.name);
             }
 
-            if(!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
                 StartCoroutine(WaitForAnimation("GetHit", 1.1f));
         }
     }
@@ -319,6 +319,7 @@ public class Enemy : MonoBehaviour
         {
             target = other.transform;
             isTargetingCore = false;
+            agent.isStopped = false;
             Debug.Log("New target acquired: " + target.name);
         }
         else if (other.CompareTag("Core"))
@@ -330,10 +331,22 @@ public class Enemy : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("OnTriggerExit with: " + other.name);
-        if (target == other.transform)
-        {
-            SetInitialTarget();
-            Debug.Log("Reverting to initial target: Core");
+        // if (target == other.transform)
+        // {
+        //     SetInitialTarget();
+        //     Debug.Log("Reverting to initial target: Core");
+        // }
+        
+        /*
+        if the enemy's target is the castle but it is near a tower, it will select the the tower as a target in probabiltiy of 0.5
+        */
+        if(isTargetingCore && other.CompareTag("Tower")){
+            float probability = UnityEngine.Random.Range(0, 1.0f);
+            if(probability < 0.5f){
+                target = other.transform;
+                isTargetingCore = false;
+                Debug.Log("Updated target to tower: " + other.name);
+            }
         }
     }
 
