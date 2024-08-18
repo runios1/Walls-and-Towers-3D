@@ -21,11 +21,11 @@ public class PlayerMainScript : MonoBehaviour
     private Coroutine damageColorChange = null;
     void Start()
     {
-        coins = 10;
+        coins = 15;
         health = 100;
         healthBar.SetMaxHealth(health);
         coinCounter.IncreaseCounter(coins);
-       
+
         originalColor = playerRenderer.material.color;
     }
 
@@ -75,10 +75,11 @@ public class PlayerMainScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (health <= 0) return; // FIXME: Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
-        if(damageColorChange == null)
+        if (damageColorChange == null)
         {
             damageColorChange = StartCoroutine(ChangeColorOnDamage());
-        } else
+        }
+        else
         {
             StopCoroutine(damageColorChange);
             damageColorChange = StartCoroutine(ChangeColorOnDamage());
@@ -129,9 +130,9 @@ public class PlayerMainScript : MonoBehaviour
     private IEnumerator ChangeColorOnDamage()
     {
 
-            playerRenderer.material.color = damageColor; // Change the color to red
-            yield return new WaitForSeconds(0.5f); // Wait for 1 second
-            playerRenderer.material.color = originalColor; // Revert to the original color
-        
+        playerRenderer.material.color = damageColor; // Change the color to red
+        yield return new WaitForSeconds(0.5f); // Wait for 1 second
+        playerRenderer.material.color = originalColor; // Revert to the original color
+
     }
 }

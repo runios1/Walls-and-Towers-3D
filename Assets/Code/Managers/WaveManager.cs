@@ -30,14 +30,14 @@ public class WaveManager : MonoBehaviour
 
         // Wave 1
         Transform spawnPoint1 = new GameObject().transform;
-        spawnPoint1.position = new Vector3(-150, 0, -100);
+        spawnPoint1.position = new Vector3(-140, 0, -10);
         waveSpawnPoints.Add(new Transform[] { spawnPoint1 });
 
         // Wave 2
         Transform spawnPoint2_1 = new GameObject().transform;
-        spawnPoint2_1.position = new Vector3(-150, 0, -100);
+        spawnPoint1.position = new Vector3(-140, 0, -10);
         Transform spawnPoint2_2 = new GameObject().transform;
-        spawnPoint2_2.position = new Vector3(-150, 0, -200);
+        spawnPoint2_2.position = new Vector3(-130, 0, -280);
         waveSpawnPoints.Add(new Transform[] { spawnPoint2_1, spawnPoint2_2 });
     }
 
