@@ -15,13 +15,18 @@ public class PlayerMainScript : MonoBehaviour
     public Transform player;
     public float attackRange = 20f;
     public string enemyTag = "Enemy";
-
+    public Renderer playerRenderer;
+    private Color originalColor;
+    public Color damageColor = Color.red;
+    private Coroutine damageColorChange = null;
     void Start()
     {
         coins = 10;
         health = 100;
         healthBar.SetMaxHealth(health);
         coinCounter.IncreaseCounter(coins);
+       
+        originalColor = playerRenderer.material.color;
     }
 
     // Update is called once per frame
@@ -70,6 +75,17 @@ public class PlayerMainScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (health <= 0) return; // FIXME: Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
+        if(damageColorChange == null)
+        {
+            damageColorChange = StartCoroutine(ChangeColorOnDamage());
+        } else
+        {
+            StopCoroutine(damageColorChange);
+            damageColorChange = StartCoroutine(ChangeColorOnDamage());
+
+        }
+
+
         health -= damage;
         healthBar.SetHealth(health);
         if (health <= 0)
@@ -109,5 +125,13 @@ public class PlayerMainScript : MonoBehaviour
     {
         Vector3 adjustedPosition = new Vector3(transform.position.x, 0, transform.position.z);
         Instantiate(item.prefab, adjustedPosition, transform.rotation);
+    }
+    private IEnumerator ChangeColorOnDamage()
+    {
+
+            playerRenderer.material.color = damageColor; // Change the color to red
+            yield return new WaitForSeconds(0.5f); // Wait for 1 second
+            playerRenderer.material.color = originalColor; // Revert to the original color
+        
     }
 }
