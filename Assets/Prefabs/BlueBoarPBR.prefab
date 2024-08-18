@@ -949,6 +949,7 @@ GameObject:
   - component: {fileID: 3531492740869342206}
   - component: {fileID: 7869695604143736069}
   - component: {fileID: 5335240651196148933}
+  - component: {fileID: 5491868652041995538}
   - component: {fileID: 619053085264864901}
   m_Layer: 0
   m_Name: BlueBoarPBR
@@ -1046,7 +1047,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &2744899157680005969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,6 +1147,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &5491868652041995538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093324402755370686}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.1715393, y: 2.9657025, z: 4.8882856}
+  m_Center: {x: 0.10040162, y: 1.4790614, z: 1.2217877}
 --- !u!65 &619053085264864901
 BoxCollider:
   m_ObjectHideFlags: 0
