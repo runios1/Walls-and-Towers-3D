@@ -46,7 +46,9 @@ public class AttackingState : IEnemyState
             return;
         if(Time.time < lastAttackTime + enemy.hyperParameters.attackCooldown)
             return;
-
+        if (enemy.lookAtScript != null){
+            enemy.lookAtScript.lookAtTargetPosition = target.position;
+        }
         lastAttackTime = Time.time;
         Debug.Log("ATTACKING! Target: " + (target != null ? target.name : "None"));
         float health = float.MaxValue;

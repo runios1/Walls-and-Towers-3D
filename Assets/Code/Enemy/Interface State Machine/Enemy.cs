@@ -99,7 +99,7 @@ public class Enemy: MonoBehaviour{
             Vector3 position = animator.rootPosition;
             position.y = agent.nextPosition.y;
             transform.position = position;
-            Debug.Log("Animator moved to position: " + position);
+            //Debug.Log("Animator moved to position: " + position);
         }
     }
     public void SetAnimation(AnimationState state, float value){
