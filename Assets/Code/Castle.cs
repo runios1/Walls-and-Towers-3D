@@ -6,7 +6,7 @@ public class Castle : MonoBehaviour
 {
     public float health = 100;
     public HealthBar healthBar;
-
+    public GameObject GameOverMenu;
     void Start()
     {
         healthBar.SetMaxHealth(health);
@@ -20,6 +20,10 @@ public class Castle : MonoBehaviour
 
         if (health <= 0)
         {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            GameOverMenu.SetActive(true);
             await AldenGenerator.LogAldenChat("The castle was destroyed and now the monsters are going to kill you");
         }
     }

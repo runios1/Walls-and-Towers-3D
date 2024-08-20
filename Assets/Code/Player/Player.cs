@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class PlayerMainScript : MonoBehaviour
 {
     public float health;
@@ -19,22 +19,37 @@ public class PlayerMainScript : MonoBehaviour
     private Color originalColor;
     public Color damageColor = Color.red;
     private Coroutine damageColorChange = null;
+
+    private int maxHealth = 100;
+
+    //respawn vars
+    public float respawnTime = 5f;
+    private bool isDead = false;
+    public TMP_Text respawnText;
+    public GameObject respawnMenu;
+    private Vector3 respawnPosition;
+    private float nextAttackTime = 0f;
+
+
     void Start()
     {
         coins = 15;
-        health = 100;
+        health = maxHealth;
         healthBar.SetMaxHealth(health);
         coinCounter.IncreaseCounter(coins);
 
         originalColor = playerRenderer.material.color;
+        respawnPosition = transform.position;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !IsAttacking())
+        if (Time.time >= nextAttackTime &&  Input.GetMouseButtonDown(0) && !IsAttackingAnimation())
         {
             Attack();
+            nextAttackTime = Time.time +0.2f;
         }
 
         // Placeables
@@ -48,7 +63,7 @@ public class PlayerMainScript : MonoBehaviour
         {
             shop.Buy("Wall");
         }
-
+        
     }
 
     public void GetCoins(int amount)
@@ -85,8 +100,6 @@ public class PlayerMainScript : MonoBehaviour
             damageColorChange = StartCoroutine(ChangeColorOnDamage());
 
         }
-
-
         health -= damage;
         healthBar.SetHealth(health);
         if (health <= 0)
@@ -97,7 +110,9 @@ public class PlayerMainScript : MonoBehaviour
     }
     async void Die()
     {
+
         await AldenGenerator.LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
+        StartCoroutine(Respawn());
     }
     void Attack()
     {
@@ -117,7 +132,7 @@ public class PlayerMainScript : MonoBehaviour
             }
         }
     }
-    bool IsAttacking()
+    bool IsAttackingAnimation()
     {
         return animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
     }
@@ -133,6 +148,34 @@ public class PlayerMainScript : MonoBehaviour
         playerRenderer.material.color = damageColor; // Change the color to red
         yield return new WaitForSeconds(0.5f); // Wait for 1 second
         playerRenderer.material.color = originalColor; // Revert to the original color
+    }
+    private IEnumerator Respawn()
+    {
+        isDead = true;
 
+        float countdown = respawnTime;
+
+        respawnMenu.SetActive(true);
+
+        while (countdown > 0)
+        {
+            respawnText.text = "Respawn in: " + countdown.ToString("F1") + " seconds";
+            yield return new WaitForSeconds(0.1f);
+            countdown--;
+        }
+
+        respawnText.text = "Respawning...";
+        yield return new WaitForSeconds(1f);
+
+        RespawnPlayer();
+
+        respawnMenu.SetActive(false);
+        isDead = false;
+    }
+    private void RespawnPlayer()
+    {
+        
+        health = maxHealth;
+        transform.position = respawnPosition; 
     }
 }
