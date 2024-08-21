@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animations")]
     public Animator animator;
 
+    private bool jumpedOnce = false;
     // Update is called once per frame
     void Update()
     {
@@ -32,11 +33,13 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
+            jumpedOnce=false;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !jumpedOnce)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            jumpedOnce=true;
         }
         //gravity
         velocity.y += gravity * Time.deltaTime;

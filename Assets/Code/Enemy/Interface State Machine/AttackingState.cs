@@ -49,9 +49,19 @@ public class AttackingState : IEnemyState
         if (enemy.lookAtScript != null){
             enemy.lookAtScript.lookAtTargetPosition = target.position;
         }
+        GameObject targetObject = target == null? null : 
+                                target.CompareTag("Player") ? target.GetComponent<PlayerMainScript>().gameObject :
+                                target.CompareTag("Tower")? target.GetComponent<Tower>().gameObject :
+                                target.CompareTag("Core")? target.GetComponent<Castle>().gameObject : null;
+        if (Vector3.Distance(enemy.transform.position,targetObject.transform.position) > enemy.hyperParameters.attackRange)
+        {
+            enemy.ChangeState(new MovingState(enemy));
+            return;
+        }
         lastAttackTime = Time.time;
         Debug.Log("ATTACKING! Target: " + (target != null ? target.name : "None"));
         float health = float.MaxValue;
+        enemy.animator.ResetTrigger("GetHit");
         enemy.SetAnimation(AnimationState.BASIC_ATTACK,1);
         if (target.CompareTag("Player"))
         {
