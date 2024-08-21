@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //jump
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
+        animator.SetBool("Ground",isGrounded);
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
