@@ -32,11 +32,9 @@ public class IdleState : IEnemyState
             enemy.ChangeState(new DyingState(enemy));
             return;
         }
-        if(!attacker.CompareTag("Core")){
-            enemy.target = attacker;
-            Debug.Log("New target selected: " + attacker.name);
-            enemy.ChangeState(new MovingState(enemy));
-        }
+        enemy.target = attacker;
+        Debug.Log("New target selected: " + attacker.name);
+        enemy.ChangeState(new MovingState(enemy));
     }
 
     public void UpdateState()

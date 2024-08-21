@@ -15,7 +15,9 @@ public class MovingState : IEnemyState
         target = enemy.target;
         Collider collider = target.GetComponent<Collider>();
         closestPoint = collider.ClosestPoint(enemy.head.transform.position);
-        Debug.Log("closestPoint: " + closestPoint);
+        //add a bit of noise to the target position to avoid getting stuck in corners
+        //closestPoint += new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+        //Debug.Log("closestPoint: " + closestPoint);
         enemy.SetAnimation(AnimationState.WALK, 1);
         enemy.SetAnimation(AnimationState.SPEED,enemy.hyperParameters.speed);
         

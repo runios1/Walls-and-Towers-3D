@@ -4,10 +4,12 @@ using UnityEngine;
 public class AttackingState : IEnemyState
 {
     private Enemy enemy;
+    //private Vector3 attackPosition;
     private float lastAttackTime;
     public AttackingState(Enemy enemy){
         this.enemy = enemy;
         lastAttackTime = Time.time;
+
     }
     public void EnterState()
     {
@@ -31,7 +33,7 @@ public class AttackingState : IEnemyState
         enemy.ChangeState(new DyingState(enemy));
         return;
         }
-        if((enemy.target == null || !enemy.target.CompareTag("Core")) && !enemy.target.gameObject == attacker.gameObject){
+        if(enemy.target == null || enemy.target.IsDestroyed() || (!enemy.target.CompareTag("Core") && !enemy.target.gameObject == attacker.gameObject)){
             enemy.target = attacker;
             Debug.Log("New target selected: " + attacker.name);
             enemy.ChangeState(new MovingState(enemy));
@@ -42,8 +44,10 @@ public class AttackingState : IEnemyState
     {
         Transform target = enemy.target;
         float damage = enemy.hyperParameters.damage;
-        if(target == null)
+        if(target == null || target.IsDestroyed()){
+            enemy.ChangeState(new IdleState(enemy));
             return;
+        }
         if(Time.time < lastAttackTime + enemy.hyperParameters.attackCooldown)
             return;
         if (enemy.lookAtScript != null){
@@ -53,7 +57,9 @@ public class AttackingState : IEnemyState
                                 target.CompareTag("Player") ? target.GetComponent<PlayerMainScript>().gameObject :
                                 target.CompareTag("Tower")? target.GetComponent<Tower>().gameObject :
                                 target.CompareTag("Core")? target.GetComponent<Castle>().gameObject : null;
-        if (Vector3.Distance(enemy.transform.position,targetObject.transform.position) > enemy.hyperParameters.attackRange)
+        Collider collider = targetObject.GetComponent<Collider>();
+        Vector3 closestPoint = collider.ClosestPoint(enemy.head.transform.position);
+        if (target.CompareTag("Player") && Vector3.Distance(enemy.transform.position,closestPoint) > enemy.hyperParameters.attackRange)
         {
             enemy.ChangeState(new MovingState(enemy));
             return;

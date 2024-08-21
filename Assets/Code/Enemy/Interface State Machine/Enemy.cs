@@ -15,6 +15,7 @@ public class Enemy: MonoBehaviour{
     public PlayerMainScript player;
     public EnemyHyperParameters hyperParameters;
     public Transform head;
+
     void Start(){
         agent = GetComponent<NavMeshAgent>();
         //agent.acceleration = 1f;
@@ -146,8 +147,8 @@ public class Enemy: MonoBehaviour{
         animator.ResetTrigger("Basic Attack");
         SetAnimation(AnimationState.DIE, 1);
 
-        if(waveManager)
-            waveManager.UnregisterEnemy();
+        // if(waveManager)
+        //     waveManager.UnregisterEnemy();
         player.GetCoins(1);
         Destroy(gameObject, 1.3f);
         this.enabled = false;

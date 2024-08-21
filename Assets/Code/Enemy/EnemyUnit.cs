@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
@@ -18,6 +19,8 @@ public class EnemyUnit : MonoBehaviour
         if(magicCirclePrefab != null && magicCirclePrefab.GetComponent<ParticleSystem>().isStopped){
             Destroy(magicCirclePrefab);
         }
-        
+        if(enemies != null && enemies.All(enemy => enemy.hyperParameters.health <= 0)){
+            Destroy(gameObject);
+        }
     }
 }
