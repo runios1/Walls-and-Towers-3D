@@ -10,6 +10,7 @@ TagManager:
   - Projectile
   - Spawner
   - Ground
+  - EnemyUnit
   layers:
   - Default
   - TransparentFX
