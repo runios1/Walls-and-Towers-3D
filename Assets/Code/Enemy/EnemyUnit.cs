@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
@@ -16,10 +17,12 @@ public class EnemyUnit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(magicCirclePrefab != null && magicCirclePrefab.GetComponent<ParticleSystem>().isStopped){
+        if (magicCirclePrefab != null && magicCirclePrefab.GetComponent<ParticleSystem>().isStopped)
+        {
             Destroy(magicCirclePrefab);
         }
-        if(enemies != null && enemies.All(enemy => enemy.hyperParameters.health <= 0)){
+        if (enemies != null && enemies.All(enemy => !enemy || enemy.IsDestroyed()))
+        {
             Destroy(gameObject);
         }
     }
