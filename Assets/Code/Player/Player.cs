@@ -32,6 +32,12 @@ public class PlayerMainScript : MonoBehaviour
 
     public Transform jumpTarget = null;
 
+
+
+    private bool isBuying = false;
+    private string itemBuying;
+    public GameObject buyingUi;
+
     void Start()
     {
         coins = 15;
@@ -58,17 +64,56 @@ public class PlayerMainScript : MonoBehaviour
         }
 
         // Placeables
-
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (!isBuying)
         {
-            shop.Buy("Tower");
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                itemBuying = "Tower";
+                shop.ShowPreview(itemBuying);
+                isBuying = true;
+                buyingUi.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                itemBuying = "Wall";
+                shop.ShowPreview(itemBuying);
+                isBuying = true;
+                buyingUi.SetActive(true);
+            }
+        }
+        else
+        {
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                itemBuying = "Tower";
+                shop.ShowPreview(itemBuying);
+             
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                itemBuying = "Wall";
+                shop.ShowPreview(itemBuying);
+               
+            }
+            if (Input.GetMouseButtonDown(0)) // Left Click
+            {
+                shop.Buy(itemBuying);
+                isBuying = false;
+                buyingUi.SetActive(false);
+
+            }
+            else if (Input.GetMouseButtonDown(1)) // Right Click
+            {
+                shop.RemovePrieview();
+                isBuying = false;
+                buyingUi.SetActive(false);
+            }
+
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            shop.Buy("Wall");
-        }
-        
     }
 
     public void GetCoins(int amount)
