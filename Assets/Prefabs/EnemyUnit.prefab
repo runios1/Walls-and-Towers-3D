@@ -121,6 +121,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 799929154289737652, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: head
+      value: 
+      objectReference: {fileID: 1424321412598474910}
     - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_Name
       value: BlueBoarPBR (4)
@@ -141,6 +145,11 @@ PrefabInstance:
 --- !u!4 &207871395499427290 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+  m_PrefabInstance: {fileID: 280384430772962294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1424321412598474910 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1161951657226922856, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
   m_PrefabInstance: {fileID: 280384430772962294}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4712796849813909735
@@ -191,6 +200,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 799929154289737652, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: head
+      value: 
+      objectReference: {fileID: 5856688477081639823}
     - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_Name
       value: BlueBoarPBR (1)
@@ -211,6 +224,11 @@ PrefabInstance:
 --- !u!4 &4639154061949302475 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+  m_PrefabInstance: {fileID: 4712796849813909735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5856688477081639823 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1161951657226922856, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
   m_PrefabInstance: {fileID: 4712796849813909735}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4762200028342533392
@@ -470,6 +488,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 799929154289737652, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: head
+      value: 
+      objectReference: {fileID: 4796122060010111273}
     - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_Name
       value: BlueBoarPBR (2)
@@ -487,6 +509,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+--- !u!4 &4796122060010111273 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1161951657226922856, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+  m_PrefabInstance: {fileID: 5958028637058804289}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6028502081005825133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
@@ -540,6 +567,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 799929154289737652, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+      propertyPath: head
+      value: 
+      objectReference: {fileID: 8367505257313747569}
     - target: {fileID: 6093324402755370686, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
       propertyPath: m_Name
       value: BlueBoarPBR (3)
@@ -560,5 +591,10 @@ PrefabInstance:
 --- !u!4 &7294121223481012021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 73924331569186348, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
+  m_PrefabInstance: {fileID: 7223577345822140697}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8367505257313747569 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1161951657226922856, guid: 4da50806e3883d0e0a826365b2c6505f, type: 3}
   m_PrefabInstance: {fileID: 7223577345822140697}
   m_PrefabAsset: {fileID: 0}
