@@ -5,6 +5,7 @@ public class MovingState : IEnemyState
     private Enemy enemy;
     private Transform target;
     private Vector3 closestPoint;
+    private Vector3 currentTargetPosition;
     public MovingState(Enemy enemy){
         this.enemy = enemy;
     }
@@ -13,8 +14,10 @@ public class MovingState : IEnemyState
         this.enemy.agent.isStopped = false;
         enemy.agent.ResetPath();
         target = enemy.target;
-        Collider collider = target.GetComponent<Collider>();
+        BoxCollider collider = target.GetComponent<BoxCollider>();
         closestPoint = collider.ClosestPoint(enemy.head.transform.position);
+        currentTargetPosition = enemy.transform.position;
+        Debug.DrawLine(enemy.transform.position,closestPoint, Color.red);
         //add a bit of noise to the target position to avoid getting stuck in corners
         //closestPoint += new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
         //Debug.Log("closestPoint: " + closestPoint);
@@ -43,11 +46,17 @@ public class MovingState : IEnemyState
             enemy.ChangeState(new DyingState(enemy));
             return;
         }
-        //if(enemy.target == null){
+        if(enemy.target != attacker){
             enemy.target = attacker;
             Debug.Log("New target selected: " + attacker.name);
             enemy.ChangeState(new MovingState(enemy));
-        //}
+        }
+    }
+    public void OnReachingWall(Transform wall)
+    {
+        enemy.previousTarget = enemy.target;
+        enemy.target = wall;
+        enemy.ChangeState(new AttackingState(enemy));
     }
 
     public void UpdateState()
@@ -55,10 +64,15 @@ public class MovingState : IEnemyState
         if(IsAtTarget()){
             this.enemy.ChangeState(new AttackingState(enemy));
         }else{
+            if(enemy.target.transform.position != currentTargetPosition){
+                BoxCollider collider = target.GetComponent<BoxCollider>();
+                closestPoint = collider.ClosestPoint(enemy.head.transform.position);
+                currentTargetPosition = enemy.transform.position;
+                enemy.agent.acceleration = 5;
+            }
             this.enemy.agent.SetDestination(closestPoint);
             float agentSpeed = enemy.agent.velocity.magnitude;
             float animationSpeedMultiplier = agentSpeed / enemy.hyperParameters.speed;
-            //enemy.SetAnimation(AnimationState.WALK, 1);
             enemy.animator.SetFloat("speed", animationSpeedMultiplier);
         }
     }

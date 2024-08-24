@@ -4,5 +4,4 @@ using System.Collections.Generic;
 
 public class BasicWall : Placeable
 {
-
 }

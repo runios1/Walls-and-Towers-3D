@@ -24,7 +24,7 @@ public class PlayerMainScript : MonoBehaviour
 
     //respawn vars
     public float respawnTime = 5f;
-    private bool isDead = false;
+    //private bool isDead = false;
     public TMP_Text respawnText;
     public GameObject respawnMenu;
     private Vector3 respawnPosition;
@@ -151,7 +151,7 @@ public class PlayerMainScript : MonoBehaviour
     }
     private IEnumerator Respawn()
     {
-        isDead = true;
+        //isDead = true;
 
         float countdown = respawnTime;
 
@@ -170,7 +170,7 @@ public class PlayerMainScript : MonoBehaviour
         RespawnPlayer();
 
         respawnMenu.SetActive(false);
-        isDead = false;
+        //isDead = false;
     }
     private void RespawnPlayer()
     {

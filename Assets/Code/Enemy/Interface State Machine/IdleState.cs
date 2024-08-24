@@ -20,6 +20,11 @@ public class IdleState : IEnemyState
     {
         return;
     }
+    public void OnReachingWall(Transform wall)
+    {
+        enemy.target=wall;
+        enemy.ChangeState(new MovingState(enemy));
+    }
 
     public EnemyStateEnum getState()
     {

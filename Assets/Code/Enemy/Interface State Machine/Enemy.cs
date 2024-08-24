@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     public NavMeshAgent agent;
     public Transform target;
+    internal Transform previousTarget;
     public Animator animator;
     public LookAt lookAtScript;
     public WaveManager waveManager;
@@ -27,7 +28,7 @@ public class Enemy : MonoBehaviour
         LookAt lookAtScript = FindAnyObjectByType<LookAt>();
         waveManager = FindAnyObjectByType<WaveManager>();
         player = FindAnyObjectByType<PlayerMainScript>();
-        hyperParameters = new EnemyHyperParameters(100f, 10f, 2f, 2f, 1.5f);
+        hyperParameters = new EnemyHyperParameters(100f, 10f, 2f, 1.5f, 1.2f);
         healthBar.SetMaxHealth(hyperParameters.health);
         target = GameObject.FindGameObjectWithTag("Core").transform;
         agent.stoppingDistance = hyperParameters.attackRange;
@@ -96,6 +97,13 @@ public class Enemy : MonoBehaviour
         else
         {
             target = coreObject.transform;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other){
+        if (other.gameObject.CompareTag("Wall")){
+            Debug.Log("Reaching Wall: " + other.gameObject.name);
+            currentState.OnReachingWall(other.gameObject.transform);
         }
     }
 
@@ -206,6 +214,7 @@ public interface IEnemyState
     void UpdateState();
     void ExitState();
     void OnHit(Transform attacker);
+    void OnReachingWall(Transform wall);
 
     EnemyStateEnum getState();
 }

@@ -11,6 +11,7 @@ TagManager:
   - Spawner
   - Ground
   - EnemyUnit
+  - Wall
   layers:
   - Default
   - TransparentFX

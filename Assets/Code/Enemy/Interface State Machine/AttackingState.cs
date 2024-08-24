@@ -33,11 +33,18 @@ public class AttackingState : IEnemyState
         enemy.ChangeState(new DyingState(enemy));
         return;
         }
-        if(enemy.target == null || enemy.target.IsDestroyed() || (!enemy.target.CompareTag("Core") && !enemy.target.gameObject == attacker.gameObject)){
+        if(enemy.target == null || enemy.target.IsDestroyed() || enemy.target.CompareTag("Wall") || (!enemy.target.CompareTag("Core") && !enemy.target.gameObject == attacker.gameObject)){
             enemy.target = attacker;
+            if(enemy.target.CompareTag("Wall")){
+                enemy.previousTarget = null;
+            }
             Debug.Log("New target selected: " + attacker.name);
             enemy.ChangeState(new MovingState(enemy));
         }
+    }
+    public void OnReachingWall(Transform wall)
+    {
+        return;
     }
 
     public void UpdateState()
@@ -53,13 +60,12 @@ public class AttackingState : IEnemyState
         if (enemy.lookAtScript != null){
             enemy.lookAtScript.lookAtTargetPosition = target.position;
         }
-        GameObject targetObject = target == null? null : 
-                                target.CompareTag("Player") ? target.GetComponent<PlayerMainScript>().gameObject :
-                                target.CompareTag("Tower")? target.GetComponent<Tower>().gameObject :
-                                target.CompareTag("Core")? target.GetComponent<Castle>().gameObject : null;
-        Collider collider = targetObject.GetComponent<Collider>();
+
+        BoxCollider collider = target.GetComponent<BoxCollider>();
+        if (collider == null)
+            return;
         Vector3 closestPoint = collider.ClosestPoint(enemy.head.transform.position);
-        if (target.CompareTag("Player") && Vector3.Distance(enemy.transform.position,closestPoint) > enemy.hyperParameters.attackRange)
+        if (target.CompareTag("Player") && Vector3.Distance(enemy.head.transform.position,closestPoint) > enemy.hyperParameters.attackRange)
         {
             enemy.ChangeState(new MovingState(enemy));
             return;
@@ -83,9 +89,20 @@ public class AttackingState : IEnemyState
         {
             target.GetComponent<Castle>().TakeDamage(damage);
             health = target.GetComponent<Castle>().health;
+        }else if (target.CompareTag("Wall"))
+        {
+            target.GetComponent<BasicWall>().TakeDamage(damage);
+            health = target.GetComponent<BasicWall>().health;
         }
         //enemy.SetAnimation(AnimationState.BASIC_ATTACK,0);
         if(health <= 0){
+            if(target.CompareTag("Wall")){
+                if(enemy.previousTarget != null && !enemy.previousTarget.IsDestroyed()){
+                    enemy.target = enemy.previousTarget;
+                    enemy.previousTarget = null;
+                    enemy.ChangeState(new MovingState(enemy));
+                }
+            }
             enemy.ChangeState(new IdleState(enemy));
         }
     }

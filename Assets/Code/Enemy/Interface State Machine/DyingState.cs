@@ -28,6 +28,10 @@ public class DyingState : IEnemyState
     {
         return;
     }
+    public void OnReachingWall(Transform wall)
+    {
+        return;
+    }
     public bool died(){
         return isDead;
     }
