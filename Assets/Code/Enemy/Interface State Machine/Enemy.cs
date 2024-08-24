@@ -23,14 +23,16 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         //agent.acceleration = 1f;
 
-        target = null;
         animator = GetComponent<Animator>();
         LookAt lookAtScript = FindAnyObjectByType<LookAt>();
         waveManager = FindAnyObjectByType<WaveManager>();
         player = FindAnyObjectByType<PlayerMainScript>();
         hyperParameters = new EnemyHyperParameters(100f, 10f, 2f, 1.5f, 1.2f);
         healthBar.SetMaxHealth(hyperParameters.health);
-        target = GameObject.FindGameObjectWithTag("Core").transform;
+        //target = GameObject.FindGameObjectWithTag("Core").transform;
+        //in probability of 0.8, the target is the core, otherwise it is the player
+        target = UnityEngine.Random.Range(0, 1.0f) <= 0.8f ? GameObject.FindGameObjectWithTag("Core").transform
+         : GameObject.FindGameObjectWithTag("Player").transform;
         agent.stoppingDistance = hyperParameters.attackRange;
         //agent.autoBraking=true;
         head = transform.GetChild(4);
