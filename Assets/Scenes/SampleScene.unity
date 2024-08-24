@@ -953,8 +953,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221398181}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.011512572, y: -0.6178213, z: -0.009047154, w: 0.7861823}
+  m_LocalPosition: {x: 0, y: -0.00000023841858, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1697,8 +1697,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1360963272016562, guid: f96fa216d8859434fb29ff7cc4930724, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 1360963272016562, guid: f96fa216d8859434fb29ff7cc4930724, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360963272016562, guid: f96fa216d8859434fb29ff7cc4930724, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1377594981978818, guid: f96fa216d8859434fb29ff7cc4930724, type: 3}
       propertyPath: m_Layer
@@ -3723,7 +3731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778320741}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.029824676, y: -0.61744285, z: -0.02343772, w: 0.7857007}
+  m_LocalRotation: {x: -0.02982468, y: -0.61744285, z: -0.023437724, w: 0.7857007}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4575,7 +4583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993791536}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.048041526, y: -0.6167331, z: -0.03775343, w: 0.7847975}
+  m_LocalRotation: {x: -0.048041526, y: -0.616733, z: -0.03775343, w: 0.7847975}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7622,6 +7630,7 @@ MonoBehaviour:
   respawnTime: 5
   respawnText: {fileID: 1108724671}
   respawnMenu: {fileID: 869701857}
+  jumpTarget: {fileID: 7726331}
 --- !u!65 &1673622613
 BoxCollider:
   m_ObjectHideFlags: 0

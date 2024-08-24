@@ -30,6 +30,7 @@ public class PlayerMainScript : MonoBehaviour
     private Vector3 respawnPosition;
     private float nextAttackTime = 0f;
 
+    public Transform jumpTarget = null;
 
     void Start()
     {
@@ -48,6 +49,10 @@ public class PlayerMainScript : MonoBehaviour
     {
         if (Time.time >= nextAttackTime &&  Input.GetMouseButtonDown(0) && !IsAttackingAnimation())
         {
+            if(animator){
+                animator.MatchTarget(jumpTarget.position, jumpTarget.rotation, AvatarTarget.LeftFoot,
+                                                       new MatchTargetWeightMask(Vector3.one, 1f), 0.141f, 0.78f);
+            }
             Attack();
             nextAttackTime = Time.time +0.2f;
         }
@@ -176,6 +181,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         
         health = maxHealth;
+        healthBar.SetMaxHealth(health);
         transform.position = respawnPosition; 
     }
 }

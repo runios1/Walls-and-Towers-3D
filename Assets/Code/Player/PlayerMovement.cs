@@ -34,12 +34,14 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -2f;
             jumpedOnce=false;
+            animator.SetBool("Jump", false);
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded && !jumpedOnce)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
             jumpedOnce=true;
+            animator.SetBool("Jump", true);
         }
         //gravity
         velocity.y += gravity * Time.deltaTime;
