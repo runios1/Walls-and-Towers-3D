@@ -43,6 +43,7 @@ public class PlayerMainScript : MonoBehaviour
     private bool isBuying = false;
     private string itemBuying;
     public GameObject buyingUi;
+    private ScoringSystem scoringSystem;
 
     void Start()
     {
@@ -55,6 +56,7 @@ public class PlayerMainScript : MonoBehaviour
         respawnPosition = transform.position;
 
         audioSource = GetComponent<AudioSource>();
+        scoringSystem = FindObjectOfType<ScoringSystem>();
     }
 
     // Update is called once per frame
@@ -135,6 +137,8 @@ public class PlayerMainScript : MonoBehaviour
     {
         coins += amount;
         coinCounter.IncreaseCounter(amount);
+
+        scoringSystem.CoinsGained(amount);
     }
 
     public bool LoseCoins(int amount)
@@ -143,6 +147,8 @@ public class PlayerMainScript : MonoBehaviour
         {
             coins -= amount;
             coinCounter.DecreaseCounter(amount);
+
+            scoringSystem.CoinsUsed(amount);
             return true;
         }
         else
