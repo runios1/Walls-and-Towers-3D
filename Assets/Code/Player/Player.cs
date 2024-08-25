@@ -39,6 +39,11 @@ public class PlayerMainScript : MonoBehaviour
     public AudioClip buildSound;
     public AudioClip hurtSound;
 
+
+    private bool isBuying = false;
+    private string itemBuying;
+    public GameObject buyingUi;
+
     void Start()
     {
         coins = 15;
@@ -71,22 +76,57 @@ public class PlayerMainScript : MonoBehaviour
         }
 
         // Placeables
-
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (!isBuying)
         {
-            shop.Buy("Tower");
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                itemBuying = "Tower";
+                shop.ShowPreview(itemBuying);
+                isBuying = true;
+                buyingUi.SetActive(true);
+            }
 
-            audioSource.clip = buildSound;
-            audioSource.loop = false;
-            audioSource.Play();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                itemBuying = "Wall";
+                shop.ShowPreview(itemBuying);
+                isBuying = true;
+                buyingUi.SetActive(true);
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
+        else
         {
-            shop.Buy("Wall");
-            audioSource.clip = buildSound;
-            audioSource.loop = false;
-            audioSource.Play();
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                itemBuying = "Tower";
+                shop.ShowPreview(itemBuying);
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                itemBuying = "Wall";
+                shop.ShowPreview(itemBuying);
+
+            }
+            if (Input.GetMouseButtonDown(0)) // Left Click
+            {
+                shop.Buy(itemBuying);
+                isBuying = false;
+                buyingUi.SetActive(false);
+
+                audioSource.clip = buildSound;
+                audioSource.loop = false;
+                audioSource.Play();
+            }
+            else if (Input.GetMouseButtonDown(1)) // Right Click
+            {
+                shop.RemovePrieview();
+                isBuying = false;
+                buyingUi.SetActive(false);
+            }
+
         }
 
     }
