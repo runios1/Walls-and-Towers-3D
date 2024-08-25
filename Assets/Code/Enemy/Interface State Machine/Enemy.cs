@@ -18,8 +18,18 @@ public class Enemy : MonoBehaviour
     public EnemyHyperParameters hyperParameters;
     public Transform head;
 
+    [HideInInspector]
+    public AudioSource audioSource;
+    [Header("Audio")]
+    public AudioClip walkSound;
+    public AudioClip attackSound;
+    public AudioClip dieSound;
+
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         agent = GetComponent<NavMeshAgent>();
         //agent.acceleration = 1f;
 
@@ -102,8 +112,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other){
-        if (other.gameObject.CompareTag("Wall")){
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
+        {
             Debug.Log("Reaching Wall: " + other.gameObject.name);
             currentState.OnReachingWall(other.gameObject.transform);
         }

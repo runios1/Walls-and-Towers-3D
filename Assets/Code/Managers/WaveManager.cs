@@ -10,8 +10,16 @@ public class WaveManager : MonoBehaviour
     public WaveCounter waveCounter;
     public Castle castle;
     public PlayerMainScript player;
+    [Header("Audio")]
+    private AudioSource audioSource;
+
+    public AudioClip waveCompleteSound;
+    public AudioClip victorySound;
+
     async void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         enemiesLeftForWave = new int[2];
         waveNum = 1;
         waveCounter.ResetCounter(2);
@@ -59,6 +67,8 @@ public class WaveManager : MonoBehaviour
             Debug.Log("All waves completed!");
             await AldenGenerator.LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
 
+            audioSource.clip = victorySound;
+            audioSource.Play();
         }
     }
 
@@ -69,6 +79,10 @@ public class WaveManager : MonoBehaviour
         {
             waveNum++;
             await AldenGenerator.LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+
+            audioSource.clip = waveCompleteSound;
+            audioSource.Play();
+
             StartNextWave();
         }
     }

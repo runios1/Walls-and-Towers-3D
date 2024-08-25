@@ -32,6 +32,13 @@ public class PlayerMainScript : MonoBehaviour
 
     public Transform jumpTarget = null;
 
+    [Header("Audio")]
+    private AudioSource audioSource;
+
+    public AudioClip attackSound;
+    public AudioClip buildSound;
+    public AudioClip hurtSound;
+
     void Start()
     {
         coins = 15;
@@ -42,19 +49,25 @@ public class PlayerMainScript : MonoBehaviour
         originalColor = playerRenderer.material.color;
         respawnPosition = transform.position;
 
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= nextAttackTime &&  Input.GetMouseButtonDown(0) && !IsAttackingAnimation())
+        if (Time.time >= nextAttackTime && Input.GetMouseButtonDown(0) && !IsAttackingAnimation())
         {
-            if(animator){
+            if (animator)
+            {
                 animator.MatchTarget(jumpTarget.position, jumpTarget.rotation, AvatarTarget.LeftFoot,
                                                        new MatchTargetWeightMask(Vector3.one, 1f), 0.141f, 0.78f);
             }
             Attack();
-            nextAttackTime = Time.time +0.2f;
+            nextAttackTime = Time.time + 0.2f;
+
+            audioSource.clip = attackSound;
+            audioSource.loop = false;
+            audioSource.Play();
         }
 
         // Placeables
@@ -62,13 +75,20 @@ public class PlayerMainScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             shop.Buy("Tower");
+
+            audioSource.clip = buildSound;
+            audioSource.loop = false;
+            audioSource.Play();
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
             shop.Buy("Wall");
+            audioSource.clip = buildSound;
+            audioSource.loop = false;
+            audioSource.Play();
         }
-        
+
     }
 
     public void GetCoins(int amount)
@@ -95,6 +115,11 @@ public class PlayerMainScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (health <= 0) return; // FIXME: Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
+
+        audioSource.clip = hurtSound;
+        audioSource.loop = false;
+        audioSource.Play();
+
         if (damageColorChange == null)
         {
             damageColorChange = StartCoroutine(ChangeColorOnDamage());
@@ -179,9 +204,9 @@ public class PlayerMainScript : MonoBehaviour
     }
     private void RespawnPlayer()
     {
-        
+
         health = maxHealth;
         healthBar.SetMaxHealth(health);
-        transform.position = respawnPosition; 
+        transform.position = respawnPosition;
     }
 }

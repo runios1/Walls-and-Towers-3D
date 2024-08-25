@@ -6,7 +6,8 @@ public class AttackingState : IEnemyState
     private Enemy enemy;
     //private Vector3 attackPosition;
     private float lastAttackTime;
-    public AttackingState(Enemy enemy){
+    public AttackingState(Enemy enemy)
+    {
         this.enemy = enemy;
         lastAttackTime = Time.time;
 
@@ -14,12 +15,16 @@ public class AttackingState : IEnemyState
     public void EnterState()
     {
         //enemy.SetAnimation(AnimationState.BASIC_ATTACK,1);
+        enemy.audioSource.clip = enemy.attackSound;
+        enemy.audioSource.loop = true;
+        enemy.audioSource.Play();
     }
 
     public void ExitState()
     {
         //enemy.SetAnimation(AnimationState.BASIC_ATTACK,0);
         Debug.Log("Attacking State Exit");
+        if (enemy.audioSource.clip = enemy.attackSound) enemy.audioSource.Stop();
     }
 
     public EnemyStateEnum getState()
@@ -29,13 +34,16 @@ public class AttackingState : IEnemyState
 
     public void OnHit(Transform attacker)
     {
-        if(enemy.hyperParameters.health <= 0){
-        enemy.ChangeState(new DyingState(enemy));
-        return;
+        if (enemy.hyperParameters.health <= 0)
+        {
+            enemy.ChangeState(new DyingState(enemy));
+            return;
         }
-        if(enemy.target == null || enemy.target.IsDestroyed() || enemy.target.CompareTag("Wall") || (!enemy.target.CompareTag("Core") && !enemy.target.gameObject == attacker.gameObject)){
+        if (enemy.target == null || enemy.target.IsDestroyed() || enemy.target.CompareTag("Wall") || (!enemy.target.CompareTag("Core") && !enemy.target.gameObject == attacker.gameObject))
+        {
             enemy.target = attacker;
-            if(enemy.target.CompareTag("Wall")){
+            if (enemy.target.CompareTag("Wall"))
+            {
                 enemy.previousTarget = null;
             }
             Debug.Log("New target selected: " + attacker.name);
@@ -51,13 +59,15 @@ public class AttackingState : IEnemyState
     {
         Transform target = enemy.target;
         float damage = enemy.hyperParameters.damage;
-        if(target == null || target.IsDestroyed()){
+        if (target == null || target.IsDestroyed())
+        {
             enemy.ChangeState(new IdleState(enemy));
             return;
         }
-        if(Time.time < lastAttackTime + enemy.hyperParameters.attackCooldown)
+        if (Time.time < lastAttackTime + enemy.hyperParameters.attackCooldown)
             return;
-        if (enemy.lookAtScript != null){
+        if (enemy.lookAtScript != null)
+        {
             enemy.lookAtScript.lookAtTargetPosition = target.position;
         }
 
@@ -65,7 +75,7 @@ public class AttackingState : IEnemyState
         if (collider == null)
             return;
         Vector3 closestPoint = collider.ClosestPoint(enemy.head.transform.position);
-        if (target.CompareTag("Player") && Vector3.Distance(enemy.head.transform.position,closestPoint) > enemy.hyperParameters.attackRange)
+        if (target.CompareTag("Player") && Vector3.Distance(enemy.head.transform.position, closestPoint) > enemy.hyperParameters.attackRange)
         {
             enemy.ChangeState(new MovingState(enemy));
             return;
@@ -74,7 +84,7 @@ public class AttackingState : IEnemyState
         Debug.Log("ATTACKING! Target: " + (target != null ? target.name : "None"));
         float health = float.MaxValue;
         enemy.animator.ResetTrigger("GetHit");
-        enemy.SetAnimation(AnimationState.BASIC_ATTACK,1);
+        enemy.SetAnimation(AnimationState.BASIC_ATTACK, 1);
         if (target.CompareTag("Player"))
         {
             target.GetComponent<PlayerMainScript>().TakeDamage(damage);
@@ -89,15 +99,19 @@ public class AttackingState : IEnemyState
         {
             target.GetComponent<Castle>().TakeDamage(damage);
             health = target.GetComponent<Castle>().health;
-        }else if (target.CompareTag("Wall"))
+        }
+        else if (target.CompareTag("Wall"))
         {
             target.GetComponent<BasicWall>().TakeDamage(damage);
             health = target.GetComponent<BasicWall>().health;
         }
         //enemy.SetAnimation(AnimationState.BASIC_ATTACK,0);
-        if(health <= 0){
-            if(target.CompareTag("Wall")){
-                if(enemy.previousTarget != null && !enemy.previousTarget.IsDestroyed()){
+        if (health <= 0)
+        {
+            if (target.CompareTag("Wall"))
+            {
+                if (enemy.previousTarget != null && !enemy.previousTarget.IsDestroyed())
+                {
                     enemy.target = enemy.previousTarget;
                     enemy.previousTarget = null;
                     enemy.ChangeState(new MovingState(enemy));

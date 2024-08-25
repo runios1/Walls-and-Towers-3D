@@ -23,25 +23,40 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animations")]
     public Animator animator;
 
+    [Header("Audio")]
+    private AudioSource audioSource;
+    public AudioClip walkSound;
+    public AudioClip jumpSound;
+
     private bool jumpedOnce = false;
+
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     // Update is called once per frame
     void Update()
     {
         //jump
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        animator.SetBool("Ground",isGrounded);
+        animator.SetBool("Ground", isGrounded);
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
-            jumpedOnce=false;
+            jumpedOnce = false;
             animator.SetBool("Jump", false);
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded && !jumpedOnce)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-            jumpedOnce=true;
+            jumpedOnce = true;
             animator.SetBool("Jump", true);
+
+            audioSource.clip = jumpSound;
+            audioSource.loop = false;
+            audioSource.Play();
         }
         //gravity
         velocity.y += gravity * Time.deltaTime;
@@ -65,12 +80,21 @@ public class PlayerMovement : MonoBehaviour
             // Update animator parameters
             animator.SetFloat("Horizontal", horizontal);
             animator.SetFloat("Vertical", vertical);
+
+            if (isGrounded && !audioSource.isPlaying)
+            {
+                audioSource.clip = walkSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
         }
         else
         {
             // If not moving, set parameters to 0
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
+
+            if (audioSource.clip == walkSound) audioSource.Stop();
         }
     }
 }

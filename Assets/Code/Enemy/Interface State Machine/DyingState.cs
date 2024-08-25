@@ -4,11 +4,15 @@ public class DyingState : IEnemyState
 {
     private Enemy enemy;
     private bool isDead = false;
-    public DyingState(Enemy enemy){
+    public DyingState(Enemy enemy)
+    {
         this.enemy = enemy;
     }
     public void EnterState()
     {
+        enemy.audioSource.clip = enemy.dieSound;
+        enemy.audioSource.loop = false;
+        enemy.audioSource.Play();
         //enemy.SetAnimation(AnimationState.DIE, 1);
         enemy.agent.isStopped = true;
         enemy.agent.ResetPath();
@@ -32,12 +36,14 @@ public class DyingState : IEnemyState
     {
         return;
     }
-    public bool died(){
+    public bool died()
+    {
         return isDead;
     }
     public void UpdateState()
     {
-        if(!isDead){
+        if (!isDead)
+        {
             isDead = true;
             enemy.Die();
             Debug.Log("Dying!");

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Castle : MonoBehaviour
@@ -7,6 +9,7 @@ public class Castle : MonoBehaviour
     public float health = 100;
     public HealthBar healthBar;
     public GameObject GameOverMenu;
+    public AudioClip gameoverClip;
     void Start()
     {
         healthBar.SetMaxHealth(health);
@@ -24,6 +27,16 @@ public class Castle : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             GameOverMenu.SetActive(true);
+
+            AudioSource[] allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+
+            foreach (AudioSource audioS in allAudioSources)
+            {
+                audioS.Stop();
+            }
+
+            GameOverMenu.GetComponent<AudioSource>().Play();
+
             await AldenGenerator.LogAldenChat("The castle was destroyed and now the monsters are going to kill you");
         }
     }

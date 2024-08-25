@@ -6,7 +6,8 @@ public class MovingState : IEnemyState
     private Transform target;
     private Vector3 closestPoint;
     private Vector3 currentTargetPosition;
-    public MovingState(Enemy enemy){
+    public MovingState(Enemy enemy)
+    {
         this.enemy = enemy;
     }
     public void EnterState()
@@ -17,22 +18,27 @@ public class MovingState : IEnemyState
         BoxCollider collider = target.GetComponent<BoxCollider>();
         closestPoint = collider.ClosestPoint(enemy.head.transform.position);
         currentTargetPosition = enemy.transform.position;
-        Debug.DrawLine(enemy.transform.position,closestPoint, Color.red);
+        Debug.DrawLine(enemy.transform.position, closestPoint, Color.red);
         //add a bit of noise to the target position to avoid getting stuck in corners
         //closestPoint += new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
         //Debug.Log("closestPoint: " + closestPoint);
         enemy.SetAnimation(AnimationState.WALK, 1);
-        enemy.SetAnimation(AnimationState.SPEED,enemy.hyperParameters.speed);
-        
+        enemy.SetAnimation(AnimationState.SPEED, enemy.hyperParameters.speed);
+
+        enemy.audioSource.clip = enemy.walkSound;
+        enemy.audioSource.loop = true;
+        enemy.audioSource.Play();
     }
 
     public void ExitState()
     {
         this.enemy.agent.isStopped = true;
         enemy.agent.ResetPath();
-        
+
         this.enemy.SetAnimation(AnimationState.WALK, 0);
-        enemy.SetAnimation(AnimationState.SPEED,0);
+        enemy.SetAnimation(AnimationState.SPEED, 0);
+
+        if (enemy.audioSource.clip = enemy.walkSound) enemy.audioSource.Stop();
     }
 
     public EnemyStateEnum getState()
@@ -42,11 +48,13 @@ public class MovingState : IEnemyState
 
     public void OnHit(Transform attacker)
     {
-        if(enemy.hyperParameters.health <= 0){
+        if (enemy.hyperParameters.health <= 0)
+        {
             enemy.ChangeState(new DyingState(enemy));
             return;
         }
-        if(enemy.target != attacker){
+        if (enemy.target != attacker)
+        {
             enemy.target = attacker;
             Debug.Log("New target selected: " + attacker.name);
             enemy.ChangeState(new MovingState(enemy));
@@ -61,10 +69,14 @@ public class MovingState : IEnemyState
 
     public void UpdateState()
     {
-        if(IsAtTarget()){
+        if (IsAtTarget())
+        {
             this.enemy.ChangeState(new AttackingState(enemy));
-        }else{
-            if(enemy.target.transform.position != currentTargetPosition){
+        }
+        else
+        {
+            if (enemy.target.transform.position != currentTargetPosition)
+            {
                 BoxCollider collider = target.GetComponent<BoxCollider>();
                 closestPoint = collider.ClosestPoint(enemy.head.transform.position);
                 currentTargetPosition = enemy.transform.position;
@@ -76,7 +88,8 @@ public class MovingState : IEnemyState
             enemy.animator.SetFloat("speed", animationSpeedMultiplier);
         }
     }
-    private bool IsAtTarget(){
+    private bool IsAtTarget()
+    {
         return Vector3.Distance(enemy.head.transform.position, closestPoint) < enemy.hyperParameters.attackRange;
     }
 }
