@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using TMPro;
 
 public class ScoringSystem : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class ScoringSystem : MonoBehaviour
     public Castle castle; // Reference to the Castle script
     public PlayerMainScript player; // Reference to the Player script
 
-
+    public TextMeshProUGUI text;
     private float initialCastleHealth;
 
     void Update()
@@ -28,6 +28,7 @@ public class ScoringSystem : MonoBehaviour
         player = FindObjectOfType<PlayerMainScript>();
 
         Debug.Log("Current Score: " + score);
+        text.text = "Score: " + score.ToString("F2");
     }
 
     public void EnemyKilled()
@@ -47,12 +48,15 @@ public class ScoringSystem : MonoBehaviour
 
     private float CalculateScore()
     {
-        float normalizedCastleHealth = castle.health / 100f; // Assuming castle health is out of 100
-        int netCoins = coinsGained - coinsUsed; // Net coins calculation
-        return (weightEnemiesKilled * enemiesKilled) +
-               (weightCastleHealth * normalizedCastleHealth) +
-               (weightCoinsUsed * coinsUsed) + 
-               (weightCoinsGained * netCoins);
+        if(player != null && castle!= null){
+            float normalizedCastleHealth = castle.health / initialCastleHealth; // Assuming castle health is out of 100
+            int netCoins = coinsGained - coinsUsed; // Net coins calculation
+            return (weightEnemiesKilled * enemiesKilled) +
+                (weightCastleHealth * normalizedCastleHealth) +
+                (weightCoinsUsed * coinsUsed) + 
+                (weightCoinsGained * netCoins);
+        }
+        return 0;
     }
 }
 
