@@ -18,7 +18,9 @@ public class Shop : MonoBehaviour
     public float previewOpacity = 0.5f;
     public Transform player;
     public float rotationSpeed = 100.0f;
-    private float rotationAngle = 0.0f;       
+    private float rotationAngle = 0.0f;
+    public Transform cam;
+    float turnSmoothVelocity;
 
     void Start()
     {
@@ -51,7 +53,7 @@ public class Shop : MonoBehaviour
         RemovePrieview();
         if (itemPrefabs.TryGetValue(itemID, out Placeable itemPrefab))
         {
-            Vector3 previewPosition = player.position + player.forward * previewDistance;
+            Vector3 previewPosition = CalculatePreviewPostion();
 
             itemPreviewInstance = Instantiate(itemPrefab.prefab, previewPosition, player.rotation);
             SetOpacity(itemPreviewInstance, previewOpacity);
@@ -62,7 +64,7 @@ public class Shop : MonoBehaviour
 
     public void PlaceItem(Placeable item)
     {
-        Vector3 previewPosition = player.position + player.forward * previewDistance;
+        Vector3 previewPosition = CalculatePreviewPostion();
         Vector3 adjustedPosition = new Vector3(previewPosition.x, 0, previewPosition.z);
 
         Instantiate(item.prefab, adjustedPosition, Quaternion.Euler(0, rotationAngle, 0)); // Use the current rotation
@@ -81,7 +83,7 @@ public class Shop : MonoBehaviour
         if (itemPreviewInstance != null)
         {
             // Calculate the position ahead of the player
-            Vector3 previewPosition = player.position + player.forward * previewDistance;
+            Vector3 previewPosition = CalculatePreviewPostion();
 
             // Update the preview position
             itemPreviewInstance.transform.position = previewPosition;
@@ -96,6 +98,15 @@ public class Shop : MonoBehaviour
             // Apply the updated rotation to the preview object
             itemPreviewInstance.transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
         }
+    }
+    private Vector3 CalculatePreviewPostion()
+    {
+        //player
+        return player.position + player.forward * previewDistance; 
+
+        ////cam
+        
+
     }
     private void SetOpacity(GameObject obj, float opacity)
     {
