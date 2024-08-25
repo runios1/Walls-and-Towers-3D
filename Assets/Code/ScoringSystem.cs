@@ -19,13 +19,15 @@ public class ScoringSystem : MonoBehaviour
     public TextMeshProUGUI text;
     private float initialCastleHealth;
 
+    void Start(){
+        castle = FindObjectOfType<Castle>();
+        initialCastleHealth = castle.health;
+        player = FindObjectOfType<PlayerMainScript>();
+    }
     void Update()
     {
         // Calculate and display the current score for debugging or UI purposes
         float score = CalculateScore();
-        castle = FindObjectOfType<Castle>();
-        initialCastleHealth = castle.health;
-        player = FindObjectOfType<PlayerMainScript>();
 
         Debug.Log("Current Score: " + score);
         text.text = "Score: " + score.ToString("F2");
