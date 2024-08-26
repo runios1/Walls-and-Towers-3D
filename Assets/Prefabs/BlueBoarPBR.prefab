@@ -1004,6 +1004,7 @@ GameObject:
   - component: {fileID: 5491868652041995538}
   - component: {fileID: 619053085264864901}
   - component: {fileID: 280907763928590496}
+  - component: {fileID: 5562359322244883158}
   m_Layer: 0
   m_Name: BlueBoarPBR
   m_TagString: Enemy
@@ -1322,6 +1323,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1183024399 &5562359322244883158
+LookAtConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093324402755370686}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_Roll: 0
+  m_WorldUpObject: {fileID: 0}
+  m_UseUpObject: 0
+  m_Active: 1
+  m_IsLocked: 1
+  m_Sources: []
 --- !u!1 &6380085223264328350
 GameObject:
   m_ObjectHideFlags: 0
