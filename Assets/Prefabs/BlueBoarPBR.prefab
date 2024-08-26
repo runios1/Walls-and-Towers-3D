@@ -1054,7 +1054,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   walkSound: {fileID: 8300000, guid: 5e6e8a80caeff2d4a9d732eb0213a192, type: 3}
   attackSound: {fileID: 8300000, guid: 360a0e8e20cfff14f9f2b1a542449c68, type: 3}
-  dieSound: {fileID: 8300000, guid: f86d4d44eb7f16c4ba0dc0c337a6f337, type: 3}
+  dieSound: {fileID: 8300000, guid: 6ac9596897ed804499bca2d3ebd83ed8, type: 3}
 --- !u!95 &1866579069409288266
 Animator:
   serializedVersion: 5
