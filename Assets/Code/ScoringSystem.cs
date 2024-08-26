@@ -17,9 +17,11 @@ public class ScoringSystem : MonoBehaviour
     public PlayerMainScript player; // Reference to the Player script
 
     public TextMeshProUGUI text;
+    private float currentScore;
     private float initialCastleHealth;
 
     void Start(){
+        currentScore = 0;
         castle = FindObjectOfType<Castle>();
         initialCastleHealth = castle.health;
         player = FindObjectOfType<PlayerMainScript>();
@@ -27,10 +29,10 @@ public class ScoringSystem : MonoBehaviour
     void Update()
     {
         // Calculate and display the current score for debugging or UI purposes
-        float score = CalculateScore();
+        currentScore = CalculateScore();
 
-        Debug.Log("Current Score: " + score);
-        text.text = "Score: " + score.ToString("F2");
+        Debug.Log("Current Score: " + currentScore);
+        text.text = "Score: " + currentScore.ToString("F2");
     }
 
     public void EnemyKilled()
@@ -60,5 +62,6 @@ public class ScoringSystem : MonoBehaviour
         }
         return 0;
     }
+    public float getScore() => currentScore;
 }
 

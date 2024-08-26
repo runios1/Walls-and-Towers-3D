@@ -101,6 +101,8 @@ public class Shop : MonoBehaviour
     }
     private Vector3 CalculatePreviewPostion()
     {
+        //player
+        // Calculate the angle based on the camera's forward direction
         Vector3 output = player.position + cam.forward.normalized * previewDistance;
         output.y = 0;
 

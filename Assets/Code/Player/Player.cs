@@ -47,6 +47,8 @@ public class PlayerMainScript : MonoBehaviour
     public GameObject buyingUi;
     private ScoringSystem scoringSystem;
 
+    public GameObject GameOverMenu;
+
     void Start()
     {
         coins = 15;
@@ -55,7 +57,7 @@ public class PlayerMainScript : MonoBehaviour
         coinCounter.IncreaseCounter(coins);
 
         originalColor = playerRenderer.material.color;
-        respawnPosition = transform.position;
+        respawnPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         audioSource = GetComponent<AudioSource>();
         scoringSystem = FindObjectOfType<ScoringSystem>();
@@ -190,7 +192,23 @@ public class PlayerMainScript : MonoBehaviour
     {
 
         // await LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
-        StartCoroutine(Respawn());
+        //StartCoroutine(Respawn());
+        
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        GameOverMenu.SetActive(true);
+
+        AudioSource[] allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.Stop();
+        }
+
+        GameOverMenu.GetComponent<AudioSource>().Play();
+
+
     }
     void Attack()
     {
