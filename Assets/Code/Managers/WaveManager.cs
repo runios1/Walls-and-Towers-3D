@@ -18,6 +18,8 @@ public class WaveManager : MonoBehaviour
     public AudioClip victorySound;
 
     void Start()
+    public GameObject victoryMenu;
+    async void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
@@ -70,6 +72,9 @@ public class WaveManager : MonoBehaviour
 
             audioSource.clip = victorySound;
             audioSource.Play();
+
+            victoryMenu.SetActive(true);
+
         }
     }
 

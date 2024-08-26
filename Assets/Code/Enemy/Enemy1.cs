@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public AudioClip walkSound;
     public AudioClip attackSound;
     public AudioClip dieSound;
-
+    private ScoringSystem scoringSystem;
 
     void Start()
     {
@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour
         agent.stoppingDistance = hyperParameters.attackRange;
         //agent.autoBraking=true;
         head = transform.GetChild(4);
+
+        scoringSystem = FindObjectOfType<ScoringSystem>();
         ChangeState(new IdleState(this));
     }
 
@@ -183,6 +185,7 @@ public class Enemy : MonoBehaviour
         if (waveManager)
             waveManager.UnregisterEnemy();
         player.GetCoins(1);
+        scoringSystem.EnemyKilled();
         Destroy(gameObject, 1.3f);
         this.enabled = false;
     }
