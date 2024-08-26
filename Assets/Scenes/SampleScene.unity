@@ -10239,6 +10239,7 @@ MonoBehaviour:
   buildSound: {fileID: 8300000, guid: 9222fa753c9dbca43843532fb3599ebc, type: 3}
   hurtSound: {fileID: 8300000, guid: 1bb323278f2b5d447807e11dc5328a32, type: 3}
   buyingUi: {fileID: 1838032315}
+  GameOverMenu: {fileID: 1180340640}
 --- !u!65 &1673622613
 BoxCollider:
   m_ObjectHideFlags: 0
