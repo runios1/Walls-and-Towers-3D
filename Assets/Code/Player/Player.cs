@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+// using static AldenGenerator;
+
 public class PlayerMainScript : MonoBehaviour
 {
     public float health;
@@ -178,10 +180,10 @@ public class PlayerMainScript : MonoBehaviour
             Die();
         }
     }
-    async void Die()
+    void Die()
     {
 
-        await AldenGenerator.LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
+        // await LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
         StartCoroutine(Respawn());
     }
     void Attack()

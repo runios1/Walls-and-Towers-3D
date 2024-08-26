@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
@@ -21,7 +20,7 @@ public class EnemyUnit : MonoBehaviour
         {
             Destroy(magicCirclePrefab);
         }
-        if (enemies != null && enemies.All(enemy => !enemy || enemy.IsDestroyed()))
+        if (enemies != null && enemies.All(enemy => !enemy)) // TODO: test that it still works
         {
             Destroy(gameObject);
         }

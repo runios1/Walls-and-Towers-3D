@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+// using static AldenGenerator;
 
 public class WaveManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class WaveManager : MonoBehaviour
     public AudioClip waveCompleteSound;
     public AudioClip victorySound;
 
-    async void Start()
+    void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
@@ -28,7 +29,7 @@ public class WaveManager : MonoBehaviour
         castle = GameObject.FindGameObjectWithTag("Core").GetComponent<Castle>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMainScript>();
 
-        await AldenGenerator.LogAldenChat("Monsters are just beginning their way towards the castle");
+        // await LogAldenChat("Monsters are just beginning their way towards the castle");
         InitializeWaveSpawnPoints();
         StartNextWave();
     }
@@ -53,7 +54,7 @@ public class WaveManager : MonoBehaviour
 
     }
 
-    private async void StartNextWave()
+    private void StartNextWave()
     {
         if (waveNum - 1 < waveSpawnPoints.Count)
         {
@@ -65,20 +66,20 @@ public class WaveManager : MonoBehaviour
         else
         {
             Debug.Log("All waves completed!");
-            await AldenGenerator.LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+            // await LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
 
             audioSource.clip = victorySound;
             audioSource.Play();
         }
     }
 
-    public async void UnregisterEnemy()
+    public void UnregisterEnemy()
     {
         enemiesLeftForWave[waveNum - 1]--;
         if (enemiesLeftForWave[waveNum - 1] == 0)
         {
             waveNum++;
-            await AldenGenerator.LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+            // await LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
 
             audioSource.clip = waveCompleteSound;
             audioSource.Play();

@@ -35,7 +35,6 @@
 // // }
 // using System;
 // using System.Collections;
-// using Unity.VisualScripting;
 // using UnityEngine;
 // using UnityEngine.AI;
 // public class Enemy : MonoBehaviour
@@ -340,7 +339,7 @@
 //         //     SetInitialTarget();
 //         //     Debug.Log("Reverting to initial target: Core");
 //         // }
-        
+
 //         /*
 //         if the enemy's target is the castle but it is near a tower, it will select the the tower as a target in probabiltiy of 0.5
 //         */

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Unity.VisualScripting;
 using UnityEngine;
+// using static AldenGenerator;
 
 public class Castle : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class Castle : MonoBehaviour
         healthBar.SetMaxHealth(health);
     }
 
-    public async void TakeDamage(float amount)
+    public void TakeDamage(float amount)
     {
         if (health <= 0) return; // FIXME: Placeholder to not keep executing this function even though the castle is destroyed until gameover is implemented
         health -= amount;
@@ -37,7 +37,7 @@ public class Castle : MonoBehaviour
 
             GameOverMenu.GetComponent<AudioSource>().Play();
 
-            await AldenGenerator.LogAldenChat("The castle was destroyed and now the monsters are going to kill you");
+            // await LogAldenChat("The castle was destroyed and now the monsters are going to kill you");
         }
     }
 }
