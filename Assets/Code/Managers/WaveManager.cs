@@ -17,9 +17,10 @@ public class WaveManager : MonoBehaviour
     public AudioClip waveCompleteSound;
     public AudioClip victorySound;
 
-    void Start()
+    
     public GameObject victoryMenu;
-    async void Start()
+    //async void Start()
+    void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
