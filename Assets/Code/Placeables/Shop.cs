@@ -102,11 +102,11 @@ public class Shop : MonoBehaviour
     private Vector3 CalculatePreviewPostion()
     {
         //player
-        return player.position + player.forward * previewDistance; 
+        // Calculate the angle based on the camera's forward direction
+        Vector3 output = player.position + cam.forward.normalized * previewDistance;
+        output.y = 0;
 
-        ////cam
-        
-
+        return output;
     }
     private void SetOpacity(GameObject obj, float opacity)
     {
