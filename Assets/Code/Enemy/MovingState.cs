@@ -71,11 +71,11 @@ public class MovingState : IEnemyState
     {
         if (IsAtTarget())
         {
-            this.enemy.ChangeState(new AttackingState(enemy));
+            enemy.ChangeState(new AttackingState(enemy));
         }
         else
         {
-            if (enemy.target.transform.position != currentTargetPosition)
+            if (enemy.target && enemy.target.transform.position != currentTargetPosition)
             {
                 BoxCollider collider = target.GetComponent<BoxCollider>();
                 closestPoint = collider.ClosestPoint(enemy.head.transform.position);
