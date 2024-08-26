@@ -10067,8 +10067,8 @@ MonoBehaviour:
     m_Bits: 247
   turnSmoothTime: 0.1
   animator: {fileID: 2059798251}
-  walkSound: {fileID: 8300000, guid: 96860d4e7cdc1f746906da7b7bc7a388, type: 3}
-  jumpSound: {fileID: 8300000, guid: 856b6d74addb9ad4ab2b7b47bae3e839, type: 3}
+  walkSound: {fileID: 8300000, guid: 5b82f243bbbe3454196798784fefa190, type: 3}
+  jumpSound: {fileID: 8300000, guid: 6bfc0b58a0e6f904baf931df56bac572, type: 3}
 --- !u!143 &1673622611
 CharacterController:
   m_ObjectHideFlags: 0
