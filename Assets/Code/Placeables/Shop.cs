@@ -14,7 +14,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private Placeable wallPrefab;
     [Header("Preview")]
     private GameObject itemPreviewInstance;
-    public float previewDistance = 10.0f;    
+    public float previewDistance = 10.0f;
     public float previewOpacity = 0.5f;
     public Transform player;
     public float rotationSpeed = 100.0f;
@@ -101,12 +101,10 @@ public class Shop : MonoBehaviour
     }
     private Vector3 CalculatePreviewPostion()
     {
-        //player
-        return player.position + player.forward * previewDistance; 
+        Vector3 output = player.position + cam.forward.normalized * previewDistance;
+        output.y = 0;
 
-        ////cam
-        
-
+        return output;
     }
     private void SetOpacity(GameObject obj, float opacity)
     {
@@ -117,7 +115,7 @@ public class Shop : MonoBehaviour
             // Adjust the material's color alpha value to set opacity
             foreach (Material mat in renderer.materials)
             {
-                Color color = 
+                Color color =
                 new Color(0, 1, 0, 0.5f);
                 color.a = opacity;
                 mat.color = color;
