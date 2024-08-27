@@ -75,6 +75,7 @@ public class MovingState : IEnemyState
     {
         if (IsAtTarget())
         {
+            enemy.lookAtScript.lookAtTargetPosition = enemy.agent.steeringTarget + enemy.transform.forward;
             enemy.ChangeState(new AttackingState(enemy));
         }
         else
@@ -89,12 +90,15 @@ public class MovingState : IEnemyState
             this.enemy.agent.SetDestination(closestPoint);
             float agentSpeed = enemy.agent.velocity.magnitude;
             float animationSpeedMultiplier = agentSpeed / enemy.hyperParameters.speed;
+
             //enemy.animator.SetFloat("speed", animationSpeedMultiplier);
+            enemy.lookAtScript.lookAtTargetPosition = enemy.agent.steeringTarget + enemy.transform.forward;
             enemy.TriggerSpeedAnimation(animationSpeedMultiplier);
         }
     }
     private bool IsAtTarget()
     {
+        Debug.Log("Distance to target: " + Vector3.Distance(enemy.head.transform.position, closestPoint));
         return Vector3.Distance(enemy.head.transform.position, closestPoint) < enemy.hyperParameters.attackRange;
     }
 }

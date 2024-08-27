@@ -37,7 +37,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
         healthBar.SetMaxHealth(hyperParameters.health);
         agent.stoppingDistance = hyperParameters.attackRange;
-        head = transform.GetChild(4);
+        
 
         ChangeState(new IdleState(this));
     }

@@ -31,7 +31,7 @@ public class ScoringSystem : MonoBehaviour
         // Calculate and display the current score for debugging or UI purposes
         currentScore = CalculateGamePlayScore();
 
-        Debug.Log("Current Score: " + currentScore);
+        //Debug.Log("Current Score: " + currentScore);
         text.text = "Score: " + currentScore.ToString("F2");
     }
 

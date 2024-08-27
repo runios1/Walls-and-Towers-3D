@@ -11,7 +11,8 @@ public class BasicEnemy : BaseEnemy
         //in probability of 0.8, the target is the core, otherwise it is the player
         target = UnityEngine.Random.Range(0, 1.0f) <= 0.8f ? GameObject.FindGameObjectWithTag("Core").transform
          : GameObject.FindGameObjectWithTag("Player").transform;
-         base.Start();
+        head = transform.GetChild(4);
+        base.Start();
     }
 
 
