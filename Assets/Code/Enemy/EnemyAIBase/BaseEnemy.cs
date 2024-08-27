@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using System.Linq;
+
 public abstract class BaseEnemy : MonoBehaviour
 {
     protected IEnemyState currentState;
@@ -76,7 +78,9 @@ public abstract class BaseEnemy : MonoBehaviour
     public virtual void SelectNextTarget()
     {
         float playerDistance = player != null && player.health > 0 ? Vector3.Distance(transform.position, player.transform.position) : float.MaxValue;
-        Tower[] towers = FindObjectsOfType<Tower>();
+        Tower[] towers = FindObjectsOfType<Tower>()
+            .Where(tower => tower.state == Placeable.PlaceableState.Placed)
+            .ToArray();
 
         Array.Sort(towers, (a, b) =>
         {
@@ -103,7 +107,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall") && other.gameObject.GetComponent<BasicWall>().state == Placeable.PlaceableState.Placed)
         {
             currentState.OnReachingWall(other.gameObject.transform);
         }

@@ -118,17 +118,19 @@ public class PlayerMainScript : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0)) // Left Click
             {
-                shop.Buy(itemBuying);
+                if (shop.Buy(itemBuying))
+                {
+                    audioSource.clip = buildSound;
+                    audioSource.loop = false;
+                    audioSource.Play();
+                }
+
                 isBuying = false;
                 buyingUi.SetActive(false);
-
-                audioSource.clip = buildSound;
-                audioSource.loop = false;
-                audioSource.Play();
             }
             else if (Input.GetMouseButtonDown(1)) // Right Click
             {
-                shop.RemovePrieview();
+                shop.RemovePreview();
                 isBuying = false;
                 buyingUi.SetActive(false);
             }
@@ -193,7 +195,7 @@ public class PlayerMainScript : MonoBehaviour
 
         // await LogAldenChat("Serpina died trying to save castle and now the monsters are coming for you");
         //StartCoroutine(Respawn());
-        
+
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

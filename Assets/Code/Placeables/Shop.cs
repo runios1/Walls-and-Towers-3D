@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -34,42 +35,85 @@ public class Shop : MonoBehaviour
     {
         UpdatePreviewPosition();
     }
-    public void Buy(string itemID)
+    public bool Buy(string itemID)
     {
         if (itemPrefabs.TryGetValue(itemID, out Placeable itemPrefab))
         {
-            if (playerScript.LoseCoins(itemPrefab.cost))
+            Vector3 previewPosition = CalculatePreviewPostion();
+            if (CanPlaceItem(previewPosition, itemPrefab))
             {
-                RemovePrieview();
-                PlaceItem(itemPrefab);
+                if (playerScript.LoseCoins(itemPrefab.cost))
+                {
+                    RemovePreview();
+                    PlaceItem(itemPrefab, previewPosition);
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Cannot place item here, something is in the way.");
             }
         }
         else
             Debug.Log($"Item {itemID} not found");
 
+        RemovePreview();
+        return false;
     }
     public void ShowPreview(string itemID)
     {
-        RemovePrieview();
+        RemovePreview();
         if (itemPrefabs.TryGetValue(itemID, out Placeable itemPrefab))
         {
             Vector3 previewPosition = CalculatePreviewPostion();
 
             itemPreviewInstance = Instantiate(itemPrefab.prefab, previewPosition, player.rotation);
-            SetOpacity(itemPreviewInstance, previewOpacity);
+            SetOpacity(itemPreviewInstance, previewOpacity, new Color(0, 1, 0, 0.5f)); // Default to green
 
         }
         // Adjust the opacity of the preview object
     }
 
-    public void PlaceItem(Placeable item)
+    private bool CanPlaceItem(Vector3 position, Placeable itemPrefab)
     {
-        Vector3 previewPosition = CalculatePreviewPostion();
-        Vector3 adjustedPosition = new Vector3(previewPosition.x, 0, previewPosition.z);
+        if (itemPrefab.TryGetComponent<BoxCollider>(out var boxCollider))
+        {
+            Vector3 size = boxCollider.size;
+            int layerMask = ~LayerMask.GetMask("Inside Prefab", "Ground", "UI", "Player", "Enemy");
 
-        Instantiate(item.prefab, adjustedPosition, Quaternion.Euler(0, rotationAngle, 0)); // Use the current rotation
+
+            Collider[] colliders = Physics.OverlapBox(position, size / 2, Quaternion.identity, layerMask)
+                .Where(collider => collider is BoxCollider).ToArray();
+            bool output = colliders.Length <= 1;
+            if (!output)
+            {
+                Debug.Log("CanPlaceItem = false Colliders: ");
+                foreach (Collider collider in colliders)
+                {
+                    Debug.Log(collider.ToString());
+                }
+            }
+
+            return output;
+        }
+        else
+        {
+            Debug.LogError("Placeable prefab does not have a BoxCollider.");
+        }
+        return false;
     }
-    public void RemovePrieview()
+
+    public void PlaceItem(Placeable item, Vector3 position)
+    {
+
+        // Assuming the placeable has a BoxCollider, adjust the size accordingly
+
+        GameObject placeableGameObject = Instantiate(item.prefab, position, Quaternion.Euler(0, rotationAngle, 0)); // Use the current rotation
+        placeableGameObject.GetComponent<Placeable>().state = Placeable.PlaceableState.Placed;
+
+
+    }
+    public void RemovePreview()
     {
         try
         {
@@ -88,6 +132,14 @@ public class Shop : MonoBehaviour
             // Update the preview position
             itemPreviewInstance.transform.position = previewPosition;
 
+            // Check if the item can be placed at the preview position
+            bool canPlace = CanPlaceItem(previewPosition, itemPreviewInstance.GetComponent<Placeable>());
+
+            // Set the color based on whether the item can be placed
+            Color previewColor = canPlace ? new Color(0, 1, 0, 0.5f) : new Color(1, 0, 0, 0.5f);
+            SetOpacity(itemPreviewInstance, previewOpacity, previewColor);
+
+
             // Check for mouse wheel input to adjust rotation
             float scrollInput = Input.GetAxis("Mouse ScrollWheel");
             if (scrollInput != 0)
@@ -101,14 +153,13 @@ public class Shop : MonoBehaviour
     }
     private Vector3 CalculatePreviewPostion()
     {
-        //player
         // Calculate the angle based on the camera's forward direction
         Vector3 output = player.position + cam.forward.normalized * previewDistance;
         output.y = 0;
 
         return output;
     }
-    private void SetOpacity(GameObject obj, float opacity)
+    private void SetOpacity(GameObject obj, float opacity, Color color)
     {
         // Get all renderers in the preview object
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
@@ -117,8 +168,6 @@ public class Shop : MonoBehaviour
             // Adjust the material's color alpha value to set opacity
             foreach (Material mat in renderer.materials)
             {
-                Color color =
-                new Color(0, 1, 0, 0.5f);
                 color.a = opacity;
                 mat.color = color;
                 mat.SetFloat("_Mode", 2); // Ensure material uses transparent rendering mode
