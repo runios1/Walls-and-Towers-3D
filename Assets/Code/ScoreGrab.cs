@@ -7,7 +7,6 @@ public class ScoreGrab : MonoBehaviour
 {
     private ScoringSystem scoringSystem;
     public TextMeshProUGUI text;
-    public String gameStatus;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +16,6 @@ public class ScoreGrab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = gameStatus + "\nScore: " + scoringSystem.getScore().ToString("F2"); 
+        text.text = "Score: " + scoringSystem.getTotalScore().ToString("F2"); 
     }
 }

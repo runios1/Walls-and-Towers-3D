@@ -6,7 +6,7 @@ public class ScoringSystem : MonoBehaviour
 {
     public float weightEnemiesKilled = 1.0f;
     public float weightCastleHealth = 2.0f;
-    public float weightCoinsUsed = -0.5f; // Negative weight for coins used
+    //public float weightCoinsUsed = -0.5f; // Negative weight for coins used
     public float weightCoinsGained = 0.5f; // Positive weight for coins gained
 
     private int enemiesKilled = 0;
@@ -29,7 +29,7 @@ public class ScoringSystem : MonoBehaviour
     void Update()
     {
         // Calculate and display the current score for debugging or UI purposes
-        currentScore = CalculateScore();
+        currentScore = CalculateGamePlayScore();
 
         Debug.Log("Current Score: " + currentScore);
         text.text = "Score: " + currentScore.ToString("F2");
@@ -50,18 +50,19 @@ public class ScoringSystem : MonoBehaviour
         coinsUsed += amount;
     }
 
-    private float CalculateScore()
+    private float CalculateGamePlayScore()
     {
         if(player != null && castle!= null){
-            float normalizedCastleHealth = castle.health / initialCastleHealth; // Assuming castle health is out of 100
-            int netCoins = coinsGained - coinsUsed; // Net coins calculation
+            //float normalizedCastleHealth = castle.health / initialCastleHealth; // Assuming castle health is out of 100
+            int netCoins = player.coins;//coinsGained - coinsUsed; // Net coins calculation
             return (weightEnemiesKilled * enemiesKilled) +
-                (weightCastleHealth * normalizedCastleHealth) +
-                (weightCoinsUsed * coinsUsed) + 
+                //(weightCastleHealth * normalizedCastleHealth) +
+                //(weightCoinsUsed * coinsUsed) + 
                 (weightCoinsGained * netCoins);
         }
         return 0;
     }
-    public float getScore() => currentScore;
+    
+    public float getTotalScore() => currentScore+weightCastleHealth*castle.health/initialCastleHealth;
 }
 
