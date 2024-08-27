@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class AttackingState : IEnemyState
 {
-    private Enemy enemy;
+    private BaseEnemy enemy;
     //private Vector3 attackPosition;
     private float lastAttackTime;
-    public AttackingState(Enemy enemy)
+    public AttackingState(BaseEnemy enemy)
     {
         this.enemy = enemy;
         lastAttackTime = Time.time;
@@ -82,8 +82,10 @@ public class AttackingState : IEnemyState
         lastAttackTime = Time.time;
         Debug.Log("ATTACKING! Target: " + (target != null ? target.name : "None"));
         float health = float.MaxValue;
-        enemy.animator.ResetTrigger("GetHit");
-        enemy.SetAnimation(AnimationState.BASIC_ATTACK, 1);
+        //enemy.animator.ResetTrigger("GetHit");
+        //enemy.SetAnimation(AnimationState.BASIC_ATTACK, 1);
+        enemy.ResetHitAttackAnimations(1);
+        enemy.TriggerAttackAnimation();
         if (target.CompareTag("Player"))
         {
             target.GetComponent<PlayerMainScript>().TakeDamage(damage);

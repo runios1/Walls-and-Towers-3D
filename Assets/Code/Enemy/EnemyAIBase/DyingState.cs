@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class DyingState : IEnemyState
 {
-    private Enemy enemy;
+    private BaseEnemy enemy;
     private bool isDead = false;
-    public DyingState(Enemy enemy)
+    public DyingState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

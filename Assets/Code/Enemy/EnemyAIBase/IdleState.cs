@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class IdleState : IEnemyState
 {
-    private Enemy enemy;
-    public IdleState(Enemy enemy)
+    private BaseEnemy enemy;
+    public IdleState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }
     public void EnterState()
     {
-        enemy.SetAnimation(AnimationState.WALK, 0);
-        enemy.SetAnimation(AnimationState.BASIC_ATTACK, 0);
-        enemy.animator.ResetTrigger("GetHit");
-        //enemy.animator.ResetTrigger("Basic Attack");
+        //enemy.SetAnimation(AnimationState.WALK, 0);
+        ////enemy.SetAnimation(AnimationState.BASIC_ATTACK, 0);
+        //enemy.animator.ResetTrigger("GetHit");
+        ////enemy.animator.ResetTrigger("Basic Attack");
+        enemy.TriggerMoveAnimation(0);
+        enemy.ResetHitAttackAnimations(3);
     }
 
     public void ExitState()

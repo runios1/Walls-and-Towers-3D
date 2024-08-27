@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
-
-
-public class Enemy : MonoBehaviour
+using System;
+public abstract class BaseEnemy : MonoBehaviour
 {
-    IEnemyState currentState;
+    protected IEnemyState currentState;
 
     public NavMeshAgent agent;
     public Transform target;
@@ -24,41 +22,35 @@ public class Enemy : MonoBehaviour
     public AudioClip walkSound;
     public AudioClip attackSound;
     public AudioClip dieSound;
-    private ScoringSystem scoringSystem;
+    protected ScoringSystem scoringSystem;
 
-    void Start()
+    protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
         agent = GetComponent<NavMeshAgent>();
-        //agent.acceleration = 1f;
-
         animator = GetComponent<Animator>();
-        LookAt lookAtScript = FindAnyObjectByType<LookAt>();
-        waveManager = FindAnyObjectByType<WaveManager>();
-        player = FindAnyObjectByType<PlayerMainScript>();
-        hyperParameters = new EnemyHyperParameters(100f, 10f, 2f, 1.5f, 1.2f);
+        lookAtScript = FindObjectOfType<LookAt>();
+        waveManager = FindObjectOfType<WaveManager>();
+        player = FindObjectOfType<PlayerMainScript>();
+        scoringSystem = FindObjectOfType<ScoringSystem>();
+
         healthBar.SetMaxHealth(hyperParameters.health);
-        //target = GameObject.FindGameObjectWithTag("Core").transform;
-        //in probability of 0.8, the target is the core, otherwise it is the player
-        target = UnityEngine.Random.Range(0, 1.0f) <= 0.8f ? GameObject.FindGameObjectWithTag("Core").transform
-         : GameObject.FindGameObjectWithTag("Player").transform;
         agent.stoppingDistance = hyperParameters.attackRange;
-        //agent.autoBraking=true;
         head = transform.GetChild(4);
 
-        scoringSystem = FindObjectOfType<ScoringSystem>();
         ChangeState(new IdleState(this));
     }
 
-
-    void Update()
+    protected virtual void Update()
     {
         if (currentState != null)
+        {
             if (currentState.getState() == EnemyStateEnum.DYING && ((DyingState)currentState).died())
                 return;
             else
                 currentState.UpdateState();
+        }
     }
 
     public void ChangeState(IEnemyState newState)
@@ -69,24 +61,19 @@ public class Enemy : MonoBehaviour
         currentState.EnterState();
     }
 
-
-
-
-    public void TakeDamage(float amount, Transform attacker)
+    public virtual void TakeDamage(float amount, Transform attacker)
     {
         if (currentState.getState() == EnemyStateEnum.DYING)
             return;
-        Debug.Log("Taking damage: " + amount);
+
         hyperParameters.health -= amount;
         healthBar.SetHealth(hyperParameters.health);
 
-        SetAnimation(AnimationState.GET_HIT, 1);
-        Debug.Log("Attacked by: " + attacker.name);
+        TriggerGetHitAnimation();
         currentState.OnHit(attacker);
-
     }
 
-    public void SelectNextTarget()
+    public virtual void SelectNextTarget()
     {
         float playerDistance = player != null && player.health > 0 ? Vector3.Distance(transform.position, player.transform.position) : float.MaxValue;
         Tower[] towers = FindObjectsOfType<Tower>();
@@ -114,73 +101,35 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Reaching Wall: " + other.gameObject.name);
             currentState.OnReachingWall(other.gameObject.transform);
         }
     }
 
-    //******* Handling Animations *******
-    void OnAnimatorMove()
+    protected virtual void OnAnimatorMove()
     {
         if (animator && agent && animator.rootPosition != null && agent.nextPosition != null)
         {
             Vector3 position = animator.rootPosition;
             position.y = agent.nextPosition.y;
             transform.position = position;
-            //Debug.Log("Animator moved to position: " + position);
-        }
-    }
-    public void SetAnimation(AnimationState state, float value)
-    {
-        switch (state)
-        {
-            case AnimationState.SPEED:
-                animator.SetFloat("speed", value);
-                break;
-            case AnimationState.WALK:
-                animator.SetBool("Walk", value > 0);
-                break;
-            case AnimationState.BASIC_ATTACK:
-                animator.SetTrigger("Basic Attack");
-                //animator.SetBool("Attack", value > 0);
-                break;
-            case AnimationState.GET_HIT:
-                animator.SetTrigger("GetHit");
-                break;
-            case AnimationState.DIE:
-                animator.SetTrigger("Die");
-                break;
-            default:
-                Debug.LogError("Unknown animation state: " + state);
-                break;
-        }
-    }
-    private string StringFromAnimatorState(AnimationState state)
-    {
-        switch (state)
-        {
-            case AnimationState.WALK:
-                return "Walk";
-            case AnimationState.SPEED:
-                return "speed";
-            case AnimationState.BASIC_ATTACK:
-                return "Basic Attack";
-            case AnimationState.GET_HIT:
-                return "GetHit";
-            default:
-                return "Unknown";
         }
     }
 
-    public void Die()
+    // Abstract methods for animations, to be implemented by each specific enemy type
+    internal abstract void TriggerMoveAnimation(float value);
+    internal abstract void TriggerSpeedAnimation(float value);
+    internal abstract void TriggerAttackAnimation();
+    internal abstract void TriggerGetHitAnimation();
+    internal abstract void TriggerDieAnimation();
+
+    public virtual void Die()
     {
-        animator.ResetTrigger("GetHit");
-        animator.ResetTrigger("Basic Attack");
-        SetAnimation(AnimationState.DIE, 1);
+        ResetHitAttackAnimations(3);
+        TriggerDieAnimation();
 
         if (waveManager)
             waveManager.UnregisterEnemy();
@@ -189,7 +138,11 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, 1.3f);
         this.enabled = false;
     }
+
+    // Reset triggers for hit and attack animations
+    internal abstract void ResetHitAttackAnimations(int reset);
 }
+
 public enum EnemyStateEnum
 {
     IDLE,
@@ -220,7 +173,7 @@ public enum AnimationState
 {
     WALK,
     SPEED,
-    BASIC_ATTACK,
+    ATTACK,
     GET_HIT,
     DIE
 }
