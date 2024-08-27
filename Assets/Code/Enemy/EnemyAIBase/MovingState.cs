@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class MovingState : IEnemyState
 {
-    private Enemy enemy;
+    private BaseEnemy enemy;
     private Transform target;
     private Vector3 closestPoint;
     private Vector3 currentTargetPosition;
-    public MovingState(Enemy enemy)
+    public MovingState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }
@@ -22,8 +22,11 @@ public class MovingState : IEnemyState
         //add a bit of noise to the target position to avoid getting stuck in corners
         //closestPoint += new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
         //Debug.Log("closestPoint: " + closestPoint);
-        enemy.SetAnimation(AnimationState.WALK, 1);
-        enemy.SetAnimation(AnimationState.SPEED, enemy.hyperParameters.speed);
+        // enemy.SetAnimation(AnimationState.WALK, 1);
+        // enemy.SetAnimation(AnimationState.SPEED, enemy.hyperParameters.speed);
+
+        enemy.TriggerMoveAnimation(1);
+        enemy.TriggerSpeedAnimation(enemy.hyperParameters.speed);
 
         enemy.audioSource.clip = enemy.walkSound;
         enemy.audioSource.loop = true;
@@ -35,9 +38,10 @@ public class MovingState : IEnemyState
         this.enemy.agent.isStopped = true;
         enemy.agent.ResetPath();
 
-        this.enemy.SetAnimation(AnimationState.WALK, 0);
-        enemy.SetAnimation(AnimationState.SPEED, 0);
-
+        // this.enemy.SetAnimation(AnimationState.WALK, 0);
+        // enemy.SetAnimation(AnimationState.SPEED, 0);
+        enemy.TriggerMoveAnimation(0);
+        enemy.TriggerSpeedAnimation(0);
         if (enemy.audioSource.clip = enemy.walkSound) enemy.audioSource.Stop();
     }
 
@@ -85,7 +89,8 @@ public class MovingState : IEnemyState
             this.enemy.agent.SetDestination(closestPoint);
             float agentSpeed = enemy.agent.velocity.magnitude;
             float animationSpeedMultiplier = agentSpeed / enemy.hyperParameters.speed;
-            enemy.animator.SetFloat("speed", animationSpeedMultiplier);
+            //enemy.animator.SetFloat("speed", animationSpeedMultiplier);
+            enemy.TriggerSpeedAnimation(animationSpeedMultiplier);
         }
     }
     private bool IsAtTarget()

@@ -6,11 +6,11 @@ using UnityEngine;
 public class EnemyUnit : MonoBehaviour
 {
     public GameObject magicCirclePrefab;
-    private Enemy[] enemies;
+    private BaseEnemy[] enemies;
     // Start is called before the first frame update
     void Start()
     {
-        enemies = gameObject.GetComponentsInChildren<Enemy>();
+        enemies = gameObject.GetComponentsInChildren<BaseEnemy>();
     }
 
     // Update is called once per frame

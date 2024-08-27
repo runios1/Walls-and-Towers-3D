@@ -88,7 +88,7 @@ public class TowerProjectile : MonoBehaviour
 
     void Damage(Transform enemy)
     {
-        if (enemy.TryGetComponent<Enemy>(out var e))
+        if (enemy.TryGetComponent<BaseEnemy>(out var e))
         {
 
             float dmg = Random.Range(tower.minDamage, tower.maxDamage);
