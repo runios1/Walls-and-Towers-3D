@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 using System.Linq;
 
-
-public class Enemy : MonoBehaviour
-using System;
 public abstract class BaseEnemy : MonoBehaviour
 {
     protected IEnemyState currentState;
