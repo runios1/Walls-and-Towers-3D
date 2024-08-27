@@ -25,9 +25,9 @@ public class Tower : Placeable
 
     float lastfired;          // The value of Time.time at the last firing moment
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         target = null;
         bullet.SetActive(true);
     }
@@ -67,16 +67,19 @@ public class Tower : Placeable
 
     void Update()
     {
-        RemoveDeadEnemies();
-
-        if (_enemies.Count > 0)
+        if (state == PlaceableState.Placed)
         {
-            if (_enemies[0])
-                target = _enemies[0].transform;
-        }
-        else { target = null; }
+            RemoveDeadEnemies();
 
-        TowerShooting();
+            if (_enemies.Count > 0)
+            {
+                if (_enemies[0])
+                    target = _enemies[0].transform;
+            }
+            else { target = null; }
+
+            TowerShooting();
+        }
     }
 
     private void TowerShooting()

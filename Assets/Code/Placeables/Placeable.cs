@@ -1,9 +1,13 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public abstract class Placeable : MonoBehaviour
 {
+    public enum PlaceableState
+    {
+        Placed,
+        Unplaced
+    }
+
     [Header("Info")]
     public GameObject prefab;
     public string placeableName;
@@ -13,9 +17,12 @@ public abstract class Placeable : MonoBehaviour
     public HealthBar healthBar;
     [TextArea(1, 2)]
     public string description;
-    public virtual void Start()
+
+    public PlaceableState state;
+    public virtual void Awake()
     {
         healthBar.SetMaxHealth(health);
+        state = PlaceableState.Unplaced;
     }
     public void TakeDamage(float damage)
     {

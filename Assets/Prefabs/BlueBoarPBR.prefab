@@ -1005,7 +1005,7 @@ GameObject:
   - component: {fileID: 619053085264864901}
   - component: {fileID: 280907763928590496}
   - component: {fileID: 5562359322244883158}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueBoarPBR
   m_TagString: Enemy
   m_Icon: {fileID: 0}
