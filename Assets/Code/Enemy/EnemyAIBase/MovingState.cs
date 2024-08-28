@@ -98,7 +98,7 @@ public class MovingState : IEnemyState
     }
     private bool IsAtTarget()
     {
-        Debug.Log("Distance to target: " + Vector3.Distance(enemy.head.transform.position, closestPoint));
+        //Debug.Log("Distance to target: " + Vector3.Distance(enemy.head.transform.position, closestPoint));
         return Vector3.Distance(enemy.head.transform.position, closestPoint) < enemy.hyperParameters.attackRange;
     }
 }

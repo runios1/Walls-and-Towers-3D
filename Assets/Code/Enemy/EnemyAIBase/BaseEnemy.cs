@@ -137,6 +137,11 @@ public abstract class BaseEnemy : MonoBehaviour
 
         if (waveManager)
             waveManager.UnregisterEnemy();
+        EnemyUnit enemyUnit = gameObject.GetComponentInParent<EnemyUnit>();
+        if(enemyUnit){
+            //Debug.Log("calling enemy unit unregistration");
+            enemyUnit.UnregisterEnemy();
+        }
         player.GetCoins(1);
         scoringSystem.EnemyKilled();
         Destroy(gameObject, 1.3f);

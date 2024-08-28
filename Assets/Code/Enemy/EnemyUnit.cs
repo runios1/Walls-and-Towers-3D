@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +7,31 @@ using UnityEngine;
 public class EnemyUnit : MonoBehaviour
 {
     public GameObject magicCirclePrefab;
-    private BaseEnemy[] enemies;
+    public GameObject[] enemyPrefabs;
+    private List<Transform> locations;
+    private int enemyCount;
     // Start is called before the first frame update
     void Start()
     {
-        enemies = gameObject.GetComponentsInChildren<BaseEnemy>();
-    }
+        //enemies = gameObject.GetComponentsInChildren<BaseEnemy>();
+        locations = new List<Transform>(gameObject.GetComponentsInChildren<Transform>().Where(t=>t.name.StartsWith("Location")));
+        String locationsString = string.Join(", ", locations.Select(t => t.position).ToArray());
+        //Debug.Log(locationsString);
+        enemyCount = locations.Count;
+        magicCirclePrefab.SetActive(true);
+        SpawnEnemies();
 
+    }
+    private void SpawnEnemies()
+    {
+        foreach (Transform spawnPosition in locations)
+        {
+            // Randomly select an enemy prefab for each spawn position
+            GameObject enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition.position, spawnPosition.rotation,gameObject.transform);
+            //Debug.Log($"Spawning enemy {enemy.name} at {spawnPosition.position}");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +39,10 @@ public class EnemyUnit : MonoBehaviour
         {
             Destroy(magicCirclePrefab);
         }
-        if (enemies != null && enemies.All(enemy => !enemy)) // TODO: test that it still works
+    }
+    public void UnregisterEnemy(){
+        enemyCount--;
+        if (enemyCount == 0)
         {
             Destroy(gameObject);
         }

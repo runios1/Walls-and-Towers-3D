@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public GameObject enemyUnitPrefab;
     public Transform[] spawnPoints;
     public float spawnInterval = 5f;
+    
     public void StartSpawn(int spawnCount)
     {
         for (int i = 0; i < spawnCount; i++)
@@ -15,8 +17,9 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        for (int spawnIndex = 0; spawnIndex < spawnPoints.Length; spawnIndex++)
-            Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+        for (int spawnIndex = 0; spawnIndex < spawnPoints.Length; spawnIndex++){
+            Instantiate(enemyUnitPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+        }
     }
 
     public void SetSpawnPoints(Transform[] points)
