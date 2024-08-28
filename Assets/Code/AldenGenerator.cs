@@ -4,13 +4,16 @@ using UnityEngine.Networking;
 public class AldenGenerator : MonoBehaviour
 {
     [SerializeField] private string gasURL;
-    [SerializeField] public string prompt;
-    void Start()
+
+    public void LogAldenChat(string prompt)
     {
-        StartCoroutine(SendDataToGAS());
+        StartCoroutine(SendDataToGAS(prompt, (response) =>
+        {
+            Debug.Log("Alden: " + response);
+        }));
     }
 
-    public IEnumerator SendDataToGAS()
+    private IEnumerator SendDataToGAS(string prompt, System.Action<string> callback)
     {
         WWWForm form = new WWWForm();
         form.AddField("parameter", prompt);
@@ -24,6 +27,7 @@ public class AldenGenerator : MonoBehaviour
             response = www.downloadHandler.text;
         }
 
-        Debug.Log("Alden: " + response);
+        // Call the callback with the response
+        callback?.Invoke(response);
     }
 }

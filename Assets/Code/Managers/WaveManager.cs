@@ -17,6 +17,7 @@ public class WaveManager : MonoBehaviour
     public AudioClip waveCompleteSound;
     public AudioClip victorySound;
     public GameObject victoryMenu;
+    public GameObject alden;
 
     void Start()
     {
@@ -30,7 +31,7 @@ public class WaveManager : MonoBehaviour
         castle = GameObject.FindGameObjectWithTag("Core").GetComponent<Castle>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMainScript>();
 
-        // await LogAldenChat("Monsters are just beginning their way towards the castle");
+        alden.GetComponent<AldenGenerator>().LogAldenChat("Monsters are just beginning their way towards the castle");
         InitializeWaveSpawnPoints();
         StartNextWave();
     }
@@ -67,7 +68,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             Debug.Log("All waves completed!");
-            // await LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+            alden.GetComponent<AldenGenerator>().LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
 
             audioSource.clip = victorySound;
             audioSource.Play();
