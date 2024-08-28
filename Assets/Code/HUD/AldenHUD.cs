@@ -18,5 +18,6 @@ public class AldenHUD : MonoBehaviour
         Vector2 textSize = text.GetRenderedValues(false);
 
         textBubble.size = textSize + padding;
+        textBubble.transform.position = text.transform.position + new Vector3(0, textSize.y / 2, 0);
     }
 }

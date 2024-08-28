@@ -4,12 +4,17 @@ using UnityEngine.Networking;
 public class AldenGenerator : MonoBehaviour
 {
     [SerializeField] private string gasURL;
-
+    private ChatBubble aldenHUD;
+    private void Start()
+    {
+        aldenHUD = gameObject.GetComponentInParent<ChatBubble>();
+    }
     public void LogAldenChat(string prompt)
     {
         StartCoroutine(SendDataToGAS(prompt, (response) =>
         {
             Debug.Log("Alden: " + response);
+            aldenHUD.UpdateTextBubble(response);
         }));
     }
 
