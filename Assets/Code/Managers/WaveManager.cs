@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 // using static AldenGenerator;
 
@@ -17,13 +18,14 @@ public class WaveManager : MonoBehaviour
     public AudioClip waveCompleteSound;
     public AudioClip victorySound;
     public GameObject victoryMenu;
-    public GameObject alden;
+
+    public AldenGenerator aldenGenerator;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
-        enemiesLeftForWave = new int[2];
+        enemiesLeftForWave = new int[5];
         waveNum = 1;
         waveCounter.ResetCounter(2);
         enemySpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>();
@@ -31,8 +33,8 @@ public class WaveManager : MonoBehaviour
         castle = GameObject.FindGameObjectWithTag("Core").GetComponent<Castle>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMainScript>();
 
-        alden.GetComponent<AldenGenerator>().LogAldenChat("Monsters are just beginning their way towards the castle");
-        InitializeWaveSpawnPoints();
+        aldenGenerator.LogAldenChat("Monsters are just beginning their way towards the castle");
+        InitializeWaveSpawnPoints2();
         StartNextWave();
     }
 
@@ -55,6 +57,53 @@ public class WaveManager : MonoBehaviour
         enemiesLeftForWave[1] = 10;
 
     }
+    private void InitializeWaveSpawnPoints2()
+    {
+        waveSpawnPoints = new List<Transform[]>();
+        Vector3[] interestPoints = new Vector3[]
+        {
+        new Vector3(-140, 0, -10),
+        new Vector3(-140, 0, -280),
+        new Vector3(-47.7000008f,0,-138.100006f),
+        new Vector3(-258.700012f,0,-138.100006f)
+        };
+
+        // Wave 1
+        Transform spawnPoint1 = new GameObject().transform;
+        spawnPoint1.position = interestPoints[Random.Range(0, interestPoints.Length)];
+        waveSpawnPoints.Add(new Transform[] { spawnPoint1 });
+        enemiesLeftForWave[0] = 5;
+
+        // Wave 2
+        Transform spawnPoint2_1 = new GameObject().transform;
+        Transform spawnPoint2_2 = new GameObject().transform;
+        int[] selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
+        spawnPoint2_1.position = interestPoints[selectedIndices[0]];
+        spawnPoint2_2.position = interestPoints[selectedIndices[1]];
+        waveSpawnPoints.Add(new Transform[] { spawnPoint2_1, spawnPoint2_2 });
+        enemiesLeftForWave[1] = 10;
+
+        // Wave 3 (Adding noise)
+        Transform spawnPoint3_1 = new GameObject().transform;
+        Transform spawnPoint3_2 = new GameObject().transform;
+        Transform spawnPoint3_3 = new GameObject().transform;
+        Transform spawnPoint3_4 = new GameObject().transform;
+        spawnPoint3_1.position = AddNoise(interestPoints[selectedIndices[0]]);
+        spawnPoint3_2.position = AddNoise(interestPoints[selectedIndices[1]]);
+        selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
+        spawnPoint3_3.position = interestPoints[selectedIndices[0]];
+        spawnPoint3_4.position = interestPoints[selectedIndices[1]];
+        waveSpawnPoints.Add(new Transform[] { spawnPoint3_1, spawnPoint3_2, spawnPoint3_3, spawnPoint3_4 });
+        enemiesLeftForWave[2] = 20;  // Adjust the number as needed
+    }
+
+    private Vector3 AddNoise(Vector3 position)
+    {
+        float noiseX = Random.Range(-30f, 20f);  // Adjust noise level as needed
+        float noiseZ = Random.Range(-30f, 20f);
+        return new Vector3(position.x + noiseX, position.y, position.z + noiseZ);
+    }
+
 
     private void StartNextWave()
     {
@@ -68,7 +117,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             Debug.Log("All waves completed!");
-            alden.GetComponent<AldenGenerator>().LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+            aldenGenerator.LogAldenChat($"All the monsters are killed and you are saved by Serpina. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
 
             audioSource.clip = victorySound;
             audioSource.Play();
@@ -81,10 +130,11 @@ public class WaveManager : MonoBehaviour
     public void UnregisterEnemy()
     {
         enemiesLeftForWave[waveNum - 1]--;
+        Debug.Log("Enemies left for wave: " + waveNum + ": " + enemiesLeftForWave[waveNum - 1]);
         if (enemiesLeftForWave[waveNum - 1] == 0)
         {
             waveNum++;
-            // await LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
+            aldenGenerator.LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
 
             audioSource.clip = waveCompleteSound;
             audioSource.Play();
