@@ -114,6 +114,9 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Wave" + waveNum);
             waveCounter.IncreaseCounter();
             enemySpawner.SetSpawnPoints(waveSpawnPoints[waveNum - 1], allowMedKit && waveNum >= allowMedkitFromWave);
+            if (allowMedKit&& waveNum == 3){
+                aldenGenerator.LogAldenChat("Monsters are approaching the castle. The real game starts now. Tell Serpina that enemies can drop Medkits from now on.");
+            }
             enemySpawner.StartSpawn((enemiesLeftForWave[waveNum - 1] / 5) / waveSpawnPoints[waveNum - 1].Length); // StartSpawn spawns 5 enemies at a time as a unit, each spawn point gets the same portion of enemies
         }
         else
