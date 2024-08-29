@@ -23,7 +23,7 @@ namespace Viapix_HealingItem
         void Update()
         {
             transform.Rotate(rotationSpeedX, rotationSpeedY, rotationSpeedZ);
-            healingAmount = playerObj.GetComponent<PlayerMainScript>().health*0.2f;
+            //healingAmount = playerObj.GetComponent<PlayerMainScript>().health*0.2f;
         }
 
         // private void OnCollisionEnter(Collision collision)
@@ -40,6 +40,7 @@ namespace Viapix_HealingItem
         private void OnTriggerEnter(Collider other)
         {
             if(other.CompareTag("Player")){
+                healingAmount = playerObj.GetComponent<PlayerMainScript>().health*0.4f;
                 playerObj.GetComponent<PlayerMainScript>().HealPlayer(healingAmount);
 
                 Destroy(gameObject);
