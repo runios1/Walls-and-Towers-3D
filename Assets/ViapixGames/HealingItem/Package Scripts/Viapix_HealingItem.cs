@@ -26,10 +26,20 @@ namespace Viapix_HealingItem
             healingAmount = playerObj.GetComponent<PlayerMainScript>().health*0.2f;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        // private void OnCollisionEnter(Collision collision)
+        // {
+        //     if (collision.gameObject.CompareTag("Player"))
+        //     {
+        //         playerObj.GetComponent<PlayerMainScript>().HealPlayer(healingAmount);
+
+        //         Destroy(gameObject);
+
+        //         Debug.Log("Player HP: " + playerObj.GetComponent<PlayerMainScript>().health);
+        //     }
+        // }
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
+            if(other.CompareTag("Player")){
                 playerObj.GetComponent<PlayerMainScript>().HealPlayer(healingAmount);
 
                 Destroy(gameObject);
