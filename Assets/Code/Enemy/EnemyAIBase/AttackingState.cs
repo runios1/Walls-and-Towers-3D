@@ -76,6 +76,7 @@ public class AttackingState : IEnemyState
         Vector3 closestPoint = collider.ClosestPoint(enemy.head.transform.position);
         if (target.CompareTag("Player") && Vector3.Distance(enemy.head.transform.position, closestPoint) > enemy.hyperParameters.attackRange)
         {
+            //Debug.Log("Target is out of range");
             enemy.ChangeState(new MovingState(enemy));
             return;
         }

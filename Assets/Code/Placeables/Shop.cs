@@ -30,6 +30,8 @@ public class Shop : MonoBehaviour
             { "Tower", towerPrefab },
             {"Wall", wallPrefab},
         };
+        towerPrefab.tag = "Untagged";
+        wallPrefab.tag = "Untagged";
     }
     void Update()
     {
@@ -45,6 +47,7 @@ public class Shop : MonoBehaviour
                 if (playerScript.LoseCoins(itemPrefab.cost))
                 {
                     RemovePreview();
+                    itemPrefab.tag = itemID;
                     PlaceItem(itemPrefab, previewPosition);
                     return true;
                 }
@@ -107,7 +110,7 @@ public class Shop : MonoBehaviour
     {
 
         // Assuming the placeable has a BoxCollider, adjust the size accordingly
-
+        //towerPrefab.tag = "";
         GameObject placeableGameObject = Instantiate(item.prefab, position, Quaternion.Euler(0, rotationAngle, 0)); // Use the current rotation
         placeableGameObject.GetComponent<Placeable>().state = Placeable.PlaceableState.Placed;
 

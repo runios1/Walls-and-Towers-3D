@@ -105,7 +105,7 @@ MonoBehaviour:
   bullet: {fileID: 9116973639429711853, guid: da65729d138e1444da3cb4e5a8953439, type: 3}
   minDamage: 10
   maxDamage: 10
-  fireRate: 1
+  fireRate: 1.5
 --- !u!1001 &3485523113260909079
 PrefabInstance:
   m_ObjectHideFlags: 0

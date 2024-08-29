@@ -123,6 +123,7 @@ public class WaveManager : MonoBehaviour
             audioSource.Play();
 
             victoryMenu.SetActive(true);
+            victoryMenu.GetComponent<GameOverMenu>().LoadMenu();
 
         }
     }
