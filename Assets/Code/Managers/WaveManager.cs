@@ -27,7 +27,7 @@ public class WaveManager : MonoBehaviour
 
         enemiesLeftForWave = new int[5];
         waveNum = 1;
-        waveCounter.ResetCounter(2);
+        waveCounter.ResetCounter(3);
         enemySpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>();
 
         castle = GameObject.FindGameObjectWithTag("Core").GetComponent<Castle>();

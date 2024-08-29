@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
-
-
-
-
-
     public void RestartGame()
     {
         Time.timeScale = 1f;
@@ -30,4 +25,7 @@ public class GameOverMenu : MonoBehaviour
         Debug.Log("Quit game");
         Application.Quit();
     }
+    // void OnEnable(){
+    //     LoadMenu();
+    // }
 }

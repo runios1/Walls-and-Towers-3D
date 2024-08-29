@@ -27,7 +27,7 @@ public class Castle : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             GameOverMenu.SetActive(true);
-
+            GameOverMenu.GetComponent<GameOverMenu>().LoadMenu();
             AudioSource[] allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
 
             foreach (AudioSource audioS in allAudioSources)
