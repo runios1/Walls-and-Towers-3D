@@ -200,7 +200,7 @@ public class PlayerMainScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameOverMenu.SetActive(true);
-        GameOverMenu.GetComponent<GameOverMenu>().LoadMenu();
+        GameOverMenu.GetComponentInChildren<GameOverMenu>().LoadMenu();
         AudioSource[] allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
 
         foreach (AudioSource audioS in allAudioSources)
