@@ -31,7 +31,7 @@ public class ChatBubble : MonoBehaviour
             bubblePanel.SetActive(true);
 
             // Calculate the duration to display the text
-            float displayDuration = 1.3f * newText.Length;
+            float displayDuration = 0.2f * newText.Length;
 
             // Start a coroutine to hide the bubble after the duration
             StartCoroutine(HideBubbleAfterTime(displayDuration));
