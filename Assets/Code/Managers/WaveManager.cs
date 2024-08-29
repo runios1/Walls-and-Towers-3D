@@ -127,8 +127,11 @@ public class WaveManager : MonoBehaviour
             audioSource.clip = victorySound;
             audioSource.Play();
 
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             victoryMenu.SetActive(true);
-            victoryMenu.GetComponentInChildren<GameOverMenu>().LoadMenu();
+            //victoryMenu.GetComponentInParent<GameOverMenu>().LoadMenu();
 
         }
     }
