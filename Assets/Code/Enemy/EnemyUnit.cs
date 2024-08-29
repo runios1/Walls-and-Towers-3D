@@ -10,6 +10,7 @@ public class EnemyUnit : MonoBehaviour
     public GameObject[] enemyPrefabs;
     private List<Transform> locations;
     private int enemyCount;
+    public bool allowMedkit = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,15 +21,22 @@ public class EnemyUnit : MonoBehaviour
         enemyCount = locations.Count;
         magicCirclePrefab.SetActive(true);
         SpawnEnemies();
-
     }
     private void SpawnEnemies()
     {
+        int enemyIndexWithMedkit = -1;
+        if(allowMedkit){
+            enemyIndexWithMedkit = UnityEngine.Random.Range(0, locations.Count);
+        }
         foreach (Transform spawnPosition in locations)
         {
+
             // Randomly select an enemy prefab for each spawn position
             GameObject enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition.position, spawnPosition.rotation,gameObject.transform);
+            if(enemyIndexWithMedkit == locations.IndexOf(spawnPosition)){
+                enemy.GetComponent<BaseEnemy>().allowMedkit = true;
+            }
             //Debug.Log($"Spawning enemy {enemy.name} at {spawnPosition.position}");
         }
     }

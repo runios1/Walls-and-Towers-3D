@@ -3,7 +3,20 @@ guid: 902d9d638498007f58489a9d4ac905c8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - agent: {instanceID: 0}
+  - target: {instanceID: 0}
+  - animator: {instanceID: 0}
+  - lookAtScript: {instanceID: 0}
+  - waveManager: {instanceID: 0}
+  - healthBar: {instanceID: 0}
+  - player: {instanceID: 0}
+  - head: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - walkSound: {instanceID: 0}
+  - attackSound: {instanceID: 0}
+  - dieSound: {instanceID: 0}
+  - medkit: {fileID: 3180190772059161819, guid: acc591f3f3af45842beb61b22a2ee1c0, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

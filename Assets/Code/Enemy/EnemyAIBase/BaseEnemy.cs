@@ -24,7 +24,10 @@ public abstract class BaseEnemy : MonoBehaviour
     public AudioClip walkSound;
     public AudioClip attackSound;
     public AudioClip dieSound;
+    public bool allowMedkit = false;
     protected ScoringSystem scoringSystem;
+
+    public GameObject medkit;
 
     protected virtual void Start()
     {
@@ -143,6 +146,10 @@ public abstract class BaseEnemy : MonoBehaviour
             enemyUnit.UnregisterEnemy();
         }
         player.GetCoins(1);
+        if (allowMedkit){
+            Vector3 medkitPosition = transform.position + new Vector3(0, 1, 0);
+            Instantiate(medkit, medkitPosition, transform.rotation);
+        }
         scoringSystem.EnemyKilled();
         Destroy(gameObject, 1.3f);
         this.enabled = false;

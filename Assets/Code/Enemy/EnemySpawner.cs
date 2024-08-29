@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyUnitPrefab;
     public Transform[] spawnPoints;
     public float spawnInterval = 5f;
+    private int spawnPointWithMedkitIndex = -1;
     
     public void StartSpawn(int spawnCount)
     {
@@ -18,12 +19,19 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         for (int spawnIndex = 0; spawnIndex < spawnPoints.Length; spawnIndex++){
-            Instantiate(enemyUnitPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+            GameObject enemyUnit = Instantiate(enemyUnitPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+            if (spawnPointWithMedkitIndex == spawnIndex)
+            {
+                enemyUnit.GetComponent<EnemyUnit>().allowMedkit=true;
+            }
         }
     }
 
-    public void SetSpawnPoints(Transform[] points)
+    public void SetSpawnPoints(Transform[] points,bool allowMedkit = false)
     {
         spawnPoints = points;
+        if(allowMedkit){
+            spawnPointWithMedkitIndex = Random.Range(0, points.Length);
+        }
     }
 }

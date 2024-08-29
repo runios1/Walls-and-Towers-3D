@@ -270,6 +270,13 @@ public class PlayerMainScript : MonoBehaviour
         respawnMenu.SetActive(false);
         //isDead = false;
     }
+    public void HealPlayer(float amount){
+        health += amount;
+        if(health > maxHealth){
+            health = maxHealth;
+        }
+        healthBar.SetHealth(health);
+    }
     private void RespawnPlayer()
     {
 
