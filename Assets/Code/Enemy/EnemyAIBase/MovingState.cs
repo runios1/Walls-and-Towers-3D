@@ -35,8 +35,8 @@ public class MovingState : IEnemyState
 
     public void ExitState()
     {
-        this.enemy.agent.isStopped = true;
-        enemy.agent.ResetPath();
+        //this.enemy.agent.isStopped = true;
+        //enemy.agent.ResetPath();
 
         // this.enemy.SetAnimation(AnimationState.WALK, 0);
         // enemy.SetAnimation(AnimationState.SPEED, 0);
