@@ -53,7 +53,6 @@ public class EnemyDragon : BaseEnemy
         if (value == -1)
         {
             animator.SetFloat("Speed", agent.velocity.magnitude);
-            Debug.Log("agent.velocity.magnitude:" + agent.velocity.magnitude);
         }
     }
 
@@ -61,7 +60,7 @@ public class EnemyDragon : BaseEnemy
     override protected void Start()
     {
 
-        hyperParameters = new EnemyHyperParameters(100f, 5f, 20f, GetComponent<NavMeshAgent>().stoppingDistance, 3.3f);
+        hyperParameters = new EnemyHyperParameters(500f, 20f, 10f, GetComponent<NavMeshAgent>().stoppingDistance, 3.3f);
      
          //in probability of 0.8, the target is the core, otherwise it is the player
         target = UnityEngine.Random.Range(0, 1.0f) <= 0.8f ? GameObject.FindGameObjectWithTag("Core").transform

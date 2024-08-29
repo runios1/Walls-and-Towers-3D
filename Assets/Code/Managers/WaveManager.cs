@@ -23,6 +23,9 @@ public class WaveManager : MonoBehaviour
 
     public bool allowMedKit = false;
     public int allowMedkitFromWave = 3;
+
+
+    public GameObject miniboss;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -97,8 +100,38 @@ public class WaveManager : MonoBehaviour
         spawnPoint3_4.position = interestPoints[selectedIndices[1]];
         waveSpawnPoints.Add(new Transform[] { spawnPoint3_1, spawnPoint3_2, spawnPoint3_3, spawnPoint3_4 });
         enemiesLeftForWave[2] = 20;  // Adjust the number as needed
-    }
 
+    }
+    private void InitializeWaveSpawnPoints3()
+    {
+        waveSpawnPoints = new List<Transform[]>();
+        Vector3[] interestPoints = new Vector3[]
+        {
+        new Vector3(-140, 0, -10),
+        new Vector3(-140, 0, -280),
+        new Vector3(-47.7000008f,0,-138.100006f),
+        new Vector3(-258.700012f,0,-138.100006f)
+        };
+
+        int[] selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
+       
+
+        // Wave 3 (Adding noise)
+        Transform spawnPoint3_1 = new GameObject().transform;
+        Transform spawnPoint3_2 = new GameObject().transform;
+        Transform spawnPoint3_3 = new GameObject().transform;
+        Transform spawnPoint3_4 = new GameObject().transform;
+        spawnPoint3_1.position = AddNoise(interestPoints[selectedIndices[0]]);
+        spawnPoint3_2.position = AddNoise(interestPoints[selectedIndices[1]]);
+        selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
+        spawnPoint3_3.position = interestPoints[selectedIndices[0]];
+        spawnPoint3_4.position = interestPoints[selectedIndices[1]];
+        miniboss.transform.position = spawnPoint3_1.position;
+        waveSpawnPoints.Add(new Transform[] { spawnPoint3_1});
+
+        enemiesLeftForWave[0] = 5;  // Adjust the number as needed
+
+    }
     private Vector3 AddNoise(Vector3 position)
     {
         float noiseX = Random.Range(-30f, 20f);  // Adjust noise level as needed
@@ -118,6 +151,15 @@ public class WaveManager : MonoBehaviour
                 aldenGenerator.LogAldenChat("Monsters are approaching the castle. The real game starts now. Tell Serpina that enemies can drop Medkits from now on.");
             }
             enemySpawner.StartSpawn((enemiesLeftForWave[waveNum - 1] / 5) / waveSpawnPoints[waveNum - 1].Length); // StartSpawn spawns 5 enemies at a time as a unit, each spawn point gets the same portion of enemies
+
+            if(waveNum  == waveSpawnPoints.Count)
+            {
+                enemiesLeftForWave[waveNum - 1]++;
+                Instantiate(miniboss, miniboss.transform.position, miniboss.transform.rotation);
+            }
+
+
+
         }
         else
         {
@@ -155,4 +197,7 @@ public class WaveManager : MonoBehaviour
             StartNextWave();
         }
     }
+   
+
+    
 }

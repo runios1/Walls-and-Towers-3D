@@ -934,7 +934,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3733820614885146020}
   - component: {fileID: 583751177088514214}
-  - component: {fileID: 8171863437209085611}
   - component: {fileID: 2932864788657826756}
   - component: {fileID: 5601332038896838189}
   - component: {fileID: 6553880396931281582}
@@ -946,6 +945,7 @@ GameObject:
   - component: {fileID: 7492702586692812503}
   - component: {fileID: 9179271596614527105}
   - component: {fileID: 2424976640725660301}
+  - component: {fileID: 7540413439374251717}
   m_Layer: 0
   m_Name: DragonBoss
   m_TagString: Enemy
@@ -962,7 +962,7 @@ Transform:
   m_GameObject: {fileID: 4861869796242279993}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.98532325, z: -0, w: 0.17069902}
-  m_LocalPosition: {x: -140.02, y: -0.00000047683716, z: -86.45}
+  m_LocalPosition: {x: -278.97498, y: 0, z: -127.07485}
   m_LocalScale: {x: 2.38, y: 2.38, z: 2.38}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -991,33 +991,6 @@ LookAtConstraint:
   m_Active: 1
   m_IsLocked: 1
   m_Sources: []
---- !u!54 &8171863437209085611
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4861869796242279993}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!114 &2932864788657826756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,7 +1024,7 @@ NavMeshAgent:
   m_Acceleration: 1
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 10
+  m_StoppingDistance: 1.8
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1100,6 +1073,8 @@ MonoBehaviour:
   walkSound: {fileID: 8300000, guid: 5e6e8a80caeff2d4a9d732eb0213a192, type: 3}
   attackSound: {fileID: 8300000, guid: 360a0e8e20cfff14f9f2b1a542449c68, type: 3}
   dieSound: {fileID: 8300000, guid: 6ac9596897ed804499bca2d3ebd83ed8, type: 3}
+  allowMedkit: 0
+  medkit: {fileID: 0}
   AttackParticales: {fileID: 1625593353592329692}
   Canvas: {fileID: 0}
   HUD: {fileID: 6798383197596180443, guid: 5fa02163f62ac884c88e8458d2f237cc, type: 3}
@@ -1309,6 +1284,8 @@ MonoBehaviour:
   walkSound: {fileID: 8300000, guid: 5e6e8a80caeff2d4a9d732eb0213a192, type: 3}
   attackSound: {fileID: 8300000, guid: 360a0e8e20cfff14f9f2b1a542449c68, type: 3}
   dieSound: {fileID: 8300000, guid: 6ac9596897ed804499bca2d3ebd83ed8, type: 3}
+  allowMedkit: 0
+  medkit: {fileID: 0}
 --- !u!114 &2424976640725660301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,6 +1310,35 @@ MonoBehaviour:
   walkSound: {fileID: 8300000, guid: 5e6e8a80caeff2d4a9d732eb0213a192, type: 3}
   attackSound: {fileID: 8300000, guid: 360a0e8e20cfff14f9f2b1a542449c68, type: 3}
   dieSound: {fileID: 8300000, guid: 6ac9596897ed804499bca2d3ebd83ed8, type: 3}
+  allowMedkit: 0
+  medkit: {fileID: 0}
+--- !u!54 &7540413439374251717
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4861869796242279993}
+  serializedVersion: 4
+  m_Mass: 100000000
+  m_Drag: 10
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &4875232591211332894
 GameObject:
   m_ObjectHideFlags: 0
