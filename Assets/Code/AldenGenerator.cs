@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using UnityEngine.Networking;
 public class AldenGenerator : MonoBehaviour
@@ -18,10 +19,23 @@ public class AldenGenerator : MonoBehaviour
         }));
     }
 
+    public void VictoryMessage(System.Action<string> callback){
+        StartCoroutine(SendDataToGAS("Victory", (res)=>{
+            Debug.Log("Victory: " + res);
+            callback?.Invoke(res);
+        }));
+    }
+    public void DefeatMessage(System.Action<string> callback){
+        StartCoroutine(SendDataToGAS("Loss", (res)=>{
+            Debug.Log("Defeat: " + res);
+            callback?.Invoke(res);
+        }));
+    }
     private IEnumerator SendDataToGAS(string prompt, System.Action<string> callback)
     {
         WWWForm form = new WWWForm();
         form.AddField("parameter", prompt);
+        Debug.Log(form);
         UnityWebRequest www = UnityWebRequest.Post(gasURL, form);
 
         yield return www.SendWebRequest();
