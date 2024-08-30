@@ -3317,10 +3317,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to the Tower Defense game! Your goal is to protect your base from
-    waves of enemy attackers. Place different towers or walls along the path to stop
-    the enemies.You can also take matter into your own hand and attack the enemies
-    directly
+  m_text: "Welcome to Walls and Towers 3D! You\u2019ll step into the armored boots
+    of Serpina, a valiant knight tasked with defending the castle and Prince Alden
+    from relentless waves of enemy attackers. Place towers and walls along the enemy's
+    path to stop them, or take up your sword and fight directly to turn the tide
+    of battle. Your courage and tactical skills are crucial in safeguarding the kingdom.
+    Will you rise to the challenge and protect what\u2019s most precious?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3347,8 +3349,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31
-  m_fontSizeBase: 31
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
