@@ -17,6 +17,7 @@ public class WaveManager : MonoBehaviour
 
     public AudioClip waveCompleteSound;
     public AudioClip victorySound;
+
     public GameObject victoryMenu;
 
     public AldenGenerator aldenGenerator;
