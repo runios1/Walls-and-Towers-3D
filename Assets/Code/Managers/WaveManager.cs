@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour
 
         enemiesLeftForWave = new int[5];
         waveNum = 1;
-        waveCounter.ResetCounter(3);
+        waveCounter.ResetCounter(5);
         enemySpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>();
 
         castle = GameObject.FindGameObjectWithTag("Core").GetComponent<Castle>();
@@ -43,25 +43,25 @@ public class WaveManager : MonoBehaviour
         StartNextWave();
     }
 
-    private void InitializeWaveSpawnPoints()
-    {
-        waveSpawnPoints = new List<Transform[]>();
+    // private void InitializeWaveSpawnPoints()
+    // {
+    //     waveSpawnPoints = new List<Transform[]>();
 
-        // Wave 1
-        Transform spawnPoint1 = new GameObject().transform;
-        spawnPoint1.position = new Vector3(-140, 0, -10);
-        waveSpawnPoints.Add(new Transform[] { spawnPoint1 });
-        enemiesLeftForWave[0] = 5;
+    //     // Wave 1
+    //     Transform spawnPoint1 = new GameObject().transform;
+    //     spawnPoint1.position = new Vector3(-140, 0, -10);
+    //     waveSpawnPoints.Add(new Transform[] { spawnPoint1 });
+    //     enemiesLeftForWave[0] = 5;
 
-        // Wave 2
-        Transform spawnPoint2_1 = new GameObject().transform;
-        spawnPoint1.position = new Vector3(-140, 0, -10);
-        Transform spawnPoint2_2 = new GameObject().transform;
-        spawnPoint2_2.position = new Vector3(-130, 0, -280);
-        waveSpawnPoints.Add(new Transform[] { spawnPoint2_1, spawnPoint2_2 });
-        enemiesLeftForWave[1] = 10;
+    //     // Wave 2
+    //     Transform spawnPoint2_1 = new GameObject().transform;
+    //     spawnPoint1.position = new Vector3(-140, 0, -10);
+    //     Transform spawnPoint2_2 = new GameObject().transform;
+    //     spawnPoint2_2.position = new Vector3(-130, 0, -280);
+    //     waveSpawnPoints.Add(new Transform[] { spawnPoint2_1, spawnPoint2_2 });
+    //     enemiesLeftForWave[1] = 10;
 
-    }
+    // }
     private void InitializeWaveSpawnPoints2()
     {
         waveSpawnPoints = new List<Transform[]>();
@@ -75,7 +75,7 @@ public class WaveManager : MonoBehaviour
 
         // Wave 1
         Transform spawnPoint1 = new GameObject().transform;
-        spawnPoint1.position = interestPoints[Random.Range(0, interestPoints.Length)];
+        spawnPoint1.position = interestPoints[0];
         waveSpawnPoints.Add(new Transform[] { spawnPoint1 });
         enemiesLeftForWave[0] = 5;
 
@@ -101,37 +101,62 @@ public class WaveManager : MonoBehaviour
         waveSpawnPoints.Add(new Transform[] { spawnPoint3_1, spawnPoint3_2, spawnPoint3_3, spawnPoint3_4 });
         enemiesLeftForWave[2] = 20;  // Adjust the number as needed
 
+
+        // Wave 4
+        Transform spawnPoint4_1 = new GameObject().transform;
+        Transform spawnPoint4_2 = new GameObject().transform;
+        Transform spawnPoint4_3 = new GameObject().transform;
+        Transform spawnPoint4_4 = new GameObject().transform;
+        spawnPoint4_1.position = interestPoints[0];
+        spawnPoint4_2.position = interestPoints[1];
+        spawnPoint4_3.position = interestPoints[2];
+        spawnPoint4_4.position = interestPoints[3];
+        waveSpawnPoints.Add(new Transform[] { spawnPoint4_1, spawnPoint4_2, spawnPoint4_3, spawnPoint4_4 });
+        enemiesLeftForWave[3] = 40;
+
+
+        // Wave 5 - Boss wave
+        Transform spawnPoint5_1 = new GameObject().transform;
+        Transform spawnPoint5_2 = new GameObject().transform;
+        Transform spawnPoint5_3 = new GameObject().transform;
+        Transform spawnPoint5_4 = new GameObject().transform;
+        spawnPoint5_1.position = interestPoints[0];
+        spawnPoint5_2.position = interestPoints[1];
+        spawnPoint5_3.position = interestPoints[2];
+        spawnPoint5_4.position = interestPoints[3];
+        waveSpawnPoints.Add(new Transform[] { spawnPoint5_1, spawnPoint5_2, spawnPoint5_3, spawnPoint5_4 });
+        enemiesLeftForWave[4] = 40;
     }
-    private void InitializeWaveSpawnPoints3()
-    {
-        waveSpawnPoints = new List<Transform[]>();
-        Vector3[] interestPoints = new Vector3[]
-        {
-        new Vector3(-140, 0, -10),
-        new Vector3(-140, 0, -280),
-        new Vector3(-47.7000008f,0,-138.100006f),
-        new Vector3(-258.700012f,0,-138.100006f)
-        };
+    // private void InitializeWaveSpawnPoints3()
+    // {
+    //     waveSpawnPoints = new List<Transform[]>();
+    //     Vector3[] interestPoints = new Vector3[]
+    //     {
+    //     new Vector3(-140, 0, -10),
+    //     new Vector3(-140, 0, -280),
+    //     new Vector3(-47.7000008f,0,-138.100006f),
+    //     new Vector3(-258.700012f,0,-138.100006f)
+    //     };
 
-        int[] selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
-       
+    //     int[] selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
 
-        // Wave 3 (Adding noise)
-        Transform spawnPoint3_1 = new GameObject().transform;
-        Transform spawnPoint3_2 = new GameObject().transform;
-        Transform spawnPoint3_3 = new GameObject().transform;
-        Transform spawnPoint3_4 = new GameObject().transform;
-        spawnPoint3_1.position = AddNoise(interestPoints[selectedIndices[0]]);
-        spawnPoint3_2.position = AddNoise(interestPoints[selectedIndices[1]]);
-        selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
-        spawnPoint3_3.position = interestPoints[selectedIndices[0]];
-        spawnPoint3_4.position = interestPoints[selectedIndices[1]];
-        miniboss.transform.position = spawnPoint3_1.position;
-        waveSpawnPoints.Add(new Transform[] { spawnPoint3_1});
 
-        enemiesLeftForWave[0] = 5;  // Adjust the number as needed
+    //     // Wave 3 (Adding noise)
+    //     Transform spawnPoint3_1 = new GameObject().transform;
+    //     Transform spawnPoint3_2 = new GameObject().transform;
+    //     Transform spawnPoint3_3 = new GameObject().transform;
+    //     Transform spawnPoint3_4 = new GameObject().transform;
+    //     spawnPoint3_1.position = AddNoise(interestPoints[selectedIndices[0]]);
+    //     spawnPoint3_2.position = AddNoise(interestPoints[selectedIndices[1]]);
+    //     selectedIndices = Enumerable.Range(0, interestPoints.Length).OrderBy(x => Random.value).Take(2).ToArray();
+    //     spawnPoint3_3.position = interestPoints[selectedIndices[0]];
+    //     spawnPoint3_4.position = interestPoints[selectedIndices[1]];
+    //     miniboss.transform.position = spawnPoint3_1.position;
+    //     waveSpawnPoints.Add(new Transform[] { spawnPoint3_1 });
 
-    }
+    //     enemiesLeftForWave[0] = 5;  // Adjust the number as needed
+
+    // }
     private Vector3 AddNoise(Vector3 position)
     {
         float noiseX = Random.Range(-30f, 20f);  // Adjust noise level as needed
@@ -147,12 +172,9 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Wave" + waveNum);
             waveCounter.IncreaseCounter();
             enemySpawner.SetSpawnPoints(waveSpawnPoints[waveNum - 1], allowMedKit && waveNum >= allowMedkitFromWave);
-            if (allowMedKit&& waveNum == 3){
-                aldenGenerator.LogAldenChat("Monsters are approaching the castle. The real game starts now. Tell Serpina that enemies can drop Medkits from now on.");
-            }
             enemySpawner.StartSpawn((enemiesLeftForWave[waveNum - 1] / 5) / waveSpawnPoints[waveNum - 1].Length); // StartSpawn spawns 5 enemies at a time as a unit, each spawn point gets the same portion of enemies
 
-            if(waveNum  == waveSpawnPoints.Count)
+            if (waveNum == waveSpawnPoints.Count)
             {
                 enemiesLeftForWave[waveNum - 1]++;
                 Instantiate(miniboss, miniboss.transform.position, miniboss.transform.rotation);
@@ -186,7 +208,7 @@ public class WaveManager : MonoBehaviour
         {
             waveNum++;
 
-            if (allowMedKit && waveNum == 3)
+            if (allowMedKit && waveNum == allowMedkitFromWave)
                 aldenGenerator.LogAldenChat("Monsters are approaching the castle. The real game starts now. Tell Serpina that enemies can drop Medkits from now on.");
             else
                 aldenGenerator.LogAldenChat($"Wave of monsters killed. Serpina's health is {player.health}/100, castle's health is {castle.health}/100");
@@ -197,7 +219,7 @@ public class WaveManager : MonoBehaviour
             StartNextWave();
         }
     }
-   
 
-    
+
+
 }
