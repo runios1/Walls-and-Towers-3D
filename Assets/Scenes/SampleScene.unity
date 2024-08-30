@@ -3189,7 +3189,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Wave Complete
 
-    Good job'
+    Good jo'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3c0df0ed84724942baeed921b59ab3a, type: 2}
   m_sharedMaterial: {fileID: -2612528952565663618, guid: d3c0df0ed84724942baeed921b59ab3a, type: 2}

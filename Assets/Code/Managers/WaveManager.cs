@@ -27,7 +27,7 @@ public class WaveManager : MonoBehaviour
 
     public bool allowMedKit = false;
     public int allowMedkitFromWave = 3;
-    public TMP_Text waveCompleteText;
+    public TextMeshProUGUI waveCompleteText;
 
     public GameObject miniboss;
     void Start()
@@ -226,7 +226,7 @@ public class WaveManager : MonoBehaviour
 
             audioSource.clip = waveCompleteSound;
             audioSource.Play();
-            StartCoroutine(FadeText());
+            ShowWaveCompleteText();
 
             StartNextWave();
         }
@@ -235,6 +235,7 @@ public class WaveManager : MonoBehaviour
     {
         string[] motivationalMessages = { "Good job!", "Well done!", "Keep it up!", "Fantastic!", "Great work!" };
         string randomMessage = motivationalMessages[Random.Range(0, motivationalMessages.Length)];
+        
         waveCompleteText.text = "Wave Complete\n" + randomMessage;
 
         StartCoroutine(FadeText());
