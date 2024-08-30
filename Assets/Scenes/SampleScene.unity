@@ -1563,7 +1563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221398181}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.0015803847, y: 0.5636572, z: -0.82600075, w: -0.003297542}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4839,6 +4839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0e85ee18fa3514aa012e3db25ed40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSourceMusic: {fileID: 0}
 --- !u!114 &577152281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5884,6 +5885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 2137168590}
+  audioSourceMusic: {fileID: 1668528691}
 --- !u!114 &689001372
 MonoBehaviour:
   m_ObjectHideFlags: 0
