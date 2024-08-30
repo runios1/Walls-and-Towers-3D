@@ -11,35 +11,52 @@ public class EnemyUnit : MonoBehaviour
     private List<Transform> locations;
     private int enemyCount;
     public bool allowMedkit = false;
+    public bool isFirstWave = false; // Flag to indicate the first wave
+
     // Start is called before the first frame update
     void Start()
     {
         //enemies = gameObject.GetComponentsInChildren<BaseEnemy>();
-        locations = new List<Transform>(gameObject.GetComponentsInChildren<Transform>().Where(t=>t.name.StartsWith("Location")));
+        locations = new List<Transform>(gameObject.GetComponentsInChildren<Transform>().Where(t => t.name.StartsWith("Location")));
         String locationsString = string.Join(", ", locations.Select(t => t.position).ToArray());
         //Debug.Log(locationsString);
         enemyCount = locations.Count;
         magicCirclePrefab.SetActive(true);
         SpawnEnemies();
     }
+
     private void SpawnEnemies()
     {
         int enemyIndexWithMedkit = -1;
-        if(allowMedkit){
+        if (allowMedkit)
+        {
             enemyIndexWithMedkit = UnityEngine.Random.Range(0, locations.Count);
         }
+
         foreach (Transform spawnPosition in locations)
         {
+            GameObject enemyPrefab;
 
-            // Randomly select an enemy prefab for each spawn position
-            GameObject enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
-            GameObject enemy = Instantiate(enemyPrefab, spawnPosition.position, spawnPosition.rotation,gameObject.transform);
-            if(enemyIndexWithMedkit == locations.IndexOf(spawnPosition)){
+            if (isFirstWave)
+            {
+                // Spawn only weak enemies for the first wave
+                enemyPrefab = enemyPrefabs[0];
+            }
+            else
+            {
+                // Randomly select an enemy prefab for each spawn position
+                enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+            }
+
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition.position, spawnPosition.rotation, gameObject.transform);
+            if (enemyIndexWithMedkit == locations.IndexOf(spawnPosition))
+            {
                 enemy.GetComponent<BaseEnemy>().allowMedkit = true;
             }
             //Debug.Log($"Spawning enemy {enemy.name} at {spawnPosition.position}");
         }
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -48,7 +65,9 @@ public class EnemyUnit : MonoBehaviour
             Destroy(magicCirclePrefab);
         }
     }
-    public void UnregisterEnemy(){
+
+    public void UnregisterEnemy()
+    {
         enemyCount--;
         if (enemyCount == 0)
         {

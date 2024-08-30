@@ -172,6 +172,17 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Wave" + waveNum);
             waveCounter.IncreaseCounter();
             enemySpawner.SetSpawnPoints(waveSpawnPoints[waveNum - 1], allowMedKit && waveNum >= allowMedkitFromWave);
+
+            // Set the isFirstWave flag for the first wave
+            if (waveNum == 1)
+            {
+                enemySpawner.enemyUnitPrefab.GetComponent<EnemyUnit>().isFirstWave = true;
+            }
+            else
+            {
+                enemySpawner.enemyUnitPrefab.GetComponent<EnemyUnit>().isFirstWave = false;
+            }
+
             enemySpawner.StartSpawn((enemiesLeftForWave[waveNum - 1] / 5) / waveSpawnPoints[waveNum - 1].Length); // StartSpawn spawns 5 enemies at a time as a unit, each spawn point gets the same portion of enemies
 
             if (waveNum == waveSpawnPoints.Count)
@@ -179,9 +190,6 @@ public class WaveManager : MonoBehaviour
                 enemiesLeftForWave[waveNum - 1]++;
                 Instantiate(miniboss, miniboss.transform.position, miniboss.transform.rotation);
             }
-
-
-
         }
         else
         {
@@ -196,7 +204,6 @@ public class WaveManager : MonoBehaviour
             Cursor.visible = true;
             victoryMenu.SetActive(true);
             //victoryMenu.GetComponentInParent<GameOverMenu>().LoadMenu();
-
         }
     }
 
