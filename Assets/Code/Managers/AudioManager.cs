@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource MusicAudioSource; 
-    void Start()
+    private AudioSource MusicAudioSource;
+    void Update()
     {
         MusicAudioSource = GetComponent<AudioSource>();
 
@@ -22,6 +22,4 @@ public class AudioManager : MonoBehaviour
         MusicAudioSource.volume = savedMusic;
 
     }
-
-   
 }
