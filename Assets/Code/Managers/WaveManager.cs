@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
+using System.Collections;
+
 // using static AldenGenerator;
 
 public class WaveManager : MonoBehaviour
@@ -24,13 +27,13 @@ public class WaveManager : MonoBehaviour
 
     public bool allowMedKit = false;
     public int allowMedkitFromWave = 3;
-
+    public TMP_Text waveCompleteText;
 
     public GameObject miniboss;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
+        waveCompleteText.canvasRenderer.SetAlpha(0.0f);
         enemiesLeftForWave = new int[5];
         waveNum = 1;
         waveCounter.ResetCounter(5);
@@ -223,11 +226,33 @@ public class WaveManager : MonoBehaviour
 
             audioSource.clip = waveCompleteSound;
             audioSource.Play();
+            StartCoroutine(FadeText());
 
             StartNextWave();
         }
     }
+    public void ShowWaveCompleteText()
+    {
+        string[] motivationalMessages = { "Good job!", "Well done!", "Keep it up!", "Fantastic!", "Great work!" };
+        string randomMessage = motivationalMessages[Random.Range(0, motivationalMessages.Length)];
+        waveCompleteText.text = "Wave Complete\n" + randomMessage;
 
+        StartCoroutine(FadeText());
+    }
+
+    private IEnumerator FadeText()
+    {
+         float fadeInDuration = 1.0f;  // Duration for the fade-in
+         float displayDuration = 2.0f;  // Time to display the text before fading out
+         float fadeOutDuration = 1.0f;
+        // Fade in
+        waveCompleteText.CrossFadeAlpha(1.0f, fadeInDuration, false);
+        yield return new WaitForSeconds(fadeInDuration + displayDuration);
+
+        // Fade out
+        waveCompleteText.CrossFadeAlpha(0.0f, fadeOutDuration, false);
+        yield return new WaitForSeconds(fadeOutDuration);
+    }
 
 
 }
