@@ -4839,7 +4839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0e85ee18fa3514aa012e3db25ed40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourceMusic: {fileID: 0}
+  audioSourceMusic: {fileID: 1668528691}
 --- !u!114 &577152281
 MonoBehaviour:
   m_ObjectHideFlags: 0

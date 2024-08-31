@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0e85ee18fa3514aa012e3db25ed40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourceMusic: {fileID: 0}
+  audioSourceMusic: {fileID: 1628905097}
 --- !u!114 &444441179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2387,7 +2387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0e85ee18fa3514aa012e3db25ed40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourceMusic: {fileID: 0}
+  audioSourceMusic: {fileID: 1628905097}
 --- !u!114 &817085953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2877,8 +2877,10 @@ MonoBehaviour:
 
     Attack - Left Click
 
-    Build
-    Tower - Q
+    Jump
+    - Spacebar
+
+    Build Tower - Q
 
     Build Wall - E'
   m_isRightToLeft: 0
@@ -4581,7 +4583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0e85ee18fa3514aa012e3db25ed40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourceMusic: {fileID: 0}
+  audioSourceMusic: {fileID: 1628905097}
 --- !u!114 &1754288301
 MonoBehaviour:
   m_ObjectHideFlags: 0
